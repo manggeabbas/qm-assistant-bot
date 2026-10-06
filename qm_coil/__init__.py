@@ -10,6 +10,16 @@ STATUS: port bertahap. Modul yang sudah di-port penuh:
   - form (output Mandarin + preview + test, dari src/form.js)
   - validation (validator tiap langkah + test, dari src/validation.js)
   - state (sesi per user + idempotensi + test, dari src/state.js)
+  - db (SQLite + test, dari src/db.js)
+  - users (repository user + test, dari src/users.js)
+  - employees (direktori karyawan + test, dari src/employees.js)
+  - invites (token undangan + test, dari src/invites.js)
+  - access (is_owner + status + test, dari src/access.js)
+  - registration (tahap + NIK murni + test, dari src/registration.js)
+  - config (env + test ringan, dari src/config.js)
+  - logger (logging + sanitasi, dari src/logger.js)
+  - menu (keyboard menu + test, dari src/menu.js)
+  - texts (teks UI + test, dari src/texts.js)
 
 Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya.
 Urutan port yang disarankan: numbering -> diameter -> form ->
@@ -19,6 +29,19 @@ db -> menu/texts -> wizard -> admin -> bot.
 
 from __future__ import annotations
 
+from qm_coil.access import is_owner, resolve_user_status
+from qm_coil.config import (
+    DB_PATH,
+    DEFAULT_TOKEN_TTL_DAYS,
+    DEPARTMENT,
+    DIVISION,
+    HEADER_TEXT,
+    MOTTO,
+    OWNER_TELEGRAM_ID,
+    OWNER_TELEGRAM_IDS,
+    VERSION,
+)
+from qm_coil.db import get_db, migrate, now_iso, open_db, transaction
 from qm_coil.diameter import (
     DIAMETER_CONSTANTS,
     DiameterOption,
@@ -27,17 +50,53 @@ from qm_coil.diameter import (
     get_diameter_prompt,
     resolve_diameter,
 )
+from qm_coil.employees import (
+    add_or_update_employee,
+    bulk_import_employees,
+    count_employees,
+    delete_employee,
+    get_employee_by_nik,
+    list_employees,
+    parse_employee_line,
+    row_to_employee,
+)
 from qm_coil.form import (
     format_full_preview,
     format_numbering_preview,
     generate_workplace_mandarin_output,
 )
+from qm_coil.invites import (
+    TOKEN_STATUS,
+    RedeemResult,
+    create_invite_tokens,
+    generate_invite_token,
+    hash_invite_token,
+    list_invite_tokens,
+    mark_expired_tokens,
+    normalize_token,
+    redeem_token_for_user,
+)
+from qm_coil.logger import logger
 from qm_coil.material import (
     MATERIAL_MAP,
     UNKNOWN_MATERIAL_MESSAGE,
     MaterialDetection,
     detect_material,
     get_material_name,
+)
+from qm_coil.menu import (
+    FORM_CANCEL,
+    MENU_HELP,
+    MENU_NEW_FORM,
+    REG_CONFIRM,
+    REG_EDIT_NIK,
+    MenuButton,
+    MenuKeyboard,
+    callback_of,
+    create_cancel_keyboard,
+    create_main_menu_keyboard,
+    create_registration_keyboard,
+    to_reply_buttons,
 )
 from qm_coil.numbering import (
     CoilGeneration,
@@ -47,12 +106,32 @@ from qm_coil.numbering import (
     parse_source_coil_suffix,
     validate_numbering_params,
 )
+from qm_coil.registration import (
+    REG_CALLBACKS,
+    process_nik_input,
+    registration_stage,
+    reset_nik,
+)
 from qm_coil.state import (
     CoilSessionStore,
     IdempotencyCache,
     create_initial_state,
     idempotency_cache,
     sessions,
+)
+from qm_coil.texts import TEXTS, Texts
+from qm_coil.users import (
+    USER_STATUS,
+    create_user,
+    get_or_create_user,
+    get_status,
+    get_user_by_id,
+    get_user_by_telegram_id,
+    is_nik_taken_by_other,
+    list_users,
+    mask_nik,
+    row_to_user,
+    update_user,
 )
 from qm_coil.validation import (
     VALID_GRADES,
@@ -74,6 +153,58 @@ from qm_coil.wizard import CoilWizard
 
 __all__ = [
     "CoilWizard",
+    "is_owner",
+    "resolve_user_status",
+    "DB_PATH",
+    "DEFAULT_TOKEN_TTL_DAYS",
+    "DEPARTMENT",
+    "DIVISION",
+    "HEADER_TEXT",
+    "MOTTO",
+    "OWNER_TELEGRAM_ID",
+    "OWNER_TELEGRAM_IDS",
+    "VERSION",
+    "get_db",
+    "migrate",
+    "now_iso",
+    "open_db",
+    "transaction",
+    "add_or_update_employee",
+    "bulk_import_employees",
+    "count_employees",
+    "delete_employee",
+    "get_employee_by_nik",
+    "list_employees",
+    "parse_employee_line",
+    "row_to_employee",
+    "TOKEN_STATUS",
+    "RedeemResult",
+    "create_invite_tokens",
+    "generate_invite_token",
+    "hash_invite_token",
+    "list_invite_tokens",
+    "mark_expired_tokens",
+    "normalize_token",
+    "redeem_token_for_user",
+    "logger",
+    "REG_CALLBACKS",
+    "process_nik_input",
+    "registration_stage",
+    "reset_nik",
+    "FORM_CANCEL",
+    "MENU_HELP",
+    "MENU_NEW_FORM",
+    "REG_CONFIRM",
+    "REG_EDIT_NIK",
+    "MenuButton",
+    "MenuKeyboard",
+    "callback_of",
+    "create_cancel_keyboard",
+    "create_main_menu_keyboard",
+    "create_registration_keyboard",
+    "to_reply_buttons",
+    "TEXTS",
+    "Texts",
     "MATERIAL_MAP",
     "UNKNOWN_MATERIAL_MESSAGE",
     "MaterialDetection",
@@ -101,7 +232,19 @@ __all__ = [
     "IdempotencyCache",
     "create_initial_state",
     "idempotency_cache",
-    "sessions",    "validate_count",
+    "sessions",
+    "USER_STATUS",
+    "create_user",
+    "get_or_create_user",
+    "get_status",
+    "get_user_by_id",
+    "get_user_by_telegram_id",
+    "is_nik_taken_by_other",
+    "list_users",
+    "mask_nik",
+    "row_to_user",
+    "update_user",
+    "validate_count",
     "validate_grade",
     "validate_length",
     "validate_machine",

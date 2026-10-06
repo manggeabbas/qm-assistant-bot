@@ -46,17 +46,17 @@ template_lab/        # Template Laboratory (Form Pelatihan)
 | `form.py`          | `form.js`         | ✅ ported |
 | `validation.py`    | `validation.js`   | ✅ ported |
 | `state.py`         | `state.js`        | ✅ ported |
-| `registration.py`  | `registration.js` | stub   |
-| `invites.py`       | `invites.js`      | stub   |
-| `users.py`         | `users.js`       | stub   |
-| `employees.py`     | `employees.js`    | stub   |
-| `access.py`        | `access.js`       | stub   |
-| `db.py`            | `db.js`           | stub   |
-| `menu.py`          | `menu.js`         | stub   |
-| `texts.py`         | `texts.js`        | stub   |
+| `registration.py`  | `registration.js` | ✅ ported   |
+| `invites.py`       | `invites.js`      | ✅ ported   |
+| `users.py`         | `users.js`       | ✅ ported   |
+| `employees.py`     | `employees.js`    | ✅ ported   |
+| `access.py`        | `access.js`       | ✅ ported   |
+| `db.py`            | `db.js`           | ✅ ported   |
+| `menu.py`          | `menu.js`         | ✅ ported   |
+| `texts.py`         | `texts.js`        | ✅ ported   |
 | `admin.py`         | `admin.js`        | stub   |
-| `config.py`        | `config.js`       | stub   |
-| `logger.py`        | `logger.js`       | stub   |
+| `config.py`        | `config.js`       | ✅ ported   |
+| `logger.py`        | `logger.js`       | ✅ ported   |
 
 Urutan port yang disarankan (tanpa state dulu): `material` → `numbering`
 → `diameter` → `form` → `validation` → `state` → `registration`/`invites`/
