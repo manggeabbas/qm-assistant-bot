@@ -64,7 +64,17 @@ Urutan port yang disarankan (tanpa state dulu): `material` → `numbering`
 
 ## Cara jalan
 
+**Otomatis (disarankan):**
+
 ```bash
+bash deploy/setup.sh   # venv + dependensi + .env + cek environment
+```
+
+**Manual:**
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
 cp .env.example .env   # isi TELEGRAM_BOT_TOKEN + ALLOWED_TELEGRAM_USER_IDS
 python main.py --check # cek environment
 python main.py         # jalankan bot
