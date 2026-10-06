@@ -123,6 +123,16 @@ class GatewayActiveTest(unittest.TestCase):
         out = self.gw.handle(msg("42", "📖 Bantuan"))
         self.assertIn("PANDUAN", out[0].text)
 
+    def test_tap_ft_setelah_mulai_lewat_tombol_menu(self):
+        # Regresi: tap "🚀 Mulai Buat Form" lalu "FT" harus lanjut ke
+        # input nomor gulungan, bukan "Perintah tidak dikenali".
+        self.gw.handle(msg("42", "/coil"))
+        out = self.gw.handle(msg("42", "🚀 Mulai Buat Form"))
+        self.assertIn("Silakan pilih mesin", out[0].text)
+        out = self.gw.handle(msg("42", "FT"))
+        self.assertNotIn("tidak dikenali", out[0].text)
+        self.assertIn("nomor gulungan asal", out[0].text)
+
     def test_help_material_about(self):
         out = self.gw.handle(msg("42", "/help"))
         self.assertIn("PANDUAN", out[0].text)

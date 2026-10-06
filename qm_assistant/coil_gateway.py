@@ -165,9 +165,12 @@ def _about_text() -> str:
 
 
 # Label tombol menu coil -> callback_data (menu utama Form Gulungan).
+# "🚀 Mulai Buat Form" SENGAJA tidak ada di sini: ia ditangani oleh
+# CoilWizard.handle agar peta label->callback_data terisi. Kalau lewat
+# handle_callback langsung (bypass), tap "FT"/"FJ" sesudahnya tidak
+# dikenali ("Perintah tidak dikenali dalam langkah ini").
 # "📖 Bantuan" ditangani khusus: langsung tampilkan panduan lengkap.
 _COIL_MENU_LABELS = {
-    "🚀 Mulai Buat Form": "action:new_form",
     "ℹ️ Referensi Material": "cmd:material",
 }
 
