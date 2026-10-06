@@ -1,0 +1,438 @@
+{
+  "schema_version": "1.0",
+  "description": "Descriptor/peta struktur master DOCX. Murni data pemetaan (read-only); tidak memodifikasi master. Semua koordinat mengikuti hasil inspeksi nyata terhadap master.",
+  "generated_from": {
+    "master": "templates/FORMAT PELATIHAN ADA PERTANYAAN.docx",
+    "master_sha256": "60dd5c4659298d2c692aa909c52d7d7a0c39a576e2a2ebd7e72fa17438c166f4",
+    "inventory": "output/template_lab/template_inventory.json",
+    "inspector": "template_lab/inspect_template.py"
+  },
+  "units": {
+    "twips_per_cm": 566.929,
+    "emu_per_cm": 360000,
+    "notes": "Lebar/tinggi memakai twips; extent gambar memakai EMU."
+  },
+
+  "page": {
+    "section_index": 0,
+    "page_size_twips": { "w": 11906, "h": 16838 },
+    "margins_twips": { "top": 1008, "right": 1800, "bottom": 1440, "left": 1800, "header": 851, "footer": 994, "gutter": 0 },
+    "content_width_twips": 8306,
+    "content_height_twips": 14390,
+    "columns": 1,
+    "header_present": false,
+    "header_parts": []
+  },
+
+  "footer": {
+    "part": "word/footer1.xml",
+    "relationship_id": "rId3",
+    "reference_type": "default",
+    "applies_to": "all_pages",
+    "fields": ["PAGE", "NUMPAGES"],
+    "cached_text": "第 2 页 共 34 页",
+    "static": true,
+    "rule": "Footer dipertahankan apa adanya dan otomatis ikut pada halaman KUNCI JAWABAN. Jangan diubah."
+  },
+
+  "body_order": [
+    { "block": 0, "kind": "table", "table_index": 0, "role": "T01A" },
+    { "block": 1, "kind": "paragraph", "role": "page_break_T01A_to_T02A", "page_break": true },
+    { "block": 2, "kind": "paragraph", "role": "T02A_form_code", "static": true },
+    { "block": 3, "kind": "paragraph", "role": "T02A_logos", "static": true, "drawing_count": 2 },
+    { "block": 4, "kind": "paragraph", "role": "T02A_spacer", "static": true },
+    { "block": 5, "kind": "paragraph", "role": "T02A_title_id", "static": true },
+    { "block": 6, "kind": "paragraph", "role": "T02A_title_cn", "static": true },
+    { "block": 7, "kind": "table", "table_index": 1, "role": "T02A" },
+    { "block": 8, "kind": "paragraph", "role": "page_break_T02A_to_T03A", "page_break": true },
+    { "block": 9, "kind": "paragraph", "role": "T03A_form_code", "static": true },
+    { "block": 10, "kind": "paragraph", "role": "T03A_logos", "static": true, "drawing_count": 2 },
+    { "block": 11, "kind": "paragraph", "role": "T03A_spacer", "static": true },
+    { "block": 12, "kind": "paragraph", "role": "T03A_title_id", "static": true },
+    { "block": 13, "kind": "paragraph", "role": "T03A_title_cn", "static": true },
+    { "block": 14, "kind": "table", "table_index": 2, "role": "T03A" },
+    { "block": 15, "kind": "paragraph", "role": "trailing_empty", "static": true },
+    { "block": 16, "kind": "section_properties", "role": "section" }
+  ],
+
+  "page_breaks": [
+    {
+      "id": "break_T01A_T02A",
+      "present_in_master": true,
+      "master_body_block": 1,
+      "mechanism": "paragraph berisi <w:br w:type=\"page\"/>",
+      "position": "setelah T01A, sebelum T02A"
+    },
+    {
+      "id": "break_T02A_T03A",
+      "present_in_master": true,
+      "master_body_block": 8,
+      "mechanism": "paragraph berisi <w:br w:type=\"page\"/>",
+      "position": "setelah T02A, sebelum T03A"
+    },
+    {
+      "id": "break_T03A_ANSWER_KEY",
+      "present_in_master": false,
+      "generated": true,
+      "mechanism": "paragraph berisi <w:br w:type=\"page\"/>",
+      "position": "setelah tabel T03A (body block 14), sebelum paragraf trailing_empty (body block 15)",
+      "rule": "Halaman KUNCI JAWABAN harus dimulai dengan page break terkontrol."
+    },
+    {
+      "id": "break_T02A_extra_photo_pages",
+      "present_in_master": false,
+      "generated": true,
+      "mechanism": "duplikasi blok T02A + page break",
+      "condition": "jumlah foto > 2 (2 foto per halaman)"
+    }
+  ],
+
+  "static_elements": [
+    {
+      "id": "T01A_form_code",
+      "location": { "table_index": 0, "row": 0, "cell": 0, "span": 8 },
+      "text": "Kode 编号：QMZ15002-T01A + judul Formulir Pendaftaran Pelatihan",
+      "immutable": true
+    },
+    {
+      "id": "T01A_logos",
+      "location": { "table_index": 0, "row": 0, "cell": 0 },
+      "drawings": [
+        { "relationship_id": "rId5", "target": "media/image1.png", "kind": "anchor", "wrap": "wrapNone", "doc_pr_id": "12" },
+        { "relationship_id": "rId6", "target": "media/image2.png", "kind": "anchor", "wrap": "wrapNone", "doc_pr_id": "11" }
+      ],
+      "immutable": true
+    },
+    { "id": "T01A_label_theme", "location": { "table_index": 0, "row": 1, "cell": 0 }, "text": "Tema Pelatihan 培训主题", "immutable": true },
+    { "id": "T01A_label_archive", "location": { "table_index": 0, "row": 1, "cell": 2 }, "text": "Nomor Arsip 档案编号", "immutable": true },
+    { "id": "T01A_label_time", "location": { "table_index": 0, "row": 2, "cell": 0 }, "text": "Waktu Pelatihan 培训时间", "immutable": true },
+    { "id": "T01A_label_location", "location": { "table_index": 0, "row": 2, "cell": 2 }, "text": "Lokasi Pelatihan 培训地点", "immutable": true },
+    { "id": "T01A_label_trainer", "location": { "table_index": 0, "row": 3, "cell": 0 }, "text": "Trainer 培训讲师", "immutable": true },
+    { "id": "T01A_label_personnel", "location": { "table_index": 0, "row": 3, "cell": 2 }, "text": "Personil Absen 参加人员", "immutable": true },
+    { "id": "T01A_participant_header", "location": { "table_index": 0, "row": 4 }, "text": "No. | Dept. | Nama Lengkap | Waktu Hadir (x2)", "immutable": true },
+    { "id": "T02A_form_code", "location": { "body_block": 2 }, "text": "Kode 编号：QMZ15002-T02A", "immutable": true },
+    { "id": "T02A_logos", "location": { "body_block": 3 }, "drawings": [ { "relationship_id": "rId6" }, { "relationship_id": "rId5" } ], "immutable": true },
+    { "id": "T02A_titles", "location": { "body_blocks": [5, 6] }, "text": "Formulir Catatan Foto Pelatihan ... / TTRI质量管理部培训照片记录表", "immutable": true },
+    { "id": "T02A_photo_captions", "location": { "table_index": 1, "rows": [0, 1], "cell": 0, "paragraph": 0 }, "text": ["Foto pertama 照片一", "Foto kedua照片二"], "immutable": true },
+    { "id": "T03A_form_code", "location": { "body_block": 9 }, "text": "Kode 编号：QMZ15002-T03A", "immutable": true },
+    { "id": "T03A_logos", "location": { "body_block": 10 }, "drawings": [ { "relationship_id": "rId6", "doc_pr_id": "23" }, { "relationship_id": "rId5", "doc_pr_id": "24" } ], "immutable": true },
+    { "id": "T03A_titles", "location": { "body_blocks": [12, 13] }, "text": "Formulir Catatan Pertanyaan ... / TTRI质量管理部培训现场提问记录表", "immutable": true },
+    { "id": "T03A_identity_labels", "location": { "table_index": 2, "rows": [0, 1, 2], "cells": [0, 2, 4] }, "text": "Nama/Nik/Dept./Moderator/Tanggal Pelatihan/Workshop Divisi/Topik/NILAI", "immutable": true },
+    { "id": "T03A_banner", "location": { "table_index": 2, "row": 3, "cell": 0, "span": 6 }, "text": "PENCATATAN PERTANYAAN SITUS PELATIHAN DI LOKASI", "immutable": true },
+    { "id": "T03A_question_labels", "location": { "table_index": 2, "rows": [4, 6, 8, 10, 12], "cell": 0, "paragraphs": [0, 1] }, "text": "PERTANYAAN n + 问 题 n：（20分）", "immutable": true },
+    { "id": "T03A_answer_labels", "location": { "table_index": 2, "rows": [5, 7, 9, 11, 13], "cell": 0, "paragraph": 0 }, "text": "JAWABAN 答 ：", "immutable": true }
+  ],
+
+  "t01a": {
+    "role": "Formulir Pendaftaran Pelatihan / Daftar Hadir",
+    "body_block": 0,
+    "table_index": 0,
+    "table_width_twips": 9102,
+    "layout": "fixed",
+    "justification": "center",
+    "column_count": 8,
+    "row_count": 18,
+    "field_cells": {
+      "theme": {
+        "row": 1, "cell": 1, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 1, "cell": 0, "paragraph": 0, "run": 0 }
+      },
+      "archive_number": {
+        "row": 1, "cell": 3, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 1, "cell": 2, "paragraph": 0, "run": 0 }
+      },
+      "training_date": {
+        "row": 2, "cell": 1, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 2, "cell": 0, "paragraph": 0, "run": 0 },
+        "note": "Master hanya punya label 'Waktu Pelatihan'. Sesuai keputusan, tanggal diisi ke sel ini; tidak ada input jam."
+      },
+      "location": {
+        "row": 2, "cell": 3, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 2, "cell": 2, "paragraph": 0, "run": 0 }
+      },
+      "trainer": {
+        "row": 3, "cell": 1, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 3, "cell": 0, "paragraph": 0, "run": 0 }
+      },
+      "personnel_count": {
+        "row": 3, "cell": 3, "paragraph": 0, "run": null, "current_value": "",
+        "mode": "append_run",
+        "style_source": { "row": 3, "cell": 2, "paragraph": 0, "run": 0 },
+        "rule": "Input angka '15' -> '15人'. Skip -> sel tetap kosong (bukan '0人'/'N/A'/'-')."
+      }
+    },
+    "personnel_table": {
+      "header_row": 4,
+      "number_column_cell": 0,
+      "number_column_width_twips": 450,
+      "second_number_column_cell": 4,
+      "second_number_column_note": "Kolom 'No.' kelompok kanan; di master seluruhnya kosong dan tidak dipakai.",
+      "participant_cells": [1, 2, 3, 5, 6, 7],
+      "participant_cells_rule": "Nama/Dept/Waktu hadir peserta TIDAK diisi otomatis; tetap kosong.",
+      "master_structure": {
+        "data_rows": { "start": 5, "end": 17, "count": 13 },
+        "numbering": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+        "anomaly": "Master terbaru sudah berurutan 1..13 (13 baris). Working copy menambah 2 baris menjadi 15."
+      },
+      "working_copy_rule": {
+        "target_data_row_count": 15,
+        "target_numbering": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "row_template": 5,
+        "action": "Klon baris data (template row 5) sebanyak 2x pada working copy, lalu set nomor 1..15 pada cell 0.",
+        "personnel_row_height_twips": 450,
+        "personnel_row_height_reason": "Master 504 twips untuk 13 baris. Dengan 15 baris + nilai Tema yang panjang (membungkus), 504 membuat baris ke-15 meluber ke halaman berikutnya. 450 twips tetap >= tinggi satu baris teks (~312 twips) dan menjaga 15 baris muat dalam satu halaman.",
+        "master_untouched": true
+      }
+    }
+  },
+
+  "t02a": {
+    "role": "Dokumentasi Foto",
+    "body_block": 7,
+    "table_index": 1,
+    "table_width_twips": 8928,
+    "layout": "fixed",
+    "justification": "center",
+    "column_count": 1,
+    "row_count": 2,
+    "header_blocks": [2, 3, 4, 5, 6],
+    "max_photos_per_page": 2,
+    "photo_slots": [
+      {
+        "slot": 1, "row": 0, "cell": 0,
+        "caption_paragraph": 0, "caption": "Foto pertama 照片一",
+        "image_paragraphs": [1],
+        "master_broken_images": ["rId7"]
+      },
+      {
+        "slot": 2, "row": 1, "cell": 0,
+        "caption_paragraph": 0, "caption": "Foto kedua照片二",
+        "image_paragraphs": [0, 1],
+        "master_broken_images": ["rId8", "rId9"]
+      }
+    ],
+    "cell_frame": {
+      "cell_width_twips": 8928,
+      "cell_margin_left_twips": 108,
+      "cell_margin_right_twips": 108,
+      "inner_width_twips": 8712,
+      "row_height_twips": 5000,
+      "row_height_rule": "atLeast",
+      "rule": "Gambar user di-resize/crop agar seluruhnya berada di dalam frame; lebar maksimum = inner_width_twips; tinggi mempertimbangkan tinggi caption. 5000 twips/baris: 2 baris (10000) + header T02A (~3800) = ~13800 < 14390 (tinggi badan halaman A4), sehingga 2 foto selalu muat dalam 1 halaman. Nilai master 5328 + header membuat baris kedua tumpah (terukur 2026-10-01). Kode memaksa trHeight ini pada setiap baris T02A (asli maupun kloningan)."
+    },
+    "master_broken_images": {
+      "relationship_ids": ["rId7", "rId8", "rId9"],
+      "targets": ["media/image3.jpeg", "media/image4.jpeg", "media/image5.jpeg"],
+      "doc_pr_ids": [4, 3, 6],
+      "extent_emu": { "cx": 635, "cy": 0 },
+      "action": "Hapus/abaikan pada working copy. Foto contoh master tidak boleh pernah masuk ke output."
+    },
+    "repeat_rule": "Jika jumlah foto > 2: duplikasi blok T02A (paragraf judul + tabel 2 baris) ke halaman baru dengan page break. Setiap klon wajib renumber wp:docPr id/name agar unik."
+  },
+
+  "t03a": {
+    "role": "Formulir Pertanyaan Peserta",
+    "body_block": 14,
+    "table_index": 2,
+    "table_width_twips": 9898,
+    "layout": "autofit",
+    "justification": "center",
+    "column_count": 6,
+    "row_count": 14,
+    "identity_cells": {
+      "name": { "row": 0, "cell": 1, "paragraph": 0, "value": null, "value_rule": "kosong" },
+      "nik": { "row": 0, "cell": 3, "paragraph": 0, "value": null, "value_rule": "kosong" },
+      "dept": { "row": 0, "cell": 5, "paragraph": 0, "value": "QM", "value_rule": "tetap" },
+      "moderator": { "row": 1, "cell": 1, "paragraph": 0, "value": null, "value_rule": "sama dengan Trainer T01A" },
+      "training_date": { "row": 1, "cell": 3, "paragraph": 0, "value": null, "value_rule": "sama dengan Tanggal T01A" },
+      "workshop": { "row": 1, "cell": 5, "paragraph": 0, "value": "QMYWI", "value_rule": "tetap" },
+      "topic": { "row": 2, "cell": 1, "paragraph": 0, "value": null, "value_rule": "sama dengan Tema final T01A" },
+      "score": { "row": 2, "cell": 3, "paragraph": 0, "value": null, "value_rule": "kosong" }
+    },
+    "style_sources": {
+      "name": { "row": 0, "cell": 0, "paragraph": 0, "run": 0 },
+      "nik": { "row": 0, "cell": 2, "paragraph": 0, "run": 0 },
+      "dept": { "row": 0, "cell": 4, "paragraph": 0, "run": 0 },
+      "moderator": { "row": 1, "cell": 0, "paragraph": 0, "run": 0 },
+      "training_date": { "row": 1, "cell": 2, "paragraph": 0, "run": 0 },
+      "workshop": { "row": 1, "cell": 4, "paragraph": 0, "run": 0 },
+      "topic": { "row": 2, "cell": 0, "paragraph": 0, "run": 0 },
+      "score": { "row": 2, "cell": 2, "paragraph": 0, "run": 0 }
+    },
+    "question_placeholder": "TEMPATKAN PERTANYAAN DISINI",
+    "questions": {
+      "count": 5,
+      "replacement_rule": "Ganti HANYA teks placeholder dengan pertanyaan AI (text replacement, termasuk jika placeholder terpecah lintas-run). Dilarang membuat/menambah/memindahkan paragraph, row, cell, tabel, border, merge, atau mengubah table style.",
+      "rows": [
+        { "index": 1, "row": 4, "placeholder_paragraph": 0, "mode": "replace_placeholder" },
+        { "index": 2, "row": 6, "placeholder_paragraph": 0, "mode": "replace_placeholder" },
+        { "index": 3, "row": 8, "placeholder_paragraph": 0, "mode": "replace_placeholder" },
+        { "index": 4, "row": 10, "placeholder_paragraph": 0, "mode": "replace_placeholder" },
+        { "index": 5, "row": 12, "placeholder_paragraph": 0, "mode": "replace_placeholder" }
+      ]
+    },
+    "answer_areas": {
+      "rule": "Tetap kosong; kunci jawaban TIDAK boleh ditempatkan di sini.",
+      "rows": [
+        { "index": 1, "row": 5, "label_paragraph": 0, "answer_area_paragraph": 1, "height_twips": 390 },
+        { "index": 2, "row": 7, "label_paragraph": 0, "answer_area_paragraph": 1, "height_twips": 636 },
+        { "index": 3, "row": 9, "label_paragraph": 0, "answer_area_paragraph": 1, "height_twips": 536 },
+        { "index": 4, "row": 11, "label_paragraph": 0, "answer_area_paragraph": 1, "height_twips": 637 },
+        { "index": 5, "row": 13, "label_paragraph": 0, "answer_area_paragraph": 1, "height_twips": 704 }
+      ]
+    }
+  },
+
+  "answer_key": {
+    "present_in_master": false,
+    "generated": true,
+    "form_code": null,
+    "rule_no_new_form_code": "Jangan membuat kode formulir/T04A baru.",
+    "placement": {
+      "after": "T03A",
+      "insert_page_break_before": true,
+      "insert_body_position": "setelah body block 14 (tabel T03A), sebelum body block 15"
+    },
+    "heading": {
+      "text_en": "KUNCI JAWABAN",
+      "text_cn": "答案",
+      "font": { "ascii": "Times New Roman", "east_asia": "仿宋" },
+      "size_half_points": 28,
+      "bold": true
+    },
+    "body_style_source": { "table_index": 2, "row": 4, "cell": 0, "paragraph": 0, "run": 0 },
+    "logo": {
+      "source_body_block": 10,
+      "relationship_ids": ["rId5", "rId6"],
+      "doc_pr_ids": [23, 24],
+      "rule": "Jika logo disertakan, klon anchored drawing dengan renumber wp:docPr id/name agar unik."
+    },
+    "items": {
+      "count": 5,
+      "layout": "question_then_answer",
+      "question_label": "{n}. ",
+      "answer_label": "JAWABAN 答 ：",
+      "source": "ai_structured_output"
+    },
+    "footer": "inherited dari section (PAGE/NUMPAGES)"
+  },
+
+  "dynamic_fields": [
+    {
+      "id": "theme",
+      "label": "Tema final",
+      "source": "ai_then_user_confirmed",
+      "required": true,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 1, "cell": 1, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 1, "cell": 0, "paragraph": 0, "run": 0 } },
+        { "section": "T03A", "table_index": 2, "row": 2, "cell": 1, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 2, "cell": 0, "paragraph": 0, "run": 0 }, "mirror_of": "theme" }
+      ]
+    },
+    {
+      "id": "archive_number",
+      "label": "Nomor Arsip",
+      "source": "user",
+      "required": true,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 1, "cell": 3, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 1, "cell": 2, "paragraph": 0, "run": 0 } }
+      ]
+    },
+    {
+      "id": "training_date",
+      "label": "Tanggal Pelatihan (tanpa jam)",
+      "source": "user",
+      "required": true,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 2, "cell": 1, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 2, "cell": 0, "paragraph": 0, "run": 0 } },
+        { "section": "T03A", "table_index": 2, "row": 1, "cell": 3, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 1, "cell": 2, "paragraph": 0, "run": 0 }, "mirror_of": "training_date" }
+      ]
+    },
+    {
+      "id": "location",
+      "label": "Lokasi Pelatihan",
+      "source": "user",
+      "required": true,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 2, "cell": 3, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 2, "cell": 2, "paragraph": 0, "run": 0 } }
+      ]
+    },
+    {
+      "id": "trainer",
+      "label": "Trainer",
+      "source": "user",
+      "required": true,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 3, "cell": 1, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 3, "cell": 0, "paragraph": 0, "run": 0 } },
+        { "section": "T03A", "table_index": 2, "row": 1, "cell": 1, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 1, "cell": 0, "paragraph": 0, "run": 0 }, "mirror_of": "trainer" }
+      ]
+    },
+    {
+      "id": "personnel_count",
+      "label": "Personil Absen",
+      "source": "user_optional",
+      "required": false,
+      "targets": [
+        { "section": "T01A", "table_index": 0, "row": 3, "cell": 3, "paragraph": 0, "run": null, "mode": "append_run", "style_source": { "row": 3, "cell": 2, "paragraph": 0, "run": 0 } }
+      ],
+      "transform": { "from": "integer", "to": "'{value}人'", "skip": "biarkan sel kosong" }
+    },
+    { "id": "participant_name", "label": "Nama peserta", "source": "none", "required": false, "rule": "Tidak diisi otomatis." },
+    { "id": "participant_nik", "label": "NIK peserta", "source": "none", "required": false, "rule": "Tidak diisi otomatis." },
+    { "id": "participant_score", "label": "Nilai peserta", "source": "none", "required": false, "rule": "Tidak diisi otomatis." },
+    {
+      "id": "questions",
+      "label": "5 pertanyaan",
+      "source": "ai_structured_output",
+      "required": true,
+      "count": 5,
+      "characteristics": "open-ended, sederhana, jelas, tidak duplikatif, jawaban tersedia di materi",
+      "targets": "lihat t03a.questions"
+    },
+    {
+      "id": "answer_key",
+      "label": "Kunci jawaban",
+      "source": "ai_structured_output",
+      "required": true,
+      "count": 5,
+      "targets": "lihat answer_key"
+    }
+  ],
+
+  "photo_slots": {
+    "max_per_page": 2,
+    "slots_per_table": 2,
+    "source_row_template": 1,
+    "slots": [
+      { "section": "T02A", "table_index": 1, "row": 0, "cell": 0, "paragraph": 0, "slot": 1, "caption": "Foto pertama 照片一" },
+      { "section": "T02A", "table_index": 1, "row": 1, "cell": 0, "paragraph": 0, "slot": 2, "caption": "Foto kedua照片二" }
+    ],
+    "frame": { "inner_width_twips": 8712, "row_height_twips": 5472 },
+    "rules": [
+      "Gambar harus berada di dalam frame; tidak menutupi teks.",
+      "Auto resize; crop hanya bila diperlukan.",
+      "Hapus gambar rusak master (rId7, rId8, rId9) pada working copy.",
+      "Foto contoh master tidak pernah dimasukkan ke output.",
+      "0 foto harus tetap menghasilkan dokumen valid."
+    ]
+  },
+
+  "global_rules": {
+    "master_read_only": true,
+    "modify_working_copy_only": true,
+    "preserve_static_elements": true,
+    "blank_field_rule": "Field yang ditetapkan kosong harus tetap kosong; jangan isi 'N/A', '-', 'Unknown', atau '0'.",
+    "personnel_skip_rule": "Skip -> field kosong.",
+    "date_rule": "Hanya tanggal; tidak ada input jam.",
+    "no_new_form_code": true,
+    "t03a_placeholder_only_rule": "T03A: satu-satunya operasi dinamis adalah mengganti teks 'TEMPATKAN PERTANYAAN DISINI'. Dilarang membuat/menghapus row, cell, tabel, border, merge, atau mengubah table style/row height.",
+    "no_ai_in_phase_1": true,
+    "no_telegram_in_phase_1": true,
+    "doc_pr_renumber_rule": "Setiap duplikasi drawing wajib memberi wp:docPr id/name unik.",
+    "fonts": { "ascii_body": "Times New Roman", "east_asia": "仿宋" }
+  }
+}

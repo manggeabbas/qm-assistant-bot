@@ -1,0 +1,13 @@
+# Runtime dependencies (Python)
+python-docx>=1.1
+lxml>=5.0
+Pillow>=10.0
+pypdf>=4.0
+python-pptx>=0.6.21
+openpyxl>=3.1
+requests>=2.31
+
+# System packages (not installed by pip):
+#   Linux (Arch/CachyOS): libreoffice-fresh, poppler
+#   Linux (Debian/Ubuntu): libreoffice, poppler-utils
+#   Termux: poppler (LibreOffice is NOT available natively, see docs/DEPLOYMENT.md)

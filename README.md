@@ -1,0 +1,84 @@
+# QM Assistant Bot
+
+Satu bot Telegram, satu token, dua layanan QM:
+
+- 📋 **Form Gulungan** — wizard pembuatan data gulungan (coil): deteksi
+  material otomatis, penomoran HAxx, aturan diameter mesin FT/FJ, output
+  teks Mandarin. *(hasil port dari
+  [qm-ywi-telegram-bot](https://github.com/manggeabbas/qm-ywi-telegram-bot)
+  — saat ini skeleton, dalam tahap porting)*
+- 📚 **Form Pelatihan** — generate dokumen pelatihan/briefing QM dari materi
+  yang diunggah + master template DOCX (5 pertanyaan + kunci jawaban),
+  output `.docx` dan `.pdf`. *(penuh, dari
+  [formpelatihanQM](https://github.com/manggeabbas/formpelatihanQM))*
+
+Perintah `/start` menjadi **menu router**: pilih layanan, bot mendelegasikan
+ke alur yang sesuai. Satu user management untuk kedua layanan.
+
+## Keputusan arsitektur
+
+**Opsi A** — bot gulungan (Node.js + grammy) di-port ke Python, bukan
+sebaliknya: engine DOCX Python terlalu berisiko jika di-port ke Node.
+Hasil akhir: 1 proses Python, 1 token Telegram.
+
+## Struktur repo
+
+```
+main.py              # entrypoint: bangun workflow -> bungkus AssistantRouter
+qm_training/         # Form Pelatihan (copy dari formpelatihanQM, TIDAK diubah)
+qm_coil/             # Form Gulungan (port bertahap dari src/*.js asli)
+qm_assistant/        # router /start + sesi mode per user (menu/training/coil)
+tests/
+  test_router.py     # test router (baru)
+  test_*.py          # test bawaan qm_training (238, tetap jalan)
+templates/           # master template DOCX Form Pelatihan
+template_lab/        # Template Laboratory (Form Pelatihan)
+```
+
+### Mapping port `qm_coil/` ← `qm-ywi-telegram-bot/src/`
+
+| Python (baru)      | JS (asli)         | Status |
+|--------------------|-------------------|--------|
+| `wizard.py`        | `wizard.js`       | stub   |
+| `material.py`      | `material.js`     | stub   |
+| `numbering.py`     | `numbering.js`    | stub   |
+| `diameter.py`      | `diameter.js`     | stub   |
+| `form.py`          | `form.js`         | stub   |
+| `validation.py`    | `validation.js`   | stub   |
+| `state.py`         | `state.js`        | stub   |
+| `registration.py`  | `registration.js` | stub   |
+| `invites.py`       | `invites.js`      | stub   |
+| `users.py`         | `users.js`       | stub   |
+| `employees.py`     | `employees.js`    | stub   |
+| `access.py`        | `access.js`       | stub   |
+| `db.py`            | `db.js`           | stub   |
+| `menu.py`          | `menu.js`         | stub   |
+| `texts.py`         | `texts.js`        | stub   |
+| `admin.py`         | `admin.js`        | stub   |
+| `config.py`        | `config.js`       | stub   |
+| `logger.py`        | `logger.js`       | stub   |
+
+Urutan port yang disarankan (tanpa state dulu): `material` → `numbering`
+→ `diameter` → `form` → `validation` → `state` → `registration`/`invites`/
+`users`/`employees`/`access` → `db` → `menu`/`texts` → `wizard` → `admin`.
+
+## Cara jalan
+
+```bash
+cp .env.example .env   # isi TELEGRAM_BOT_TOKEN + ALLOWED_TELEGRAM_USER_IDS
+python main.py --check # cek environment
+python main.py         # jalankan bot
+```
+
+Test:
+
+```bash
+python -m pytest tests/ -x -q
+```
+
+## Catatan
+
+- `.env` tidak boleh di-commit (sudah di `.gitignore`).
+- `qm_training/` mengikuti aturan `AGENTS.md` (fase Template Laboratory →
+  Document Generator → dst, jangan merusak master template).
+- Aturan main repo `~/AGENTS.md` (milik Ember) juga berlaku untuk workflow kerja.

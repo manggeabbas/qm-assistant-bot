@@ -1,0 +1,21 @@
+# Local / runtime artefacts — never commit secrets or generated files
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Generated output
+output/
+storage/
+
+# Office lock/temp files
+~$*
+.~*
+
+# Editor temp/swap files
+*.swp
+*.swo
+*.kate-swp
+
+# OS
+.DS_Store

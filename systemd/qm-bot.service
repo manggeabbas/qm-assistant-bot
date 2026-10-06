@@ -1,0 +1,17 @@
+[Unit]
+Description=FormPelatihan-QM Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hatch/workspace/formpelatihanQM
+EnvironmentFile=/home/hatch/workspace/formpelatihanQM/systemd/proxy.env
+ExecStart=/home/hatch/workspace/formpelatihanQM/.venv/bin/python main.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/hatch/workspace/formpelatihanQM/logs/bot.log
+StandardError=append:/home/hatch/workspace/formpelatihanQM/logs/bot.log
+
+[Install]
+WantedBy=multi-user.target
