@@ -37,6 +37,7 @@ BTN_ADMIN = "🛠 Admin"
 
 _MENU_COMMANDS = ("/start", "/menu")
 _CANCEL_COMMANDS = ("/cancel", "/batal")
+_ADMIN_COMMANDS = ("/admin",)
 
 
 class AssistantRouter:
@@ -70,6 +71,12 @@ class AssistantRouter:
                     "Dibatalkan.", buttons=self._menu_buttons(message.user_id)
                 )
             ]
+
+        # /admin global: bisa diketik dari mode apa pun. Gateway
+        # memverifikasi owner (ADMIN_DENIED bila bukan owner).
+        if lowered in _ADMIN_COMMANDS:
+            self.store.set_mode(message.user_id, MODE_COIL)
+            return self.coil.handle(replace(message, text="/admin"))
 
         # Menu khusus admin: hanya owner yang melihat tombolnya; gateway
         # memverifikasi ulang (ADMIN_DENIED bila bukan owner).

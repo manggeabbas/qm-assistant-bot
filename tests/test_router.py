@@ -178,6 +178,16 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.coil.received, ["/admin"])
         self.assertEqual(out[0].text, "COIL:stub")
 
+    def test_admin_command_global_dari_mode_menu(self):
+        # /admin yang diketik (bukan via tombol) harus sampai ke gateway
+        # walau user sedang di menu utama.
+        router = make_router(coil_owner_ids=["1"])
+        router.handle(msg("1", "/start"))
+        self.assertEqual(router.store.get_mode("1"), MODE_MENU)
+        out = router.handle(msg("1", "/admin"))
+        self.assertEqual(router.coil.received, ["/admin"])
+        self.assertEqual(out[0].text, "COIL:stub")
+
 
 if __name__ == "__main__":
     unittest.main()
