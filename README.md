@@ -45,7 +45,7 @@ template_lab/        # Template Laboratory (Form Pelatihan)
 | `diameter.py`      | `diameter.js`     | ✅ ported |
 | `form.py`          | `form.js`         | ✅ ported |
 | `validation.py`    | `validation.js`   | ✅ ported |
-| `state.py`         | `state.js`        | stub   |
+| `state.py`         | `state.js`        | ✅ ported |
 | `registration.py`  | `registration.js` | stub   |
 | `invites.py`       | `invites.js`      | stub   |
 | `users.py`         | `users.js`       | stub   |

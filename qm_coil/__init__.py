@@ -9,6 +9,7 @@ STATUS: port bertahap. Modul yang sudah di-port penuh:
   - diameter (aturan FT/FJ + test, dari src/diameter.js)
   - form (output Mandarin + preview + test, dari src/form.js)
   - validation (validator tiap langkah + test, dari src/validation.js)
+  - state (sesi per user + idempotensi + test, dari src/state.js)
 
 Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya.
 Urutan port yang disarankan: numbering -> diameter -> form ->
@@ -45,6 +46,13 @@ from qm_coil.numbering import (
     generate_coil_numbers,
     parse_source_coil_suffix,
     validate_numbering_params,
+)
+from qm_coil.state import (
+    CoilSessionStore,
+    IdempotencyCache,
+    create_initial_state,
+    idempotency_cache,
+    sessions,
 )
 from qm_coil.validation import (
     VALID_GRADES,
@@ -89,7 +97,11 @@ __all__ = [
     "VALID_GRADES",
     "VALID_MACHINES",
     "ValidationResult",
-    "validate_count",
+    "CoilSessionStore",
+    "IdempotencyCache",
+    "create_initial_state",
+    "idempotency_cache",
+    "sessions",    "validate_count",
     "validate_grade",
     "validate_length",
     "validate_machine",
