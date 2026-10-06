@@ -22,8 +22,11 @@ STATUS: port bertahap. Modul yang sudah di-port penuh:
   - texts (teks UI + test, dari src/texts.js)
   - wizard (state machine + dispatcher callback + test, dari src/wizard.js
     dan handler callback di src/bot.js)
+  - admin (panel /admin + test, dari src/admin.js)
 
-Sisa: ``admin.py`` masih stub.
+Semua 18 modul selesai di-port. Belum dikerjakan: pengkabelan
+end-to-end (access guard + registrasi + idempotensi di router,
+perintah /new /cancel /help, middleware admin di depan wizard).
 
 Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya
 (hanya ``admin.py`` yang belum di-port).
@@ -32,6 +35,16 @@ Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya
 from __future__ import annotations
 
 from qm_coil.access import is_owner, resolve_user_status
+from qm_coil.admin import (
+    ADMIN_CALLBACK,
+    AdminPanel,
+    AdminReply,
+    admin_panel_keyboard,
+    admin_panel_text,
+    format_datetime,
+    user_detail_keyboard,
+    user_detail_text,
+)
 from qm_coil.config import (
     DB_PATH,
     DEFAULT_TOKEN_TTL_DAYS,
@@ -171,6 +184,14 @@ __all__ = [
     "handle_machine_selection",
     "handle_text_input",
     "start_new_wizard",
+    "ADMIN_CALLBACK",
+    "AdminPanel",
+    "AdminReply",
+    "admin_panel_keyboard",
+    "admin_panel_text",
+    "format_datetime",
+    "user_detail_keyboard",
+    "user_detail_text",
     "is_owner",
     "resolve_user_status",
     "DB_PATH",

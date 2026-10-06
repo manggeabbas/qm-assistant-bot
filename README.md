@@ -54,7 +54,7 @@ template_lab/        # Template Laboratory (Form Pelatihan)
 | `db.py`            | `db.js`           | ✅ ported   |
 | `menu.py`          | `menu.js`         | ✅ ported   |
 | `texts.py`         | `texts.js`        | ✅ ported   |
-| `admin.py`         | `admin.js`        | stub   |
+| `admin.py`         | `admin.js`        | ✅ ported |
 | `config.py`        | `config.js`       | ✅ ported   |
 | `logger.py`        | `logger.js`       | ✅ ported   |
 

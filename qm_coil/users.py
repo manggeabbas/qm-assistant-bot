@@ -30,6 +30,13 @@ _ALLOWED_UPDATE_FIELDS = [
     "registered_at",
 ]
 
+# Kunci camelCase (bentuk baca row_to_user / JS asli) -> snake_case kolom.
+_CAMEL_TO_SNAKE_FIELD = {
+    "telegramUsername": "telegram_username",
+    "invitedAt": "invited_at",
+    "registeredAt": "registered_at",
+}
+
 
 def _conn(conn: sqlite3.Connection | None) -> sqlite3.Connection:
     return conn if conn is not None else get_db()
@@ -104,14 +111,22 @@ def update_user(
     fields: dict,
     conn: sqlite3.Connection | None = None,
 ) -> dict | None:
-    """Perbarui field user secara terbatas (hanya field yang diizinkan)."""
+    """Perbarui field user secara terbatas (hanya field yang diizinkan).
+
+    Menerima kunci snake_case maupun camelCase (mis. ``registeredAt``),
+    mengikuti bentuk baca ``row_to_user`` dan JS aslinya.
+    """
     db = _conn(conn)
+    normalized = {
+        _CAMEL_TO_SNAKE_FIELD.get(key, key): value
+        for key, value in fields.items()
+    }
     sets: list[str] = []
     values: list[object] = []
     for field in _ALLOWED_UPDATE_FIELDS:
-        if field in fields:
+        if field in normalized:
             sets.append(f"{field} = ?")
-            values.append(fields[field])
+            values.append(normalized[field])
     if not sets:
         return get_user_by_telegram_id(telegram_user_id, db)
     sets.append("updated_at = ?")

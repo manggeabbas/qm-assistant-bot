@@ -92,6 +92,18 @@ class UsersTest(unittest.TestCase):
         self.assertEqual(updated["name"], "Budi")
         self.assertEqual(updated["nik"], "12345678")
 
+    def test_update_user_terima_kunci_camelcase(self):
+        # Bentuk baca row_to_user / JS asli: registeredAt, invitedAt.
+        conn = fresh_db()
+        create_user("123", conn=conn)
+        updated = update_user(
+            "123",
+            {"registeredAt": "2026-10-07T01:00:00.000Z", "telegramUsername": "budi"},
+            conn,
+        )
+        self.assertEqual(updated["registeredAt"], "2026-10-07T01:00:00.000Z")
+        self.assertEqual(updated["telegramUsername"], "budi")
+
     def test_get_or_create(self):
         conn = fresh_db()
         first = get_or_create_user("123", "budi", conn)
