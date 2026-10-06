@@ -98,7 +98,7 @@ class AssistantRouter:
 
     def _menu_message(self) -> OutgoingMessage:
         return OutgoingMessage(
-            "🤖 *QM Assistant*\n\n"
+            "🤖 QM Assistant\n\n"
             "Pilih layanan yang Anda butuhkan:",
             buttons=[BTN_COIL, BTN_TRAINING],
         )

@@ -22,7 +22,7 @@ class CoilWizard:
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
         return [
             OutgoingMessage(
-                "🛠️ *Form Gulungan* sedang dalam tahap porting ke Python.\n\n"
+                "🛠️ Form Gulungan sedang dalam tahap porting ke Python.\n\n"
                 "Saat ini baru tersedia:\n"
                 "• 📚 Form Pelatihan (penuh, dari bot lama)\n\n"
                 "Pilih tombol di bawah untuk pindah layanan, atau kirim /menu."
