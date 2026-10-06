@@ -11,12 +11,18 @@ Paket ini menyatukan dua alur tanpa mengubah ``qm_training``:
 from __future__ import annotations
 
 from qm_assistant.coil_gateway import CoilGateway
-from qm_assistant.router import BTN_COIL, BTN_TRAINING, AssistantRouter
+from qm_assistant.router import (
+    BTN_ADMIN,
+    BTN_COIL,
+    BTN_TRAINING,
+    AssistantRouter,
+)
 from qm_assistant.session import AssistantSessionStore
 
 __all__ = [
     "AssistantRouter",
     "AssistantSessionStore",
+    "BTN_ADMIN",
     "BTN_COIL",
     "BTN_TRAINING",
     "CoilGateway",

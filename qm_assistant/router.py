@@ -33,6 +33,7 @@ from qm_assistant.session import (
 
 BTN_COIL = "📋 Form Gulungan"
 BTN_TRAINING = "📚 Form Pelatihan"
+BTN_ADMIN = "🛠 Admin"
 
 _MENU_COMMANDS = ("/start", "/menu")
 _CANCEL_COMMANDS = ("/cancel", "/batal")
@@ -60,11 +61,21 @@ class AssistantRouter:
         # Menu & batal selalu terbuka: pintu masuk, otorisasi per layanan.
         if lowered in _MENU_COMMANDS:
             self.store.reset(message.user_id)
-            return [self._menu_message()]
+            return [self._menu_message(message.user_id)]
 
         if lowered in _CANCEL_COMMANDS:
             self.store.reset(message.user_id)
-            return [OutgoingMessage("Dibatalkan.", buttons=[BTN_COIL, BTN_TRAINING])]
+            return [
+                OutgoingMessage(
+                    "Dibatalkan.", buttons=self._menu_buttons(message.user_id)
+                )
+            ]
+
+        # Menu khusus admin: hanya owner yang melihat tombolnya; gateway
+        # memverifikasi ulang (ADMIN_DENIED bila bukan owner).
+        if text == BTN_ADMIN:
+            self.store.set_mode(message.user_id, MODE_COIL)
+            return self.coil.handle(replace(message, text="/admin"))
 
         # Pindah layanan via tombol: berlaku dari mode apa pun.
         # (Tanpa ini, user yang sedang di mode coil tidak bisa pindah ke
@@ -82,7 +93,7 @@ class AssistantRouter:
         mode = self.store.get_mode(message.user_id)
 
         if mode == MODE_MENU:
-            return [self._menu_message()]
+            return [self._menu_message(message.user_id)]
 
         if mode == MODE_TRAINING:
             if not self._authorized(message.user_id):
@@ -94,11 +105,22 @@ class AssistantRouter:
 
     # -- helpers ------------------------------------------------------------ #
 
-    def _menu_message(self) -> OutgoingMessage:
+    def _menu_buttons(self, user_id: str | None = None) -> list[str]:
+        buttons = [BTN_COIL, BTN_TRAINING]
+        if user_id is not None and self._is_coil_owner(user_id):
+            buttons.append(BTN_ADMIN)
+        return buttons
+
+    def _is_coil_owner(self, user_id: str) -> bool:
+        """Owner Form Gulungan (pengelola /admin)."""
+        owner_ids = getattr(self.coil, "owner_ids", None) or ()
+        return str(user_id) in {str(o) for o in owner_ids}
+
+    def _menu_message(self, user_id: str | None = None) -> OutgoingMessage:
         return OutgoingMessage(
             "🤖 QM Assistant\n\n"
             "Pilih layanan yang Anda butuhkan:",
-            buttons=[BTN_COIL, BTN_TRAINING],
+            buttons=self._menu_buttons(user_id),
         )
 
     def _authorized(self, user_id: str) -> bool:

@@ -12,6 +12,7 @@ from types import SimpleNamespace
 from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 
 from qm_assistant import AssistantRouter, AssistantSessionStore, BTN_COIL, BTN_TRAINING
+from qm_assistant import BTN_ADMIN
 from qm_assistant.session import MODE_COIL, MODE_MENU, MODE_TRAINING
 
 
@@ -41,14 +42,20 @@ class FakeWorkflow:
 
 
 class FakeCoil:
+    def __init__(self, owner_ids=()) -> None:
+        self.owner_ids = list(owner_ids)
+        self.received: list[str] = []
+
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
+        self.received.append(message.text)
         return [OutgoingMessage("COIL:stub")]
 
 
 def make_router(**kwargs) -> AssistantRouter:
+    coil_owner_ids = kwargs.pop("coil_owner_ids", ())
     return AssistantRouter(
         training_workflow=FakeWorkflow(**kwargs),
-        coil_handler=FakeCoil(),
+        coil_handler=FakeCoil(owner_ids=coil_owner_ids),
         store=AssistantSessionStore(),
     )
 
@@ -151,6 +158,22 @@ class RouterTest(unittest.TestCase):
         router = make_router(allowed_ids=["999"], owner_ids=["999"])
         out = router.handle(msg("999", "/start"))
         self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+
+    def test_menu_admin_hanya_untuk_owner(self):
+        router = make_router(coil_owner_ids=["1"])
+        out = router.handle(msg("1", "/start"))
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_ADMIN])
+        out = router.handle(msg("42", "/start"))
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+
+    def test_tombol_admin_membuka_panel(self):
+        router = make_router(coil_owner_ids=["1"])
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", BTN_ADMIN))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        # Diteruskan ke gateway sebagai perintah /admin.
+        self.assertEqual(router.coil.received, ["/admin"])
+        self.assertEqual(out[0].text, "COIL:stub")
 
 
 if __name__ == "__main__":
