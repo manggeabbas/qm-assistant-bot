@@ -148,6 +148,21 @@ class TestEngineDatasets(unittest.TestCase):
         for banned in ("word/media/image3.jpeg", "word/media/image4.jpeg", "word/media/image5.jpeg"):
             self.assertNotIn(banned, names)
 
+    def test_t03a_topic_tight_left(self) -> None:
+        # Topik T03A (bagian yang diblok user): harus rata kiri + rapat,
+        # tidak renggang.
+        doc = Document(str(self.docs["personnel_15"]))
+        table = tables_with(doc, "PENCATATAN PERTANYAAN")[0]
+        cell = rows_of(table)[2].findall(qn("w:tc"))[1]
+        paragraph = cell.findall(qn("w:p"))[0]
+        self.assertIn("Keselamatan Kerja", text_of(paragraph))
+        p_pr = paragraph.find(qn("w:pPr"))
+        jc = p_pr.find(qn("w:jc"))
+        self.assertEqual(jc.get(qn("w:val")), "left")
+        spacing = p_pr.find(qn("w:spacing"))
+        self.assertEqual(spacing.get(qn("w:before")), "0")
+        self.assertEqual(spacing.get(qn("w:after")), "0")
+
     def test_photo_frames(self) -> None:
         doc = Document(str(self.docs["photos_5"]))
         inline = [d for d in doc.element.body.iter(qn("w:drawing")) if d.find(qn("wp:inline")) is not None]

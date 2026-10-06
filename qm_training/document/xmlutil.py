@@ -172,6 +172,32 @@ def keep_with_next(paragraph) -> None:
         node.set(qn("w:val"), "1")
 
 
+def set_paragraph_tight_left(paragraph) -> None:
+    """Rata kiri + spasi rapat untuk paragraf nilai (mis. topik T03A).
+
+    Menimpa ``w:jc`` menjadi ``left`` dan ``w:spacing`` menjadi single
+    tanpa before/after, sehingga teks panjang yang membungkus tidak
+    terlihat renggang. Hanya working copy yang diubah; master utuh.
+    """
+    p_pr = paragraph.find(qn("w:pPr"))
+    if p_pr is None:
+        p_pr = OxmlElement("w:pPr")
+        paragraph.insert(0, p_pr)
+    jc = p_pr.find(qn("w:jc"))
+    if jc is None:
+        jc = OxmlElement("w:jc")
+        p_pr.append(jc)
+    jc.set(qn("w:val"), "left")
+    spacing = p_pr.find(qn("w:spacing"))
+    if spacing is None:
+        spacing = OxmlElement("w:spacing")
+        p_pr.append(spacing)
+    spacing.set(qn("w:before"), "0")
+    spacing.set(qn("w:after"), "0")
+    spacing.set(qn("w:line"), "240")
+    spacing.set(qn("w:lineRule"), "auto")
+
+
 def set_row_cant_split(row) -> None:
     """Prevent a table row from being split across pages."""
     tr_pr = row.find(qn("w:trPr"))

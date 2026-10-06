@@ -29,6 +29,7 @@ from qm_training.document.xmlutil import (
     replace_text_across_runs,
     rows,
     set_page_break_before,
+    set_paragraph_tight_left,
     set_row_borders,
     set_row_cant_split,
     set_row_min_height,
@@ -105,6 +106,10 @@ def fill_t03a(table, template: dict, data: TrainingData) -> None:
         rpr = rpr_at(table, source["row"], source["cell"], source["paragraph"], source["run"])
         target = paragraphs(cells(rows(table)[cell_spec["row"]])[cell_spec["cell"]])[cell_spec["paragraph"]]
         append_text_run(target, value, rpr)
+        if key == "topic":
+            # Topik T03A saja: paksa rata kiri + rapat agar teks panjang
+            # yang membungkus tidak terlihat renggang.
+            set_paragraph_tight_left(target)
 
     questions = spec["questions"]
     placeholder = spec.get("question_placeholder", "TEMPATKAN PERTANYAAN DISINI")
