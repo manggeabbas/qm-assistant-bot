@@ -3,8 +3,8 @@
 Port dari: ``src/config.js`` (31 baris, qm-ywi-telegram-bot).
 Status: PORTED.
 
-Dibaca dari environment variable (dimuat otomatis bila ``.env`` ada —
-``python-dotenv`` dipakai bila terinstal, tanpa dependency wajib).
+Dibaca dari environment variable. File ``.env`` di root repo dimuat otomatis
+memakai pemuat bawaan ``qm_training`` (tanpa dependency ``python-dotenv``).
 """
 
 from __future__ import annotations
@@ -12,12 +12,11 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-try:
-    from dotenv import load_dotenv
+# Muat .env repo memakai pemuat bawaan qm_training. Jangan pakai python-dotenv:
+# paket itu tidak ada di requirements sehingga .env diam-diam tidak terbaca.
+from qm_training.core.config import load_dotenv as _load_repo_env
 
-    load_dotenv()
-except ImportError:  # pragma: no cover - opsional
-    pass
+_load_repo_env()
 
 
 def _int_env(name: str, default: int) -> int:
