@@ -29,7 +29,12 @@ from qm_coil.config import DEPARTMENT, DIVISION, MOTTO, VERSION
 from qm_coil.db import get_db
 from qm_coil.invites import normalize_token, redeem_token_for_user
 from qm_coil.material import MATERIAL_MAP
-from qm_coil.menu import MenuKeyboard, to_reply_buttons
+from qm_coil.menu import (
+    MenuKeyboard,
+    main_menu_keyboard,
+    main_menu_text,
+    to_reply_buttons,
+)
 from qm_coil.registration import (
     begin_registration,
     handle_registration_callback,
@@ -39,7 +44,7 @@ from qm_coil.registration import (
 from qm_coil.state import CoilSessionStore, IdempotencyCache
 from qm_coil.texts import TEXTS
 from qm_coil.users import USER_STATUS, get_user_by_telegram_id
-from qm_coil.wizard import CoilWizard
+from qm_coil.wizard import CoilWizard, WizardReply, handle_callback
 from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 
 
@@ -158,6 +163,14 @@ def _about_text() -> str:
     )
 
 
+# Label tombol menu coil -> callback_data (menu utama Form Gulungan).
+# "📖 Bantuan" ditangani khusus: langsung tampilkan panduan lengkap.
+_COIL_MENU_LABELS = {
+    "🚀 Mulai Buat Form": "action:new_form",
+    "ℹ️ Referensi Material": "cmd:material",
+}
+
+
 class CoilGateway:
     """Satu pintu masuk alur Form Gulungan untuk router."""
 
@@ -236,6 +249,13 @@ class CoilGateway:
         user_id = str(message.user_id)
         user = get_user_by_telegram_id(user_id, self.conn)
 
+        # Masuk lewat tombol 📋 Form Gulungan: lanjutkan registrasi
+        # tanpa teguran.
+        if text == "/coil":
+            replies = resume_registration(user, self.conn)
+            self._reg_labels[user_id] = _label_map(replies)
+            return _to_outgoing(replies)
+
         label_map = self._reg_labels.get(user_id, {})
         if text in label_map:
             replies = handle_registration_callback(
@@ -260,6 +280,19 @@ class CoilGateway:
     ) -> list[OutgoingMessage]:
         user_id = str(message.user_id)
 
+        # Masuk lewat tombol 📋 Form Gulungan: tampilkan menu coil
+        # (Mulai Buat Form / Referensi Material / Bantuan).
+        if text == "/coil":
+            return _to_outgoing(
+                [
+                    WizardReply(
+                        text=main_menu_text(),
+                        buttons=main_menu_keyboard(),
+                        markdown=True,
+                    )
+                ]
+            )
+
         if text == "/admin":
             replies = self.admin.handle_admin_command(user_id)
             self._admin_labels[user_id] = _label_map(replies)
@@ -280,7 +313,7 @@ class CoilGateway:
             self._admin_labels[user_id] = _label_map(pending_replies)
             return _to_outgoing(pending_replies)
 
-        if text == "/help":
+        if text in ("/help", "📖 Bantuan"):
             return [OutgoingMessage(_HELP_TEXT, markdown=True)]
         if text == "/material":
             return [OutgoingMessage(_material_table_text(), markdown=True)]
@@ -288,5 +321,12 @@ class CoilGateway:
             return [OutgoingMessage(_EXAMPLE_TEXT, markdown=True)]
         if text == "/about":
             return [OutgoingMessage(_about_text(), markdown=True)]
+
+        # Label tombol menu coil (dari menu utama Form Gulungan).
+        if text in _COIL_MENU_LABELS:
+            replies = handle_callback(
+                user_id, _COIL_MENU_LABELS[text], self.sessions
+            )
+            return _to_outgoing(replies)
 
         return self.wizard.handle(message)

@@ -82,6 +82,20 @@ class GatewayAccessTest(unittest.TestCase):
         out = self.gw.handle(msg("42", "/new"))
         self.assertEqual(out[0].text, TEXTS.BLOCKED)
 
+    def test_masuk_coil_user_baru_diminta_token(self):
+        # Regresi: label tombol "📋 Form Gulungan" tidak boleh dianggap
+        # upaya token oleh user NEW.
+        out = self.gw.handle(msg("42", "/coil"))
+        self.assertEqual(out[0].text, TEXTS.INVITE_PROMPT)
+
+    def test_masuk_coil_lanjut_registrasi(self):
+        token = create_invite_tokens(1, created_by="1", conn=self.conn)[0]["token"]
+        self.gw.handle(msg("42", token))
+        out = self.gw.handle(msg("42", "/coil"))
+        self.assertIn("NIK", out[0].text)
+        # tanpa teguran RESTRICTED
+        self.assertNotIn("menyelesaikan registrasi", out[0].text)
+
 
 class GatewayActiveTest(unittest.TestCase):
     def setUp(self):
@@ -93,6 +107,21 @@ class GatewayActiveTest(unittest.TestCase):
         out = self.gw.handle(msg("42", "/new"))
         self.assertIn("Silakan pilih mesin", out[0].text)
         self.assertIn("FT", out[0].buttons)
+
+    def test_masuk_coil_tampilkan_menu_utama(self):
+        out = self.gw.handle(msg("42", "/coil"))
+        self.assertIn("Form Generator", out[0].text)
+        self.assertIn("🚀 Mulai Buat Form", out[0].buttons)
+        self.assertTrue(out[0].markdown)
+
+    def test_tombol_menu_coil(self):
+        self.gw.handle(msg("42", "/coil"))
+        out = self.gw.handle(msg("42", "🚀 Mulai Buat Form"))
+        self.assertIn("Silakan pilih mesin", out[0].text)
+        out = self.gw.handle(msg("42", "ℹ️ Referensi Material"))
+        self.assertIn("TABEL REFERENSI MATERIAL", out[0].text)
+        out = self.gw.handle(msg("42", "📖 Bantuan"))
+        self.assertIn("PANDUAN", out[0].text)
 
     def test_help_material_about(self):
         out = self.gw.handle(msg("42", "/help"))

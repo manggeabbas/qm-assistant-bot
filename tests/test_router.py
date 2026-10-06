@@ -100,6 +100,9 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", "/start"))
         out = router.handle(msg("1", BTN_COIL))
         self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        # Label tombol diubah jadi perintah /coil agar gateway menyambut
+        # sesuai status user (bukan dianggap upaya token).
+        self.assertEqual(router.coil.received, ["/coil"])
         self.assertEqual(out[0].text, "COIL:stub")
 
     def test_pindah_coil_ke_training_lewat_tombol(self):

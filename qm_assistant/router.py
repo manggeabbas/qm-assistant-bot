@@ -88,7 +88,12 @@ class AssistantRouter:
             return self.training.handle(replace(message, text="/new_training"))
         if text == BTN_COIL:
             self.store.set_mode(message.user_id, MODE_COIL)
-            return self.coil.handle(message)
+            # Masuk coil sebagai perintah "/coil" (bukan label tombol),
+            # agar gateway menyambut sesuai status: NEW -> minta token,
+            # REGISTRATION -> lanjutkan registrasi, ACTIVE -> menu coil.
+            # (Tanpa ini, label "📋 Form Gulungan" dianggap upaya token
+            # oleh user NEW dan dijawab "Token tidak valid".)
+            return self.coil.handle(replace(message, text="/coil"))
 
         mode = self.store.get_mode(message.user_id)
 
