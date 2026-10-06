@@ -28,6 +28,7 @@ from qm_coil.admin import AdminPanel
 from qm_coil.config import DEPARTMENT, DIVISION, MOTTO, VERSION
 from qm_coil.db import get_db
 from qm_coil.invites import normalize_token, redeem_token_for_user
+from qm_coil.logger import logger
 from qm_coil.material import MATERIAL_MAP
 from qm_coil.menu import (
     MenuKeyboard,
@@ -192,6 +193,11 @@ class CoilGateway:
         self.wizard = CoilWizard(self.sessions)
         self._reg_labels: dict[str, dict[str, str]] = {}
         self._admin_labels: dict[str, dict[str, str]] = {}
+        if not self.owner_ids:
+            logger.warning(
+                "OWNER_TELEGRAM_ID kosong - panel /admin dan tombol Admin "
+                "tidak bisa diakses siapa pun."
+            )
 
     # -- entrypoint ------------------------------------------------------
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
