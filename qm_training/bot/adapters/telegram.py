@@ -196,6 +196,7 @@ class TelegramBotAdapter:
                 user_id=str(callback.get("from", {}).get("id", "")),
                 text=str(callback.get("data", "")),
                 update_id=update_id,
+                username=callback.get("from", {}).get("username"),
             )
         message = update.get("message", {})
         chat = message.get("chat", {})
@@ -213,7 +214,12 @@ class TelegramBotAdapter:
                 largest["file_id"], Path("storage/sessions") / user_id / "photos"
             )
         return IncomingMessage(
-            user_id=user_id, text=text, document_path=document, photo_path=photo, update_id=update_id
+            user_id=user_id,
+            text=text,
+            document_path=document,
+            photo_path=photo,
+            update_id=update_id,
+            username=(message.get("from", {}) or {}).get("username"),
         )
 
     def download_file(self, file_id: str, destination: Path) -> Path:

@@ -19,7 +19,7 @@ from qm_training.core.singleton import AlreadyRunningError, SingleInstance
 from qm_training.paths import OUTPUT_DIR
 
 from qm_assistant import AssistantRouter
-from qm_coil import CoilWizard
+from qm_assistant.coil_gateway import CoilGateway
 
 LOCK_PATH = OUTPUT_DIR / "bot.lock"
 
@@ -55,8 +55,9 @@ def main(argv: list[str] | None = None) -> int:
         print("PERINGATAN: AI provider berjalan sebagai MOCK (credential belum diisi).", flush=True)
 
     # Router: /start menjadi menu (Form Gulungan | Form Pelatihan),
-    # lalu didelegasikan ke workflow training atau wizard coil.
-    router = AssistantRouter(training_workflow=workflow, coil_handler=CoilWizard())
+    # lalu didelegasikan ke workflow training atau gateway coil
+    # (access guard + registrasi + admin + wizard).
+    router = AssistantRouter(training_workflow=workflow, coil_handler=CoilGateway())
 
     # Single instance: two pollers would process every update twice.
     lock = SingleInstance(LOCK_PATH)

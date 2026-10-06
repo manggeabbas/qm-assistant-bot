@@ -15,6 +15,8 @@ class IncomingMessage:
     photo_path: Path | None = None
     # Telegram update id, used for idempotency (dedup of redelivered updates).
     update_id: int | None = None
+    # Username Telegram pengirim (opsional; dipakai saat redeem token).
+    username: str | None = None
 
 
 @dataclass

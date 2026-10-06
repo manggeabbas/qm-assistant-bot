@@ -128,11 +128,24 @@ class RouterTest(unittest.TestCase):
         out = router.handle(msg("1", "xyz"))
         self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
 
-    def test_user_tak_terdaftar_ditolak(self):
+    def test_user_tak_terdaftar_ditolak_di_training(self):
+        # Menu (/start) terbuka untuk semua; yang digembok adalah layanannya.
         router = make_router(allowed_ids=["999"])
         out = router.handle(msg("123", "/start"))
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        # Form Pelatihan tetap ditolak.
+        out = router.handle(msg("123", BTN_TRAINING))
         self.assertIn("belum terdaftar", out[0].text)
         self.assertEqual(router.training.received, [])
+
+    def test_coil_tidak_butuh_otorisasi_training(self):
+        # Form Gulungan punya access guard sendiri (gateway), bukan
+        # allowlist training.
+        router = make_router(allowed_ids=["999"])
+        router.handle(msg("123", "/start"))
+        out = router.handle(msg("123", BTN_COIL))
+        self.assertEqual(router.store.get_mode("123"), MODE_COIL)
+        self.assertEqual(out[0].text, "COIL:stub")
 
     def test_owner_lolos_otorisasi(self):
         router = make_router(allowed_ids=["999"], owner_ids=["999"])

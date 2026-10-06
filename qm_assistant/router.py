@@ -4,16 +4,18 @@ Alur pesan:
 
     /start atau /menu
         -> menu (mode=menu): [📋 Form Gulungan] [📚 Form Pelatihan]
+           (menu selalu terbuka; otorisasi dicek per layanan)
     pilih "📚 Form Pelatihan"
         -> mode=training, pesan sintetis "/new_training" diteruskan ke
-           workflow qm_training (tidak ada perubahan di qm_training/)
+           workflow qm_training (tidak ada perubahan di qm_training/).
+           Otorisasi: owner ids / user store aktif / ALLOWED_TELEGRAM_USER_IDS.
     pilih "📋 Form Gulungan"
-        -> mode=coil, diteruskan ke qm_coil (skeleton: stub "dalam porting")
+        -> mode=coil, diteruskan ke CoilGateway (qm_assistant/coil_gateway.py).
+           Otorisasi milik Form Gulungan sendiri (SQLite): owner selalu
+           lolos, user NEW redeem token undangan, REGISTRATION
+           menyelesaikan NIK, BLOCKED ditolak. Dikelola via /admin.
     /cancel atau /batal (mode apa pun)
         -> kembali ke menu
-
-Otorisasi memakai aturan yang sama dengan workflow training
-(owner ids / user store aktif / ALLOWED_TELEGRAM_USER_IDS).
 """
 
 from __future__ import annotations
@@ -41,7 +43,7 @@ class AssistantRouter:
 
     ``training_workflow`` adalah instance ``qm_training.bot.workflow.Workflow``
     (dibangun oleh ``qm_training.app.build_workflow``). ``coil_handler``
-    adalah ``qm_coil.CoilmWizard`` (saat ini stub).
+    adalah ``qm_assistant.coil_gateway.CoilGateway``.
     """
 
     def __init__(self, training_workflow, coil_handler, store: AssistantSessionStore | None = None) -> None:
@@ -52,18 +54,10 @@ class AssistantRouter:
     # -- entrypoint (dipakai TelegramBotAdapter sebagai .handle) ------------- #
 
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
-        if not self._authorized(message.user_id):
-            return [
-                OutgoingMessage(
-                    "⛔ Anda belum terdaftar.\n"
-                    f"ID Telegram Anda: {message.user_id}\n"
-                    "Minta admin menambahkan ID ini untuk mendapat akses."
-                )
-            ]
-
         text = (message.text or "").strip()
         lowered = text.lower()
 
+        # Menu & batal selalu terbuka: pintu masuk, otorisasi per layanan.
         if lowered in _MENU_COMMANDS:
             self.store.reset(message.user_id)
             return [self._menu_message()]
@@ -72,12 +66,12 @@ class AssistantRouter:
             self.store.reset(message.user_id)
             return [OutgoingMessage("Dibatalkan.", buttons=[BTN_COIL, BTN_TRAINING])]
 
-        mode = self.store.get_mode(message.user_id)
-
         # Pindah layanan via tombol: berlaku dari mode apa pun.
         # (Tanpa ini, user yang sedang di mode coil tidak bisa pindah ke
         # Form Pelatihan lewat tombol — terjebak sampai kirim /menu.)
         if text == BTN_TRAINING:
+            if not self._authorized(message.user_id):
+                return [self._denied_message(message.user_id)]
             self.store.set_mode(message.user_id, MODE_TRAINING)
             # Mulai alur training tanpa menyentuh /start-nya workflow.
             return self.training.handle(replace(message, text="/new_training"))
@@ -85,13 +79,17 @@ class AssistantRouter:
             self.store.set_mode(message.user_id, MODE_COIL)
             return self.coil.handle(message)
 
+        mode = self.store.get_mode(message.user_id)
+
         if mode == MODE_MENU:
             return [self._menu_message()]
 
         if mode == MODE_TRAINING:
+            if not self._authorized(message.user_id):
+                return [self._denied_message(message.user_id)]
             return self.training.handle(message)
 
-        # mode == MODE_COIL
+        # mode == MODE_COIL: otorisasi milik gateway (invite/registrasi/DB).
         return self.coil.handle(message)
 
     # -- helpers ------------------------------------------------------------ #
@@ -113,3 +111,10 @@ class AssistantRouter:
         if not self.training.settings.allowed_user_ids:
             return True  # mode terbuka (tanpa allowlist)
         return uid in self.training.settings.allowed_user_ids
+
+    def _denied_message(self, user_id: str) -> OutgoingMessage:
+        return OutgoingMessage(
+            "⛔ Anda belum terdaftar.\n"
+            f"ID Telegram Anda: {user_id}\n"
+            "Minta admin menambahkan ID ini untuk mendapat akses."
+        )
