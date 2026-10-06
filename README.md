@@ -41,10 +41,10 @@ template_lab/        # Template Laboratory (Form Pelatihan)
 |--------------------|-------------------|--------|
 | `wizard.py`        | `wizard.js`       | stub   |
 | `material.py`      | `material.js`     | ✅ ported |
-| `numbering.py`     | `numbering.js`    | stub   |
-| `diameter.py`      | `diameter.js`     | stub   |
-| `form.py`          | `form.js`         | stub   |
-| `validation.py`    | `validation.js`   | stub   |
+| `numbering.py`     | `numbering.js`    | ✅ ported |
+| `diameter.py`      | `diameter.js`     | ✅ ported |
+| `form.py`          | `form.js`         | ✅ ported |
+| `validation.py`    | `validation.js`   | ✅ ported |
 | `state.py`         | `state.js`        | stub   |
 | `registration.py`  | `registration.js` | stub   |
 | `invites.py`       | `invites.js`      | stub   |

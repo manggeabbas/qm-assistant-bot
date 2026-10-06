@@ -62,6 +62,9 @@ class TelegramBotAdapter:
             payload["reply_markup"] = {
                 "keyboard": [[{"text": button}] for button in message.buttons],
                 "resize_keyboard": True,
+                # Keyboard sekali pilih: otomatis hilang setelah user menekan
+                # tombol, tidak nempel di bawah kolom chat.
+                "one_time_keyboard": True,
             }
         with self._send_lock:
             self.session.post(self._url("sendMessage"), json=payload, timeout=30)
