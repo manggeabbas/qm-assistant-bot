@@ -18,13 +18,15 @@ STATUS: port bertahap. Modul yang sudah di-port penuh:
   - registration (tahap + NIK murni + test, dari src/registration.js)
   - config (env + test ringan, dari src/config.js)
   - logger (logging + sanitasi, dari src/logger.js)
-  - menu (keyboard menu + test, dari src/menu.js)
+  - menu (menu utama + test, dari src/menu.js)
   - texts (teks UI + test, dari src/texts.js)
+  - wizard (state machine + dispatcher callback + test, dari src/wizard.js
+    dan handler callback di src/bot.js)
 
-Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya.
-Urutan port yang disarankan: numbering -> diameter -> form ->
-validation -> state -> registration/invites/users/employees/access ->
-db -> menu/texts -> wizard -> admin -> bot.
+Sisa: ``admin.py`` masih stub.
+
+Sisanya masih stub yang memetakan 1:1 ke file ``src/*.js`` aslinya
+(hanya ``admin.py`` yang belum di-port).
 """
 
 from __future__ import annotations
@@ -85,17 +87,11 @@ from qm_coil.material import (
     get_material_name,
 )
 from qm_coil.menu import (
-    FORM_CANCEL,
-    MENU_HELP,
-    MENU_NEW_FORM,
-    REG_CONFIRM,
-    REG_EDIT_NIK,
     MenuButton,
     MenuKeyboard,
     callback_of,
-    create_cancel_keyboard,
-    create_main_menu_keyboard,
-    create_registration_keyboard,
+    main_menu_keyboard,
+    main_menu_text,
     to_reply_buttons,
 )
 from qm_coil.numbering import (
@@ -108,9 +104,15 @@ from qm_coil.numbering import (
 )
 from qm_coil.registration import (
     REG_CALLBACKS,
+    RegistrationReply,
+    begin_registration,
+    handle_registration_callback,
+    handle_registration_text,
     process_nik_input,
     registration_stage,
     reset_nik,
+    resume_registration,
+    send_confirmation,
 )
 from qm_coil.state import (
     CoilSessionStore,
@@ -149,10 +151,26 @@ from qm_coil.validation import (
     validate_specification,
     validate_start_digit,
 )
-from qm_coil.wizard import CoilWizard
+from qm_coil.wizard import (
+    STEPS,
+    CoilWizard,
+    WizardReply,
+    cancel_wizard,
+    handle_callback,
+    handle_machine_selection,
+    handle_text_input,
+    start_new_wizard,
+)
 
 __all__ = [
     "CoilWizard",
+    "STEPS",
+    "WizardReply",
+    "cancel_wizard",
+    "handle_callback",
+    "handle_machine_selection",
+    "handle_text_input",
+    "start_new_wizard",
     "is_owner",
     "resolve_user_status",
     "DB_PATH",
@@ -188,20 +206,20 @@ __all__ = [
     "redeem_token_for_user",
     "logger",
     "REG_CALLBACKS",
+    "RegistrationReply",
+    "begin_registration",
+    "handle_registration_callback",
+    "handle_registration_text",
     "process_nik_input",
     "registration_stage",
     "reset_nik",
-    "FORM_CANCEL",
-    "MENU_HELP",
-    "MENU_NEW_FORM",
-    "REG_CONFIRM",
-    "REG_EDIT_NIK",
+    "resume_registration",
+    "send_confirmation",
     "MenuButton",
     "MenuKeyboard",
     "callback_of",
-    "create_cancel_keyboard",
-    "create_main_menu_keyboard",
-    "create_registration_keyboard",
+    "main_menu_keyboard",
+    "main_menu_text",
     "to_reply_buttons",
     "TEXTS",
     "Texts",

@@ -39,7 +39,7 @@ template_lab/        # Template Laboratory (Form Pelatihan)
 
 | Python (baru)      | JS (asli)         | Status |
 |--------------------|-------------------|--------|
-| `wizard.py`        | `wizard.js`       | stub   |
+| `wizard.py`        | `wizard.js`       | ✅ ported |
 | `material.py`      | `material.js`     | ✅ ported |
 | `numbering.py`     | `numbering.js`    | ✅ ported |
 | `diameter.py`      | `diameter.js`     | ✅ ported |

@@ -58,6 +58,8 @@ class TelegramBotAdapter:
 
     def send_message(self, chat_id: str, message: OutgoingMessage) -> None:
         payload = {"chat_id": chat_id, "text": message.text}
+        if message.markdown:
+            payload["parse_mode"] = "Markdown"
         if message.buttons:
             payload["reply_markup"] = {
                 "keyboard": [[{"text": button}] for button in message.buttons],

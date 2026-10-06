@@ -22,6 +22,8 @@ class OutgoingMessage:
     text: str
     buttons: list[str] = field(default_factory=list)
     documents: list[Path] = field(default_factory=list)
+    # True -> kirim dengan parse_mode Markdown (dipakai Form Gulungan).
+    markdown: bool = False
 
 
 class TelegramAdapter(Protocol):
