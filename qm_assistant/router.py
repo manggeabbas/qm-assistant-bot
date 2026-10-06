@@ -16,6 +16,10 @@ Alur pesan:
            menyelesaikan NIK, BLOCKED ditolak. Dikelola via /admin.
     /cancel atau /batal (mode apa pun)
         -> kembali ke menu
+    tombol "🏠 Menu Utama" (mode/layanan apa pun)
+        -> kembali ke menu utama (sama seperti /start); router
+           menambahkan tombol ini ke setiap pesan mode layanan agar
+           user tidak perlu mengetik /start untuk berpindah fungsi.
 """
 
 from __future__ import annotations
@@ -34,6 +38,7 @@ from qm_assistant.session import (
 BTN_COIL = "📋 Form Gulungan"
 BTN_TRAINING = "📚 Form Pelatihan"
 BTN_ADMIN = "🛠 Admin"
+BTN_HOME = "🏠 Menu Utama"
 
 _MENU_COMMANDS = ("/start", "/menu")
 _CANCEL_COMMANDS = ("/cancel", "/batal")
@@ -60,7 +65,8 @@ class AssistantRouter:
         lowered = text.lower()
 
         # Menu & batal selalu terbuka: pintu masuk, otorisasi per layanan.
-        if lowered in _MENU_COMMANDS:
+        # Tombol 🏠 Menu Utama juga kembali ke menu dari mana pun.
+        if lowered in _MENU_COMMANDS or text == BTN_HOME:
             self.store.reset(message.user_id)
             return [self._menu_message(message.user_id)]
 
@@ -76,13 +82,13 @@ class AssistantRouter:
         # memverifikasi owner (ADMIN_DENIED bila bukan owner).
         if lowered in _ADMIN_COMMANDS:
             self.store.set_mode(message.user_id, MODE_COIL)
-            return self.coil.handle(replace(message, text="/admin"))
+            return self._with_home(self.coil.handle(replace(message, text="/admin")))
 
         # Menu khusus admin: hanya owner yang melihat tombolnya; gateway
         # memverifikasi ulang (ADMIN_DENIED bila bukan owner).
         if text == BTN_ADMIN:
             self.store.set_mode(message.user_id, MODE_COIL)
-            return self.coil.handle(replace(message, text="/admin"))
+            return self._with_home(self.coil.handle(replace(message, text="/admin")))
 
         # Pindah layanan via tombol: berlaku dari mode apa pun.
         # (Tanpa ini, user yang sedang di mode coil tidak bisa pindah ke
@@ -92,7 +98,9 @@ class AssistantRouter:
                 return [self._denied_message(message.user_id)]
             self.store.set_mode(message.user_id, MODE_TRAINING)
             # Mulai alur training tanpa menyentuh /start-nya workflow.
-            return self.training.handle(replace(message, text="/new_training"))
+            return self._with_home(
+                self.training.handle(replace(message, text="/new_training"))
+            )
         if text == BTN_COIL:
             self.store.set_mode(message.user_id, MODE_COIL)
             # Masuk coil sebagai perintah "/coil" (bukan label tombol),
@@ -100,7 +108,7 @@ class AssistantRouter:
             # REGISTRATION -> lanjutkan registrasi, ACTIVE -> menu coil.
             # (Tanpa ini, label "📋 Form Gulungan" dianggap upaya token
             # oleh user NEW dan dijawab "Token tidak valid".)
-            return self.coil.handle(replace(message, text="/coil"))
+            return self._with_home(self.coil.handle(replace(message, text="/coil")))
 
         mode = self.store.get_mode(message.user_id)
 
@@ -110,10 +118,10 @@ class AssistantRouter:
         if mode == MODE_TRAINING:
             if not self._authorized(message.user_id):
                 return [self._denied_message(message.user_id)]
-            return self.training.handle(message)
+            return self._with_home(self.training.handle(message))
 
         # mode == MODE_COIL: otorisasi milik gateway (invite/registrasi/DB).
-        return self.coil.handle(message)
+        return self._with_home(self.coil.handle(message))
 
     # -- helpers ------------------------------------------------------------ #
 
@@ -134,6 +142,24 @@ class AssistantRouter:
             "Pilih layanan yang Anda butuhkan:",
             buttons=self._menu_buttons(user_id),
         )
+
+    def _with_home(
+        self, messages: list[OutgoingMessage]
+    ) -> list[OutgoingMessage]:
+        """Tambahkan tombol 🏠 Menu Utama ke pesan mode layanan.
+
+        Router mencegat tombol ini sebelum dispatch (lihat handle()),
+        jadi user bisa kembali ke menu utama dari alur mana pun tanpa
+        mengetik /start. Tidak ditambahkan ke pesan menu utama itu
+        sendiri.
+        """
+        out = []
+        for message in messages:
+            buttons = list(message.buttons or [])
+            if BTN_HOME not in buttons:
+                buttons.append(BTN_HOME)
+            out.append(replace(message, buttons=buttons))
+        return out
 
     def _authorized(self, user_id: str) -> bool:
         """Aturan yang sama dengan Workflow._authorized (via atribut publik)."""

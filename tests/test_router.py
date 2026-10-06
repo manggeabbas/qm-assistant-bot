@@ -12,7 +12,7 @@ from types import SimpleNamespace
 from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 
 from qm_assistant import AssistantRouter, AssistantSessionStore, BTN_COIL, BTN_TRAINING
-from qm_assistant import BTN_ADMIN
+from qm_assistant import BTN_ADMIN, BTN_HOME
 from qm_assistant.session import MODE_COIL, MODE_MENU, MODE_TRAINING
 
 
@@ -130,6 +130,36 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", "/start"))
         router.handle(msg("1", BTN_TRAINING))
         out = router.handle(msg("1", "/cancel"))
+        self.assertEqual(router.store.get_mode("1"), MODE_MENU)
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+
+    def test_pesan_layanan_membawa_tombol_home(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", BTN_COIL))
+        self.assertIn(BTN_HOME, out[0].buttons)
+        out = router.handle(msg("1", "sesuatu di mode coil"))
+        self.assertIn(BTN_HOME, out[0].buttons)
+
+    def test_tombol_home_kembali_ke_menu_dari_coil(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        router.handle(msg("1", BTN_COIL))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        out = router.handle(msg("1", BTN_HOME))
+        self.assertEqual(router.store.get_mode("1"), MODE_MENU)
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        # Setelah kembali, coil tidak lagi menerima pesan.
+        out = router.handle(msg("1", "halo"))
+        self.assertEqual(router.coil.received, ["/coil"])
+
+    def test_tombol_home_kembali_ke_menu_dari_training(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", BTN_TRAINING))
+        self.assertIn(BTN_HOME, out[0].buttons)
+        self.assertEqual(router.store.get_mode("1"), MODE_TRAINING)
+        out = router.handle(msg("1", BTN_HOME))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
         self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
 
