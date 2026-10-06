@@ -25,6 +25,6 @@ class CoilWizard:
                 "🛠️ *Form Gulungan* sedang dalam tahap porting ke Python.\n\n"
                 "Saat ini baru tersedia:\n"
                 "• 📚 Form Pelatihan (penuh, dari bot lama)\n\n"
-                "Kirim /menu untuk kembali."
+                "Pilih tombol di bawah untuk pindah layanan, atau kirim /menu."
             )
         ]

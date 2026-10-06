@@ -74,14 +74,18 @@ class AssistantRouter:
 
         mode = self.store.get_mode(message.user_id)
 
+        # Pindah layanan via tombol: berlaku dari mode apa pun.
+        # (Tanpa ini, user yang sedang di mode coil tidak bisa pindah ke
+        # Form Pelatihan lewat tombol — terjebak sampai kirim /menu.)
+        if text == BTN_TRAINING:
+            self.store.set_mode(message.user_id, MODE_TRAINING)
+            # Mulai alur training tanpa menyentuh /start-nya workflow.
+            return self.training.handle(replace(message, text="/new_training"))
+        if text == BTN_COIL:
+            self.store.set_mode(message.user_id, MODE_COIL)
+            return self.coil.handle(message)
+
         if mode == MODE_MENU:
-            if text == BTN_TRAINING:
-                self.store.set_mode(message.user_id, MODE_TRAINING)
-                # Mulai alur training tanpa menyentuh /start-nya workflow.
-                return self.training.handle(replace(message, text="/new_training"))
-            if text == BTN_COIL:
-                self.store.set_mode(message.user_id, MODE_COIL)
-                return self.coil.handle(message)
             return [self._menu_message()]
 
         if mode == MODE_TRAINING:

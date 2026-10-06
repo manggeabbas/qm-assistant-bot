@@ -95,6 +95,26 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_COIL)
         self.assertEqual(out[0].text, "COIL:stub")
 
+    def test_pindah_coil_ke_training_lewat_tombol(self):
+        # Regresi dari screenshot user: di mode coil, tap "Form Pelatihan"
+        # harus pindah layanan, bukan dijawab stub coil lagi.
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        router.handle(msg("1", BTN_COIL))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        out = router.handle(msg("1", BTN_TRAINING))
+        self.assertEqual(router.store.get_mode("1"), MODE_TRAINING)
+        self.assertEqual(router.training.received, ["/new_training"])
+        self.assertEqual(out[0].text, "WF:/new_training")
+
+    def test_pindah_training_ke_coil_lewat_tombol(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        router.handle(msg("1", BTN_TRAINING))
+        out = router.handle(msg("1", BTN_COIL))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        self.assertEqual(out[0].text, "COIL:stub")
+
     def test_cancel_kembali_ke_menu(self):
         router = make_router()
         router.handle(msg("1", "/start"))
