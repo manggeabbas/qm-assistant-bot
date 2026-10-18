@@ -119,6 +119,79 @@ class TestMalformedResponse(unittest.TestCase):
             FakeVision({"candidates": [{"content": {}}]}).analyze_image(b"\x00\x01")
 
 
+class ScriptedVision(GeminiVision):
+    """Fake yang melempar sesuai skrip: Exception atau dict respons canned."""
+
+    def __init__(self, script):
+        super().__init__(api_key="KUNCI-RAHASIA-123")
+        self.script = list(script)
+        self.calls = 0
+
+    def _post(self, url, headers, payload):  # noqa: D102 (signature warisan)
+        self.calls += 1
+        step = self.script.pop(0)
+        if isinstance(step, Exception):
+            raise step
+        return step
+
+
+class TestRetryTransient(unittest.TestCase):
+    """503/429 'high demand' dicoba ulang sebelum menyerah."""
+
+    def setUp(self) -> None:
+        import qm_bantuan.vision as vision_mod
+
+        self._orig = vision_mod.RETRY_WAIT_SECONDS
+        vision_mod.RETRY_WAIT_SECONDS = (0, 0)
+
+    def tearDown(self) -> None:
+        import qm_bantuan.vision as vision_mod
+
+        vision_mod.RETRY_WAIT_SECONDS = self._orig
+
+    def _vision(self, script):
+        return ScriptedVision(script)
+
+    def test_retry_503_lalu_sukses(self) -> None:
+        v = self._vision(
+            [
+                AIProviderError('gemini: HTTP 503: {"status": "UNAVAILABLE"}'),
+                AIProviderError('gemini: HTTP 503: {"status": "UNAVAILABLE"}'),
+                _ok_response("hasil"),
+            ]
+        )
+        self.assertEqual(v.analyze_image(b"\x00\x01"), "hasil")
+        self.assertEqual(v.calls, 3)
+
+    def test_tidak_retry_error_non_transient(self) -> None:
+        v = self._vision([AIProviderError("gemini: HTTP 400: bad request")])
+        with self.assertRaises(AIProviderError):
+            v.analyze_image(b"\x00\x01")
+        self.assertEqual(v.calls, 1)
+
+    def test_retry_gagal_semua_lalu_raise(self) -> None:
+        v = self._vision(
+            [AIProviderError('gemini: HTTP 503: {"status": "UNAVAILABLE"}')] * 3
+        )
+        with self.assertRaises(AIProviderError):
+            v.analyze_image(b"\x00\x01")
+        self.assertEqual(v.calls, 3)
+
+
+class TestIsTransientError(unittest.TestCase):
+    def test_markers(self) -> None:
+        from qm_bantuan.vision import is_transient_error
+
+        for marker in ("HTTP 429", "HTTP 503", "UNAVAILABLE", "timeout", "koneksi gagal"):
+            self.assertTrue(is_transient_error(AIProviderError(f"x {marker} y")))
+
+    def test_non_transient(self) -> None:
+        from qm_bantuan.vision import is_transient_error
+
+        self.assertFalse(is_transient_error(AIProviderError("gemini: HTTP 400: bad")))
+        self.assertFalse(is_transient_error(ValueError("rusak")))
+
+
 class TestPromptConstants(unittest.TestCase):
     def test_photo_system_disclaimer(self) -> None:
         self.assertIn("opini kedua", PHOTO_SYSTEM)

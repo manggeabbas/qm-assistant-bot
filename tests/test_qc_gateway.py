@@ -184,6 +184,36 @@ class GatewayPhotoTest(unittest.TestCase):
         self.assertEqual(out, [])
         self.assertEqual(len(vision.calls), 1)
 
+    def test_foto_error_503_pesan_ramah(self):
+        from qm_training.core.errors import AIProviderError
+
+        class FailingVision(FakeVision):
+            def analyze_image(self, image_bytes, mime_type="image/jpeg"):
+                raise AIProviderError('gemini: HTTP 503: {"status": "UNAVAILABLE"}')
+
+        gw = QCGateway(atlas=Atlas.bundled(), ai_provider=FailingVision())
+        with TemporaryDirectory() as td:
+            p = Path(td) / "foto.jpg"
+            p.write_bytes(b"\xff\xd8fake")
+            out = gw.handle(msg("1", "", photo_path=p))
+        self.assertIn("sibuk", out[0].text)
+        self.assertNotIn("UNAVAILABLE", out[0].text)
+        self.assertNotIn('"code"', out[0].text)
+
+    def test_foto_error_non_503_tampil_apa_adanya(self):
+        from qm_training.core.errors import AIProviderError
+
+        class FailingVision(FakeVision):
+            def analyze_image(self, image_bytes, mime_type="image/jpeg"):
+                raise AIProviderError("gemini: kunci API tidak ada")
+
+        gw = QCGateway(atlas=Atlas.bundled(), ai_provider=FailingVision())
+        with TemporaryDirectory() as td:
+            p = Path(td) / "foto.jpg"
+            p.write_bytes(b"\xff\xd8fake")
+            out = gw.handle(msg("1", "", photo_path=p))
+        self.assertIn("Gagal menganalisis foto", out[0].text)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,6 +8,7 @@ API key diwarisi dari implementasi di sana.
 from __future__ import annotations
 
 import base64
+import time
 
 from qm_training.ai.providers import GeminiProvider
 from qm_training.core.errors import AIProviderError
@@ -17,6 +18,20 @@ ALLOWED_IMAGE_MIME_TYPES = frozenset({"image/jpeg", "image/png", "image/webp"})
 
 # Batas ukuran foto agar payload tidak membengkak (Telegram mengirim foto terkompresi).
 MAX_IMAGE_BYTES = 15 * 1024 * 1024
+
+# Tier gratis Gemini kadang 503 "high demand"/429 yang pulih sendiri —
+# kirim ulang beberapa kali sebelum menyerah.
+RETRY_ATTEMPTS = 3
+RETRY_WAIT_SECONDS = (2, 5)
+
+# Penanda error sementara dari Gemini (dilihat dari pesan AIProviderError).
+_TRANSIENT_MARKERS = ("HTTP 429", "HTTP 503", "UNAVAILABLE", "timeout", "koneksi gagal")
+
+
+def is_transient_error(exc: Exception) -> bool:
+    """True bila error tampaknya sementara dan layak dicoba ulang."""
+    msg = str(exc)
+    return any(marker in msg for marker in _TRANSIENT_MARKERS)
 
 # System prompt: aturan main analisis foto untuk inspector QC.
 PHOTO_SYSTEM = """\
@@ -89,8 +104,17 @@ class GeminiVision(GeminiProvider):
                 }
             ],
         }
-        # _post() sudah meredaksi API key dari pesan error (warisan dari GeminiProvider).
-        data = self._post(url, {}, payload)
+        # _post() sudah meredaksi API key dari pesan error (warisan dari
+        # GeminiProvider); error sementara dicoba ulang beberapa kali.
+        for attempt in range(RETRY_ATTEMPTS):
+            try:
+                data = self._post(url, {}, payload)
+            except AIProviderError as exc:
+                if attempt == RETRY_ATTEMPTS - 1 or not is_transient_error(exc):
+                    raise
+                time.sleep(RETRY_WAIT_SECONDS[min(attempt, len(RETRY_WAIT_SECONDS) - 1)])
+            else:
+                break
         try:
             return data["candidates"][0]["content"]["parts"][0]["text"]
         except (KeyError, IndexError, TypeError) as exc:

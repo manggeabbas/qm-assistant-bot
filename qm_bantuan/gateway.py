@@ -23,6 +23,7 @@ from qm_training.core.errors import AIProviderError
 from qm_bantuan.cards import defect_card, search_line, section_line, variant_summary
 from qm_bantuan.data import SECTIONS, Atlas, Panduan
 from qm_bantuan.quiz import Quiz
+from qm_bantuan.vision import is_transient_error
 
 # -- label tombol -------------------------------------------------------- #
 BTN_SEARCH = "🔍 Cari cacat"
@@ -451,9 +452,17 @@ class QCGateway:
         try:
             result = provider.analyze_image(data, mime)
         except AIProviderError as exc:
+            if is_transient_error(exc):
+                text = (
+                    "⚠️ Gemini sedang sibuk (server Google sedang penuh). "
+                    "Sudah dicoba ulang tapi belum berhasil — "
+                    "coba kirim ulang fotonya dalam 1–2 menit."
+                )
+            else:
+                text = f"⚠️ Gagal menganalisis foto: {exc}"
             return [
                 OutgoingMessage(
-                    f"⚠️ Gagal menganalisis foto: {exc}",
+                    text,
                     buttons=list(_MENU_BUTTONS),
                 )
             ]
