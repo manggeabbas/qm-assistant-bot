@@ -52,3 +52,61 @@ class KeyboardTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class InlineKeyboardTest(unittest.TestCase):
+    def _adapter(self):
+        adapter = TelegramBotAdapter(token="<redacted>", workflow=None)
+        adapter.session = _FakeSession()
+        return adapter
+
+    def test_inline_buttons_dikirim_sebagai_inline_keyboard(self):
+        adapter = self._adapter()
+        adapter.send_message(
+            "1",
+            OutgoingMessage(
+                "Pilih:",
+                inline_buttons=[[("A", "cb:a")], [("B", "cb:b"), ("C", "cb:c")]],
+            ),
+        )
+        markup = adapter.session.posts[0]["json"]["reply_markup"]
+        self.assertEqual(
+            markup["inline_keyboard"],
+            [
+                [{"text": "A", "callback_data": "cb:a"}],
+                [{"text": "B", "callback_data": "cb:b"},
+                 {"text": "C", "callback_data": "cb:c"}],
+            ],
+        )
+        self.assertNotIn("keyboard", markup)
+
+    def test_inline_lebih_utama_dari_reply_keyboard(self):
+        adapter = self._adapter()
+        adapter.send_message(
+            "1",
+            OutgoingMessage("Pilih:", buttons=["X"],
+                            inline_buttons=[[("A", "cb:a")]]),
+        )
+        markup = adapter.session.posts[0]["json"]["reply_markup"]
+        self.assertIn("inline_keyboard", markup)
+        self.assertNotIn("keyboard", markup)
+
+    def test_callback_query_jadi_incoming_dan_dijawab(self):
+        adapter = self._adapter()
+        update = {
+            "update_id": 5,
+            "callback_query": {
+                "id": "cb123",
+                "from": {"id": 99, "username": "u"},
+                "data": "qc:card:B22",
+            },
+        }
+        incoming = adapter._to_incoming(update)
+        self.assertTrue(incoming.is_callback)
+        self.assertEqual(incoming.callback_id, "cb123")
+        self.assertEqual(incoming.text, "qc:card:B22")
+        self.assertEqual(incoming.user_id, "99")
+        adapter.answer_callback("cb123")
+        last = adapter.session.posts[-1]
+        self.assertIn("answerCallbackQuery", last["url"])
+        self.assertEqual(last["json"]["callback_query_id"], "cb123")

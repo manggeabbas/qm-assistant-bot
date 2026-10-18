@@ -180,9 +180,19 @@ class AssistantRouter:
         jadi user bisa kembali ke menu utama dari alur mana pun tanpa
         mengetik /start. Tidak ditambahkan ke pesan menu utama itu
         sendiri.
+
+        Untuk pesan bertombol inline, home ditambahkan sebagai baris
+        inline (callback_data = teks tombolnya, ditangkap router sama
+        seperti tombol reply) agar tidak memunculkan reply keyboard.
         """
         out = []
         for message in messages:
+            if message.inline_buttons:
+                rows = [list(r) for r in message.inline_buttons]
+                if not any(t == BTN_HOME for r in rows for t, _ in r):
+                    rows.append([(BTN_HOME, BTN_HOME)])
+                out.append(replace(message, inline_buttons=rows))
+                continue
             buttons = list(message.buttons or [])
             if BTN_HOME not in buttons:
                 buttons.append(BTN_HOME)

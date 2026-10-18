@@ -80,11 +80,21 @@ class PanduanGatewayTest(unittest.TestCase):
         self._n += 1
         return self.gw.handle(_msg(user_id=self.uid, text=text, update_id=self._n))
 
-    def _buttons(self, replies):
+    def _cbs(self, replies):
         out = []
         for r in replies:
-            out.extend(getattr(r, "buttons", []) or [])
+            for row in (r.inline_buttons or []):
+                out.extend(row)
         return out
+
+    def _tap(self, replies, text):
+        for t_, d in self._cbs(replies):
+            if t_ == text:
+                return self._send(d)
+        raise AssertionError(f"tombol '{text}' tidak ada")
+
+    def _buttons(self, replies):
+        return [t for t, _ in self._cbs(replies)]
 
     def test_menu_memuat_tombol_panduan(self):
         replies = self._send("/qc")
@@ -92,44 +102,44 @@ class PanduanGatewayTest(unittest.TestCase):
 
     def test_masuk_panduan_menampilkan_daftar_topik(self):
         self._send("/qc")
-        replies = self._send(BTN_GUIDE)
+        replies = self._tap(self._send("/qc"), BTN_GUIDE)
         buttons = self._buttons(replies)
         for t in Panduan.bundled().topics():
             self.assertIn(Panduan.label(t), buttons)
 
     def test_setiap_topik_bisa_dibuka(self):
         self._send("/qc")
-        self._send(BTN_GUIDE)
+        replies = self._tap(self._send("/qc"), BTN_GUIDE)
         for t in Panduan.bundled().topics():
-            replies = self._send(Panduan.label(t))
-            text = "\n".join(r.text for r in replies)
+            replies2 = self._tap(replies, Panduan.label(t))
+            text = "\n".join(r.text for r in replies2)
             self.assertIn(t["judul"], text)
             # isi topik tampil (cek potongan awal isi)
             self.assertIn(t["isi"][:40].strip().split("\n")[0][:20], text)
 
     def test_dari_topik_bisa_pindah_topik_langsung(self):
         self._send("/qc")
-        self._send(BTN_GUIDE)
+        replies = self._tap(self._send("/qc"), BTN_GUIDE)
         topics = Panduan.bundled().topics()
-        self._send(Panduan.label(topics[0]))
-        replies = self._send(Panduan.label(topics[1]))
+        replies = self._tap(replies, Panduan.label(topics[0]))
+        replies = self._tap(replies, Panduan.label(topics[1]))
         text = "\n".join(r.text for r in replies)
         self.assertIn(topics[1]["judul"], text)
 
     def test_tombol_panduan_berlaku_dari_substate_lain(self):
         # dari dalam pencarian per bagian, tombol 📘 tetap bisa dipakai
-        from qm_bantuan.gateway import BTN_BAHAN_BAKU, BTN_BAGIAN_SEARCH
+        from qm_bantuan.gateway import BTN_BAHAN_BAKU
         self._send("/qc")
-        self._send(BTN_BAHAN_BAKU)
-        self._send(BTN_BAGIAN_SEARCH)
-        replies = self._send(BTN_GUIDE)
+        replies = self._tap(self._send("/qc"), BTN_BAHAN_BAKU)
+        replies = self._tap(replies, "🔍 Cari")
+        replies = self._tap(self._send("/qc"), BTN_GUIDE)
         text = "\n".join(r.text for r in replies)
         self.assertIn("Panduan Kerja", text)
 
     def test_kembali_ke_menu_dari_panduan(self):
         self._send("/qc")
-        self._send(BTN_GUIDE)
-        replies = self._send("◀ Kembali")
+        replies = self._tap(self._send("/qc"), BTN_GUIDE)
+        replies = self._tap(replies, "◀ Kembali")
         text = "\n".join(r.text for r in replies)
         self.assertIn("Bantuan QC", text)
 

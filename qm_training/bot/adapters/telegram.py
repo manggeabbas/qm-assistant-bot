@@ -60,7 +60,14 @@ class TelegramBotAdapter:
         payload = {"chat_id": chat_id, "text": message.text}
         if message.markdown:
             payload["parse_mode"] = "Markdown"
-        if message.buttons:
+        if message.inline_buttons:
+            payload["reply_markup"] = {
+                "inline_keyboard": [
+                    [{"text": text, "callback_data": data} for text, data in row]
+                    for row in message.inline_buttons
+                ],
+            }
+        elif message.buttons:
             payload["reply_markup"] = {
                 "keyboard": [[{"text": button}] for button in message.buttons],
                 "resize_keyboard": True,
@@ -197,6 +204,8 @@ class TelegramBotAdapter:
                 text=str(callback.get("data", "")),
                 update_id=update_id,
                 username=callback.get("from", {}).get("username"),
+                is_callback=True,
+                callback_id=str(callback.get("id", "")) or None,
             )
         message = update.get("message", {})
         chat = message.get("chat", {})
@@ -238,7 +247,23 @@ class TelegramBotAdapter:
 
     # -- dispatch ---------------------------------------------------------- #
 
+    def answer_callback(self, callback_id: str) -> None:
+        """Tutup indikator loading pada tombol inline yang di-tap."""
+        try:
+            with self._send_lock:
+                self.session.post(
+                    self._url("answerCallbackQuery"),
+                    json={"callback_query_id": callback_id},
+                    timeout=15,
+                )
+        except Exception:  # noqa: BLE001 - answer gagal tak boleh mematikan bot
+            pass
+
     def _handle_incoming(self, incoming: IncomingMessage) -> None:
+        # Jawab callback dulu agar spinner di tombol langsung hilang,
+        # baru proses isi callback-nya.
+        if incoming.is_callback and incoming.callback_id:
+            self.answer_callback(incoming.callback_id)
         outgoing = run_with_sticker_indicator(
             lambda: self.workflow.handle(incoming),
             send_sticker=lambda: self._send_processing_indicator(incoming.user_id),

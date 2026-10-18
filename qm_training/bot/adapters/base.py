@@ -17,6 +17,9 @@ class IncomingMessage:
     update_id: int | None = None
     # Username Telegram pengirim (opsional; dipakai saat redeem token).
     username: str | None = None
+    # True bila pesan berasal dari tap tombol inline (callback_query).
+    is_callback: bool = False
+    callback_id: str | None = None
 
 
 @dataclass
@@ -26,6 +29,10 @@ class OutgoingMessage:
     documents: list[Path] = field(default_factory=list)
     # True -> kirim dengan parse_mode Markdown (dipakai Form Gulungan).
     markdown: bool = False
+    # Tombol inline: list baris; tiap baris = list pasangan (teks, callback_data).
+    # Bila diisi, dikirim sebagai inline_keyboard (tanpa reply keyboard).
+    # Tap tombol inline TIDAK memposting pesan ke chat (chat tetap bersih).
+    inline_buttons: list[list[tuple[str, str]]] = field(default_factory=list)
 
 
 class TelegramAdapter(Protocol):

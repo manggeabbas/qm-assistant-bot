@@ -1,4 +1,4 @@
-"""Tests untuk qm_bantuan/gateway.py (alur Bantuan QC end-to-end)."""
+"""Tests untuk qm_bantuan/gateway.py (alur Bantuan QC end-to-end, tombol inline)."""
 
 from __future__ import annotations
 
@@ -11,9 +11,6 @@ from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 from qm_bantuan.data import Atlas
 from qm_bantuan.gateway import (
     BTN_BACK,
-    BTN_BAGIAN_LIST,
-    BTN_BAGIAN_QUIZ,
-    BTN_BAGIAN_SEARCH,
     BTN_BAHAN_BAKU,
     BTN_GUIDE,
     BTN_JALUR_UTAMA,
@@ -26,6 +23,22 @@ from qm_bantuan.gateway import (
 
 def msg(user_id: str, text: str, **kw) -> IncomingMessage:
     return IncomingMessage(user_id=user_id, text=text, **kw)
+
+
+def cbs(out_msg: OutgoingMessage) -> list[tuple[str, str]]:
+    """Semua (teks, callback_data) dari inline buttons sebuah pesan."""
+    return [(t, d) for row in (out_msg.inline_buttons or []) for t, d in row]
+
+
+def cb(out_msg: OutgoingMessage, text: str) -> str:
+    for t, d in cbs(out_msg):
+        if t == text:
+            return d
+    raise AssertionError(f"tombol '{text}' tidak ditemukan di {cbs(out_msg)}")
+
+
+def tap(gw: QCGateway, uid: str, out_msg: OutgoingMessage, text: str):
+    return gw.handle(msg(uid, cb(out_msg, text)))
 
 
 class FakeVision:
@@ -44,34 +57,32 @@ class GatewayMenuTest(unittest.TestCase):
     def setUp(self):
         self.gw = QCGateway(atlas=Atlas.bundled())
 
-    def test_qc_menampilkan_menu_bagian(self):
+    def test_qc_menampilkan_menu_bagian_inline(self):
         out = self.gw.handle(msg("1", "/qc"))
         self.assertEqual(len(out), 1)
-        self.assertEqual(
-            out[0].buttons,
-            [BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR,
-             BTN_PHOTO, BTN_GUIDE, BTN_PROSEDUR],
-        )
+        texts = [t for t, _ in cbs(out[0])]
+        for want in (BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR,
+                     BTN_PHOTO, BTN_GUIDE, BTN_PROSEDUR):
+            self.assertIn(want, texts)
         self.assertIn("Bantuan QC", out[0].text)
+        # tidak ada reply keyboard — murni inline
+        self.assertEqual(out[0].buttons, [])
 
     def test_masuk_bagian_menampilkan_submenu(self):
-        self.gw.handle(msg("1", "/qc"))
-        out = self.gw.handle(msg("1", BTN_JALUR_UTAMA))
-        self.assertEqual(
-            out[0].buttons, [BTN_BAGIAN_SEARCH, BTN_BAGIAN_LIST, BTN_BAGIAN_QUIZ, BTN_BACK]
-        )
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_JALUR_UTAMA)
+        texts = [t for t, _ in cbs(out[0])]
+        self.assertEqual(texts, ["🔍 Cari", "📖 Daftar", "🎯 Kuis", BTN_BACK])
         self.assertIn("Jalur Utama", out[0].text)
 
     def test_tombol_kembali_ke_menu(self):
-        self.gw.handle(msg("1", "/qc"))
-        self.gw.handle(msg("1", BTN_JALUR_UTAMA))
-        self.gw.handle(msg("1", BTN_BAGIAN_SEARCH))
-        out = self.gw.handle(msg("1", BTN_BACK))
-        self.assertEqual(
-            out[0].buttons,
-            [BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR,
-             BTN_PHOTO, BTN_GUIDE, BTN_PROSEDUR],
-        )
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_JALUR_UTAMA)
+        out = tap(self.gw, "1", out[0], "🔍 Cari")
+        # tombol kembali di sini mengarah ke submenu bagian
+        out = tap(self.gw, "1", out[0], "◀ 🏭 Jalur Utama")
+        self.assertIn("Jalur Utama", out[0].text)
+        self.assertIn("Mau apa?", out[0].text)
 
     def test_idempotensi_update_duplikat(self):
         m = msg("1", "/qc", update_id=77)
@@ -79,13 +90,17 @@ class GatewayMenuTest(unittest.TestCase):
         out = self.gw.handle(msg("1", "/qc", update_id=77))
         self.assertEqual(out, [])
 
+    def test_callback_tak_dikenal_kembali_ke_menu(self):
+        out = self.gw.handle(msg("1", "qc:ngawur"))
+        self.assertIn("Bantuan QC", out[0].text)
+
 
 class GatewaySearchTest(unittest.TestCase):
     def setUp(self):
         self.gw = QCGateway(atlas=Atlas.bundled())
-        self.gw.handle(msg("1", "/qc"))
-        self.gw.handle(msg("1", BTN_JALUR_UTAMA))
-        self.gw.handle(msg("1", BTN_BAGIAN_SEARCH))
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_JALUR_UTAMA)
+        self.out = tap(self.gw, "1", out[0], "🔍 Cari")
 
     def test_cari_kode_persis_langsung_kartu(self):
         out = self.gw.handle(msg("1", "C11"))
@@ -93,12 +108,13 @@ class GatewaySearchTest(unittest.TestCase):
         self.assertIn("*C11* — Tergores", out[0].text)
         self.assertIn("*L* (Ringan) → *A*", out[0].text)
 
-    def test_cari_kata_kunci_banyak_hasil(self):
+    def test_cari_kata_kunci_banyak_hasil_inline(self):
         out = self.gw.handle(msg("1", "tergores"))
         self.assertIn("Ditemukan", out[0].text)
-        # pilih hasil pertama lewat tombol
-        first_btn = out[0].buttons[0]
-        out2 = self.gw.handle(msg("1", first_btn))
+        # pilih hasil pertama lewat tombol inline
+        first_cb = cbs(out[0])[0][1]
+        self.assertTrue(first_cb.startswith("qc:card:"))
+        out2 = self.gw.handle(msg("1", first_cb))
         self.assertIn("🔍 *", out2[0].text)
 
     def test_cari_tidak_ditemukan_di_bagian(self):
@@ -108,9 +124,9 @@ class GatewaySearchTest(unittest.TestCase):
     def test_cari_terbatas_pada_bagian(self):
         # B22 ada di Jalur Utama (rolling mill); cari di Bahan Baku -> tak ketemu
         gw = QCGateway(atlas=Atlas.bundled())
-        gw.handle(msg("2", "/qc"))
-        gw.handle(msg("2", BTN_BAHAN_BAKU))
-        gw.handle(msg("2", BTN_BAGIAN_SEARCH))
+        out = gw.handle(msg("2", "/qc"))
+        out = tap(gw, "2", out[0], BTN_BAHAN_BAKU)
+        out = tap(gw, "2", out[0], "🔍 Cari")
         out = gw.handle(msg("2", "B22"))
         self.assertIn("Tidak ditemukan", out[0].text)
 
@@ -118,47 +134,45 @@ class GatewaySearchTest(unittest.TestCase):
 class GatewayListTest(unittest.TestCase):
     def setUp(self):
         self.gw = QCGateway(atlas=Atlas.bundled())
-        self.gw.handle(msg("1", "/qc"))
-        self.gw.handle(msg("1", BTN_LUAR_JALUR))
-        self.gw.handle(msg("1", BTN_BAGIAN_LIST))
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_LUAR_JALUR)
+        self.out = tap(self.gw, "1", out[0], "📖 Daftar")
 
     def test_daftar_bagian_menampilkan_halaman(self):
-        self.gw.handle(msg("1", BTN_BACK))  # kembali ke menu utama
-        self.gw.handle(msg("1", BTN_LUAR_JALUR))
-        out = self.gw.handle(msg("1", BTN_BAGIAN_LIST))
-        self.assertIn("Luar Jalur", out[0].text)
-        self.assertIn("hal. 1/", out[0].text)
-        self.assertIn("▶", out[0].buttons)
+        self.assertIn("Luar Jalur", self.out[0].text)
+        self.assertIn("hal. 1/", self.out[0].text)
+        texts = [t for t, _ in cbs(self.out[0])]
+        self.assertIn("▶", texts)
 
     def test_navigasi_halaman(self):
-        out = self.gw.handle(msg("1", "▶"))
+        out = tap(self.gw, "1", self.out[0], "▶")
         self.assertIn("hal. 2/", out[0].text)
-        self.assertIn("◀", out[0].buttons)
+        texts = [t for t, _ in cbs(out[0])]
+        self.assertIn("◀", texts)
 
     def test_pilih_kode_menampilkan_kartu(self):
-        self.gw.handle(msg("1", BTN_BACK))
-        self.gw.handle(msg("1", BTN_LUAR_JALUR))
-        out = self.gw.handle(msg("1", BTN_BAGIAN_LIST))
-        code_btn = out[0].buttons[0]
-        out2 = self.gw.handle(msg("1", code_btn))
+        first_cb = cbs(self.out[0])[0][1]
+        self.assertTrue(first_cb.startswith("qc:card:"))
+        out2 = self.gw.handle(msg("1", first_cb))
         self.assertIn("🔍 *", out2[0].text)
 
     def test_kartu_varian_r19(self):
         gw = QCGateway(atlas=Atlas.bundled())
-        gw.handle(msg("3", "/qc"))
-        gw.handle(msg("3", BTN_BAHAN_BAKU))
-        gw.handle(msg("3", BTN_BAGIAN_SEARCH))
+        out = gw.handle(msg("3", "/qc"))
+        out = tap(gw, "3", out[0], BTN_BAHAN_BAKU)
+        out = tap(gw, "3", out[0], "🔍 Cari")
         out = gw.handle(msg("3", "R19"))
-        self.assertIn("Jenis 1", out[0].text)
-        self.assertIn("Jenis 2", out[0].text)
-        out2 = gw.handle(msg("3", "Jenis 1"))
+        texts = [t for t, _ in cbs(out[0])]
+        self.assertIn("Jenis 1", texts)
+        self.assertIn("Jenis 2", texts)
+        out2 = tap(gw, "3", out[0], "Jenis 1")
         self.assertIn("*L* (Ringan)", out2[0].text)
 
     def test_kartu_tanpa_kriteria(self):
         gw = QCGateway(atlas=Atlas.bundled())
-        gw.handle(msg("4", "/qc"))
-        gw.handle(msg("4", BTN_BAHAN_BAKU))
-        gw.handle(msg("4", BTN_BAGIAN_SEARCH))
+        out = gw.handle(msg("4", "/qc"))
+        out = tap(gw, "4", out[0], BTN_BAHAN_BAKU)
+        out = tap(gw, "4", out[0], "🔍 Cari")
         out = gw.handle(msg("4", "D03"))
         self.assertIn("database belum ada", out[0].text)
 
@@ -166,56 +180,56 @@ class GatewayListTest(unittest.TestCase):
 class GatewayQuizTest(unittest.TestCase):
     def setUp(self):
         self.gw = QCGateway(atlas=Atlas.bundled())
-        self.gw.handle(msg("1", "/qc"))
-        self.gw.handle(msg("1", BTN_BAHAN_BAKU))
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_BAHAN_BAKU)
+        self.out = tap(self.gw, "1", out[0], "🎯 Kuis")
 
     def test_kuis_5_soal_selesai_dengan_skor(self):
-        out = self.gw.handle(msg("1", BTN_BAGIAN_QUIZ))
+        out = self.out
         self.assertIn("Latihan kilat", out[0].text)
         self.assertIn("Bahan Baku", out[0].text)
         self.assertIn("soal 1/5", out[0].text)
-        answered = 0
         for _ in range(5):
-            # jawab asal dengan opsi pertama (benar/salah tak penting)
-            opt = out[0].buttons[0]
-            out = self.gw.handle(msg("1", opt))
-            answered += 1
+            # jawab dengan opsi inline pertama (benar/salah tak penting)
+            first_cb = cbs(out[0])[0][1]
+            self.assertTrue(first_cb.startswith("qc:jawab:"))
+            out = self.gw.handle(msg("1", first_cb))
             if "Skor" in out[-1].text and "Latihan kilat" not in out[-1].text:
                 break
             out = [out[-1]]
         self.assertTrue(any("Skor" in m.text for m in out))
 
     def test_kuis_stop_di_tengah(self):
-        out = self.gw.handle(msg("1", BTN_BAGIAN_QUIZ))
-        out2 = self.gw.handle(msg("1", "⏹ Selesai"))
+        out2 = tap(self.gw, "1", self.out[0], "⏹ Selesai")
         self.assertIn("Latihan", out2[0].text)
 
 
 class GatewayProsedurTest(unittest.TestCase):
     def setUp(self):
         self.gw = QCGateway(atlas=Atlas.bundled())
-        self.gw.handle(msg("1", "/qc"))
+        self.out = self.gw.handle(msg("1", "/qc"))
 
     def test_menu_memuat_tombol_prosedur(self):
-        out = self.gw.handle(msg("1", BTN_PROSEDUR))
+        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
         self.assertIn("Prosedur Kerja", out[0].text)
-        self.assertIn("🔧 Mesin FT", out[0].buttons)
+        texts = [t for t, _ in cbs(out[0])]
+        self.assertIn("🔧 Mesin FT", texts)
 
     def test_grup_menampilkan_topik(self):
-        self.gw.handle(msg("1", BTN_PROSEDUR))
-        out = self.gw.handle(msg("1", "🔧 Mesin FT"))
+        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
+        out = tap(self.gw, "1", out[0], "🔧 Mesin FT")
         self.assertIn("Mesin FT", out[0].text)
-        self.assertTrue(any("Inspeksi" in b for b in out[0].buttons))
+        self.assertTrue(any("Inspeksi" in t for t, _ in cbs(out[0])))
 
     def test_topik_bisa_dibuka_dan_pindah(self):
-        self.gw.handle(msg("1", BTN_PROSEDUR))
-        out = self.gw.handle(msg("1", "🔧 Mesin FT"))
-        first = out[0].buttons[0]
-        out2 = self.gw.handle(msg("1", first))
+        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
+        out = tap(self.gw, "1", out[0], "🔧 Mesin FT")
+        first = cbs(out[0])[0]
+        out2 = self.gw.handle(msg("1", first[1]))
         self.assertIn("TTRI-QM-ZY-34-2025", out2[0].text)
         # pindah ke topik lain langsung
-        second = [b for b in out2[0].buttons if b != first and b != BTN_BACK][0]
-        out3 = self.gw.handle(msg("1", second))
+        others = [d for t, d in cbs(out2[0]) if d != first[1] and "ptopik" in d]
+        out3 = self.gw.handle(msg("1", others[0]))
         self.assertNotEqual(out2[0].text, out3[0].text)
 
 
