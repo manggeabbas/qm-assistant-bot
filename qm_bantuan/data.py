@@ -23,6 +23,18 @@ SECTIONS: list[tuple[str, str]] = [
 ]
 SECTION_NAMES = dict(SECTIONS)
 
+# Pembagian menu per bagian divisi (keputusan user 2026-10-18):
+# Bahan Baku = urutan produksi dari bahan baku (S,F,R,W,D03,D21,D38);
+# Jalur Utama = 1 rangkaian mesin (A,B,C);
+# Luar Jalur = penyelesaian / mesin FT & FJ (D).
+BAGIAN: list[tuple[str, str, list[str]]] = [
+    ("bahan_baku", "📦 Bahan Baku", ["bahan_baku"]),
+    ("jalur_utama", "🏭 Jalur Utama", ["asam_panas", "rolling_mill", "asam_dingin"]),
+    ("luar_jalur", "🔧 Luar Jalur", ["penyelesaian"]),
+]
+BAGIAN_NAMES = {b[0]: b[1] for b in BAGIAN}
+BAGIAN_SECTIONS = {b[0]: b[2] for b in BAGIAN}
+
 # Urutan tingkat keparahan: L -> M -> H -> S (keputusan user, jangan diubah).
 LEVEL_ORDER = ["L", "M", "H", "S"]
 LEVEL_NAMES = {"L": "Ringan", "M": "Sedang", "H": "Parah", "S": "Serius"}
@@ -61,6 +73,21 @@ class Atlas:
     @classmethod
     def bundled(cls) -> "Atlas":
         return cls(ATLAS_PATH)
+
+    @classmethod
+    def _from_entries(cls, entries: list[dict], meta: dict) -> "Atlas":
+        obj = cls.__new__(cls)
+        obj._entries = list(entries)
+        obj._by_code = {_norm_code(e.get("code", "")): e for e in obj._entries}
+        obj.meta = dict(meta)
+        return obj
+
+    def scoped(self, sections: list[str]) -> "Atlas":
+        """Atlas baru yang hanya berisi entri dari seksi-seksi berikut."""
+        wanted = set(sections)
+        return self._from_entries(
+            [e for e in self._entries if e.get("section") in wanted], self.meta
+        )
 
     @property
     def entries(self) -> list[dict]:
@@ -150,7 +177,8 @@ PANDUAN_PATH = DATA_DIR / "panduan.json"
 class Panduan:
     """Bungkus panduan.json: topik panduan kerja (data-driven, tanpa hardcode).
 
-    Skema tiap topik: {"id", "emoji", "judul", "isi" (markdown)}.
+    Skema tiap topik: {"id", "emoji", "judul", "isi" (markdown),
+    opsional "grup" (mis. "🔧 Mesin FT" untuk menu Prosedur Kerja)}.
     Update isi = ganti file panduan.json lalu restart bot.
     """
 
@@ -170,6 +198,18 @@ class Panduan:
 
     def get(self, topic_id: str) -> dict | None:
         return self._by_id.get(str(topic_id or "").strip())
+
+    def groups(self) -> list[str]:
+        """Daftar grup prosedur (mis. '🔧 Mesin FT'), sesuai urutan kemunculan."""
+        seen: list[str] = []
+        for t in self._topics:
+            g = (t.get("grup") or "").strip()
+            if g and g not in seen:
+                seen.append(g)
+        return seen
+
+    def by_group(self, grup: str) -> list[dict]:
+        return [t for t in self._topics if (t.get("grup") or "").strip() == grup]
 
     @staticmethod
     def label(topic: dict) -> str:

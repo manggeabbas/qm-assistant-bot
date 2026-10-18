@@ -28,7 +28,7 @@ class PanduanDataTest(unittest.TestCase):
     def test_json_valid_dan_lengkap(self):
         raw = json.loads((DATA_DIR / "panduan.json").read_text(encoding="utf-8"))
         self.assertIn("topics", raw)
-        self.assertEqual(len(raw["topics"]), 4)
+        self.assertEqual(len(raw["topics"]), 9)
 
     def test_semua_topik_wajib_ada_dan_berisi(self):
         p = Panduan.bundled()
@@ -51,6 +51,23 @@ class PanduanDataTest(unittest.TestCase):
 
     def test_get_unknown_kembali_none(self):
         self.assertIsNone(Panduan.bundled().get("tidak_ada"))
+
+    def test_grup_prosedur_ft(self):
+        p = Panduan.bundled()
+        self.assertEqual(p.groups(), ["🔧 Mesin FT"])
+        ft = p.by_group("🔧 Mesin FT")
+        self.assertEqual(len(ft), 5)
+        ids = [x["id"] for x in ft]
+        for want in ("ft_persiapan", "ft_permukaan", "ft_dimensi", "ft_tepi", "ft_safety"):
+            self.assertIn(want, ids)
+        for x in ft:
+            self.assertIn("TTRI-QM-ZY-34-2025", x["isi"])
+
+    def test_topik_umum_tanpa_grup(self):
+        p = Panduan.bundled()
+        for t in p.topics():
+            if t["id"] in ("grade", "prinsip", "batch", "kode"):
+                self.assertFalse(t.get("grup"))
 
 
 class PanduanGatewayTest(unittest.TestCase):
@@ -100,9 +117,11 @@ class PanduanGatewayTest(unittest.TestCase):
         self.assertIn(topics[1]["judul"], text)
 
     def test_tombol_panduan_berlaku_dari_substate_lain(self):
-        # dari dalam pencarian, tombol 📘 tetap bisa dipakai
+        # dari dalam pencarian per bagian, tombol 📘 tetap bisa dipakai
+        from qm_bantuan.gateway import BTN_BAHAN_BAKU, BTN_BAGIAN_SEARCH
         self._send("/qc")
-        self._send("🔍 Cari cacat")
+        self._send(BTN_BAHAN_BAKU)
+        self._send(BTN_BAGIAN_SEARCH)
         replies = self._send(BTN_GUIDE)
         text = "\n".join(r.text for r in replies)
         self.assertIn("Panduan Kerja", text)

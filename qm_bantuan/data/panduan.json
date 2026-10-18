@@ -23,6 +23,41 @@
    "id": "kode",
    "isi": "Acuan: Prosedur TTRI-QM-ZY-35-2025, pasal 6.2.\n\nFormat:\n`[kode cacat][permukaan][lebar][meter awal][meter akhir][tingkat]`\n\nContoh: *R13TD07900800H*\n• `R13` — kode jenis cacat\n• `T` — permukaan atas (B = bawah, D = kedua sisi)\n• `D` — posisi lebar (L = 1/4 sisi operasi, R = 1/4 sisi drive, C = tengah, B = kedua sisi, A = seluruh lebar)\n• `0790` — cacat mulai 790 m dari kepala strip\n• `0800` — cacat berakhir 800 m\n• `H` — tingkat parah\n\nArtinya: cacat roller parah di permukaan atas, dari meter 790 sampai 800.",
    "judul": "Kode Pencatatan Cacat"
+  },
+  {
+   "id": "ft_persiapan",
+   "emoji": "🦺",
+   "judul": "Persiapan & APD",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 3 & 5 (Sebelum Kerja).\n\n*APD wajib lengkap* selama seluruh operasi:\n```\nSepatu keselamatan, pakaian kerja, sarung tangan pelindung, helm, penyumbat telinga.\n```\nPersonel harus *bersertifikat* (memegang sertifikat kompetensi) — yang tidak bersertifikat dilarang bekerja.\n\n*Periksa peralatan* sebelum mulai:\n```\nPastikan alat ukur lengkap (pita ukur/meteran, mikrometer, mistar) dan dalam kondisi layak pakai.\n```\n*Kalibrasi mikrometer (pengaturan nol):*\n```\n1. Bersihkan kedua permukaan ukur dengan kain lembut.\n2. Putar ratchet hingga kedua permukaan bersentuhan ringan, lanjutkan ±1,5 putaran.\n3. Garis nol selongsong harus sejajar dengan garis lengan ukur.\n```\n*Pembacaan:* tipe LCD/digital baca langsung di layar; tipe mekanik baca skala utama (1 garis kecil = 1 mm / 0,5 mm) + skala nonius (1 garis = 0,001 mm)."
+  },
+  {
+   "id": "ft_permukaan",
+   "emoji": "🔍",
+   "judul": "Inspeksi Permukaan",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan kualitas permukaan).\n\n*Area inspeksi* yang ditentukan:\n```\nLantai cat hijau, garis tepi kuning, bertanda \"QM\" — di kedua sisi lini.\n```\n*Dilarang keras* masuk ke dalam mesin penggulung/pembuka atau area di bawah pita baja, dan dilarang melintas dari bawah pita.\n\n*Cara periksa tiap gulungan:*\n```\n1. Periksa permukaan atas DAN bawah satu per satu.\n2. Tiap gulungan kecil: cek titik merayap ±20 meter di KEPALA, TENGAH, dan EKOR — agar cacat berjarak besar tidak terlewat.\n3. Saat pita berjalan: amati dari jarak 20 cm, DILARANG menyentuh permukaan/tepi pita yang bergerak.\n```\n*Bila menemukan cacat:*\n```\n1. Hentikan mesin, beri tahu produksi, tunggu hingga pita benar-benar berhenti (lampu alarm menyala).\n2. Foto cacat WAJIB memakai penggaris/pita ukur sebagai penanda ukuran.\n3. Catat detail ke \"Catatan Pemeriksaan Kualitas Permukaan Gulungan Baja CRP-YWI\".\n```\n*Cek silang:* periksa catatan inspeksi jalur utama — bila ada catatan cacat besar, minta produksi menghentikan mesin pada posisi meter yang sesuai untuk pemeriksaan khusus (konfirmasi jenis, tingkat, lokasi, panjang)."
+  },
+  {
+   "id": "ft_dimensi",
+   "emoji": "📏",
+   "judul": "Inspeksi Dimensi & Sampel",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan Dimensi).\n\n*Titik pengukuran* (lebar, jarak sambungan, tebal 40–70 mm dari tiap tepi):\n```\n• ±150 meter dari awal gulungan pertama, dan ±200 meter dari akhir gulungan kedua.\n• Pada posisi pemisahan gulungan: lebar + jarak sambungan kedua sisi + tebal di 3 titik (kiri 300–400 mm dari tepi, tengah, kanan 300–400 mm dari tepi).\n• Bila gulungan tidak dibagi: ukur di 3 titik (awal ±150 m, tengah, ujung ±200 m).\n```\n*Aturan pengukuran di jalur:*\n```\n1. Beri tahu produksi untuk HENTIKAN mesin dulu — ukur hanya setelah pita benar-benar berhenti.\n2. DILARANG mengukur/menyentuh pita saat mesin beroperasi; dilarang menutup pagar pengaman.\n3. Pakai sarung tangan; sampel hanya boleh dibawa SATU lembar per kali, letakkan datar di rak (jangan disandarkan miring ke dinding).\n4. Pita ukur harus TEGAK LURUS terhadap pita baja dan horizontal — nilai diambil yang terkecil setelah penyesuaian atas-bawah.\n```"
+  },
+  {
+   "id": "ft_tepi",
+   "emoji": "📦",
+   "judul": "Tepi, Kertas Alas & Pasca-Jalur",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5.\n\n*Pemeriksaan tepi* — waspadai:\n```\nGulungan miring, tonjolan samping, retak tepi, goresan tepi, tepi melengkung, gerinda, potongan tepi tidak baik.\n```\n*Pemeriksaan kertas alas* (kertas pelapis):\n```\nPastikan tidak ada: kekurangan alas, kertas putus, lipatan, atau posisi kertas tidak teratur.\n```\nBila melebihi standar → gulungan *diturunkan kualitasnya dan ditahan*, baru diloloskan setelah diperbaiki dan memenuhi syarat.\n\n*Setelah turun jalur,* periksa: gulungan miring, tonjolan samping, gulungan amblas, tepi terangkat, goresan tepi, potongan tepi tidak baik + kondisi tali pengikat. Yang melebihi standar *tidak boleh dikirim* — ditetapkan untuk diproses ulang.\n\n*Pelabelan & pencatatan:*\n```\n• Selesai dinilai → tempel label tingkat kualitas + verifikasi info gulungan (jenis baja, nomor, spesifikasi).\n• Layak kemas → label \"Packing\", beri tahu petugas pengemasan.\n• Tidak layak (perlu ubah diameter/gulung ulang/potong cacat/periksa ulang) → label \"No Packing\", pindah ke area penyimpanan sementara.\n• Input hasil ke sistem MES dan verifikasi ulang kebenarannya.\n```"
+  },
+  {
+   "id": "ft_safety",
+   "emoji": "🚨",
+   "judul": "Keselamatan & Darurat",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 3, 4 & 6.\n\n*Jarak aman yang wajib diingat:*\n```\n• Forklift yang beroperasi: MENJAUH — jangan dekati saat bongkar/muat pelat (risiko tertimpa).\n• Crane menempatkan gulungan: kerja baru boleh dimulai setelah crane menjauh MINIMAL 5 meter.\n• Mesin penggulung sisa potongan tepi: jaga jarak MINIMAL 2 meter saat pemotongan tepi berjalan.\n```\n*Larangan keras:*\n```\n• Melintas di bawah pita baja yang berjalan.\n• Menyentuh permukaan/tepi pita saat mesin beroperasi.\n• Menutup pagar pengaman atau bersandar padanya.\n• Menyerahkan benda/alat melintasi mesin yang beroperasi.\n• Bekerja sendirian saat pengecekan bentuk (wajib minimal 2 orang).\n```\n*Keadaan darurat:* inspektur *berhak menghentikan pekerjaan atau mengungsi* setelah mengambil tindakan darurat yang memungkinkan dan menghubungi atasan (pasal 3.5).\n\n*5S:* terapkan manajemen 5S sebelum dan sesudah operasi di area kantor dan area inspeksi."
   }
  ]
 }

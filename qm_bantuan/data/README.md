@@ -74,3 +74,27 @@ utak-atik kode**.
 
 Sumber konten: `~/workspace/qm-bantuan-qc/atlas/KRITERIA_GRADE_TABEL1.md`
 dan `KODE_PENCATATAN.md` — jangan mengarang isi di luar dokumen acuan.
+
+## Pembagian menu per bagian (BAGIAN)
+
+Menu Bantuan QC dibagi per bagian divisi (keputusan user 2026-10-18):
+
+| Bagian (tombol) | Seksi atlas |
+|---|---|
+| 📦 Bahan Baku | bahan_baku |
+| 🏭 Jalur Utama | asam_panas, rolling_mill, asam_dingin |
+| 🔧 Luar Jalur | penyelesaian |
+
+Pemetaan ini didefinisikan di `qm_bantuan/data.py` (`BAGIAN`). Cari, daftar,
+dan kuis otomatis terbatas pada bagian yang dipilih. Kartu cacat tetap bisa
+dibuka global via kode.
+
+## Topik prosedur per area (panduan.json)
+
+Topik panduan bisa dikelompokkan per area/mesin dengan field opsional `grup`
+(mis. `"grup": "🔧 Mesin FT"`). Topik bergrup tampil di menu **📋 Prosedur
+Kerja** → pilih area → pilih topik. Topik tanpa `grup` tetap tampil di
+**📘 Panduan Kerja** seperti biasa.
+
+Menambah area baru (mis. Mesin FJ): tambah topik-topik dengan `grup` baru —
+tanpa ubah kode, restart bot saja.

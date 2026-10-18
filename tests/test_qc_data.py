@@ -29,6 +29,35 @@ class AtlasLoadTest(unittest.TestCase):
                            ("asam_dingin", ""), ("penyelesaian", "")]})
 
 
+class BagianTest(unittest.TestCase):
+    def test_bagian_memetakan_semua_seksi(self):
+        from qm_bantuan.data import BAGIAN, BAGIAN_NAMES, BAGIAN_SECTIONS
+        self.assertEqual([b[0] for b in BAGIAN], ["bahan_baku", "jalur_utama", "luar_jalur"])
+        semua = []
+        for bid in BAGIAN_NAMES:
+            semua.extend(BAGIAN_SECTIONS[bid])
+        self.assertEqual(sorted(semua),
+                         sorted(["bahan_baku", "asam_panas", "rolling_mill",
+                                 "asam_dingin", "penyelesaian"]))
+
+    def test_scoped_menyaring_per_bagian(self):
+        from qm_bantuan.data import BAGIAN_SECTIONS
+        atlas = Atlas.bundled()
+        bb = atlas.scoped(BAGIAN_SECTIONS["bahan_baku"])
+        self.assertTrue(0 < len(bb) < len(atlas))
+        self.assertIsNotNone(bb.get("R19"))
+        self.assertIsNone(bb.get("B22"))
+        ju = atlas.scoped(BAGIAN_SECTIONS["jalur_utama"])
+        self.assertIsNotNone(ju.get("B22"))
+        self.assertIsNone(ju.get("D01"))
+        lj = atlas.scoped(BAGIAN_SECTIONS["luar_jalur"])
+        self.assertIsNotNone(lj.get("D01"))
+        self.assertIsNone(lj.get("C11"))
+        # gabungan ketiga bagian = seluruh atlas
+        total = len(bb) + len(ju) + len(lj)
+        self.assertEqual(total, len(atlas))
+
+
 class AtlasLookupTest(unittest.TestCase):
     def setUp(self):
         self.atlas = Atlas.bundled()

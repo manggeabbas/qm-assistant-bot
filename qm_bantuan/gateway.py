@@ -1,16 +1,19 @@
-"""Gateway layanan Bantuan QC: kamus cacat, daftar per tahap, latihan kilat, analisis foto.
+"""Gateway layanan Bantuan QC: kamus cacat, daftar per bagian, latihan kilat, analisis foto.
 
 Satu pintu ``handle(IncomingMessage) -> list[OutgoingMessage]`` dipakai router
 sebagai ``qc_handler`` (pola yang sama dengan ``CoilGateway``). Otorisasi
 ditangani router (user terdaftar, sama seperti layanan lain).
 
 Alur (tombol = reply keyboard teks biasa):
-    /qc -> menu: [🔍 Cari cacat] [📖 Daftar cacat] [🎯 Latihan kilat] [📸 Analisis foto] [📘 Panduan Kerja]
+    /qc -> menu: [📦 Bahan Baku] [🏭 Jalur Utama] [🔧 Luar Jalur]
+                 [📸 Analisis foto] [📘 Panduan Kerja] [📋 Prosedur Kerja]
+    bagian -> submenu: [🔍 Cari] [📖 Daftar] [🎯 Kuis] (terbatas pada bagian itu)
     🔍 -> ketik kata kunci/kode -> kartu (atau daftar pilihan bila banyak)
-    📖 -> pilih tahap -> halaman kode (10/hal.) -> kartu
-    🎯 -> kuis 5 soal acak dari atlas, skor sesi
+    📖 -> halaman kode (10/hal.) -> kartu
+    🎯 -> kuis 5 soal acak dari bagian itu, skor sesi
     📸 -> kirim foto -> analisis Gemini (opini kedua, manusia memutuskan)
     📘 -> pilih topik -> isi panduan kerja (data-driven dari panduan.json)
+    📋 -> pilih area (mis. Mesin FT) -> pilih topik prosedur
 """
 
 from __future__ import annotations
@@ -21,24 +24,36 @@ from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 from qm_training.core.errors import AIProviderError
 
 from qm_bantuan.cards import defect_card, search_line, section_line, variant_summary
-from qm_bantuan.data import SECTIONS, Atlas, Panduan
+from qm_bantuan.data import BAGIAN_NAMES, BAGIAN_SECTIONS, Atlas, Panduan
 from qm_bantuan.quiz import Quiz
 from qm_bantuan.vision import is_transient_error
 
 # -- label tombol -------------------------------------------------------- #
-BTN_SEARCH = "🔍 Cari cacat"
-BTN_LIST = "📖 Daftar cacat"
-BTN_QUIZ = "🎯 Latihan kilat"
+BTN_BAHAN_BAKU = "📦 Bahan Baku"
+BTN_JALUR_UTAMA = "🏭 Jalur Utama"
+BTN_LUAR_JALUR = "🔧 Luar Jalur"
 BTN_PHOTO = "📸 Analisis foto"
 BTN_GUIDE = "📘 Panduan Kerja"
+BTN_PROSEDUR = "📋 Prosedur Kerja"
 BTN_BACK = "◀ Kembali"
 BTN_SEARCH_AGAIN = "🔎 Cari lagi"
-BTN_SECTIONS = "📖 Tahap"
+BTN_BAGIAN = "📑 Bagian"
 BTN_PREV = "◀"
 BTN_NEXT = "▶"
 BTN_QUIZ_STOP = "⏹ Selesai"
+# Submenu per bagian:
+BTN_BAGIAN_SEARCH = "🔍 Cari"
+BTN_BAGIAN_LIST = "📖 Daftar"
+BTN_BAGIAN_QUIZ = "🎯 Kuis"
 
-_MENU_BUTTONS = [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO, BTN_GUIDE]
+_MENU_BUTTONS = [BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR,
+                 BTN_PHOTO, BTN_GUIDE, BTN_PROSEDUR]
+_BAGIAN_BUTTONS = [BTN_BAGIAN_SEARCH, BTN_BAGIAN_LIST, BTN_BAGIAN_QUIZ]
+_BAGIAN_BY_BUTTON = {
+    BTN_BAHAN_BAKU: "bahan_baku",
+    BTN_JALUR_UTAMA: "jalur_utama",
+    BTN_LUAR_JALUR: "luar_jalur",
+}
 _PAGE_SIZE = 10
 _QUIZ_N = 5
 _MIME_BY_SUFFIX = {
@@ -125,8 +140,8 @@ class QCGateway:
         return [
             OutgoingMessage(
                 "🔍 *Bantuan QC*\n\n"
-                "Referensi cepat standar cacat CRP-YWI di lini.\n"
-                "Pilih yang Anda butuhkan:",
+                "Referensi cepat standar cacat & prosedur kerja QC.\n"
+                "Pilih bagian dulu:",
                 buttons=list(_MENU_BUTTONS),
                 markdown=True,
             )
@@ -139,37 +154,8 @@ class QCGateway:
         )
 
     def _enter(self, user_id: str, button: str) -> list[OutgoingMessage]:
-        if button == BTN_SEARCH:
-            self._states[user_id] = {"state": "search"}
-            self._labels[user_id] = {}
-            return [
-                OutgoingMessage(
-                    "🔍 *Cari cacat*\n\n"
-                    "Ketik kata kunci (mis. *tergores*, *gelombang*) "
-                    "atau kode (mis. *C11*):",
-                    buttons=[BTN_BACK],
-                    markdown=True,
-                )
-            ]
-        if button == BTN_LIST:
-            self._states[user_id] = {"state": "list"}
-            labels = {}
-            buttons = []
-            for section, label in SECTIONS:
-                labels[label] = ("section", section)
-                buttons.append(label)
-            self._labels[user_id] = labels
-            return [
-                OutgoingMessage(
-                    "📖 *Daftar cacat*\n\nPilih tahap produksi:",
-                    buttons=buttons + [BTN_BACK],
-                    markdown=True,
-                )
-            ]
-        if button == BTN_QUIZ:
-            quiz = Quiz(self.atlas, n_questions=_QUIZ_N)
-            self._states[user_id] = {"state": "quiz", "quiz": quiz}
-            return self._quiz_next(user_id)
+        if button in _BAGIAN_BY_BUTTON:
+            return self._show_bagian_menu(user_id, _BAGIAN_BY_BUTTON[button])
         if button == BTN_PHOTO:
             self._states[user_id] = {"state": "photo"}
             self._labels[user_id] = {}
@@ -185,42 +171,96 @@ class QCGateway:
             ]
         if button == BTN_GUIDE:
             return self._show_guide_list(user_id)
+        if button == BTN_PROSEDUR:
+            return self._show_prosedur_groups(user_id)
         return self._show_menu(user_id)
+
+    # -- submenu per bagian ----------------------------------------------- #
+    def _bagian_atlas(self, bagian_id: str) -> Atlas:
+        return self.atlas.scoped(BAGIAN_SECTIONS.get(bagian_id, []))
+
+    def _show_bagian_menu(self, user_id: str, bagian_id: str) -> list[OutgoingMessage]:
+        self._states[user_id] = {"state": "bagian", "bagian": bagian_id}
+        labels = {
+            BTN_BAGIAN_SEARCH: ("bagian_search", bagian_id),
+            BTN_BAGIAN_LIST: ("bagian_list", bagian_id),
+            BTN_BAGIAN_QUIZ: ("bagian_quiz", bagian_id),
+        }
+        self._labels[user_id] = labels
+        nama = BAGIAN_NAMES.get(bagian_id, bagian_id)
+        n = len(self._bagian_atlas(bagian_id))
+        return [
+            OutgoingMessage(
+                f"{nama}\n\n"
+                f"{n} kode cacat. Mau apa?",
+                buttons=list(_BAGIAN_BUTTONS) + [BTN_BACK],
+                markdown=True,
+            )
+        ]
+
+    def _enter_search(self, user_id: str, bagian_id: str) -> list[OutgoingMessage]:
+        self._states[user_id] = {"state": "search", "bagian": bagian_id}
+        self._labels[user_id] = {}
+        nama = BAGIAN_NAMES.get(bagian_id, bagian_id)
+        return [
+            OutgoingMessage(
+                f"🔍 *Cari cacat — {nama}*\n\n"
+                "Ketik kata kunci (mis. *tergores*, *gelombang*) "
+                "atau kode (mis. *C11*):",
+                buttons=[BTN_BACK],
+                markdown=True,
+            )
+        ]
 
     # -- aksi tombol (label map) ------------------------------------------ #
     def _handle_action(self, user_id: str, action: tuple) -> list[OutgoingMessage]:
         kind = action[0]
         if kind == "menu":
             return self._enter(user_id, action[1])
+        if kind == "bagian":
+            return self._show_bagian_menu(user_id, action[1])
+        if kind == "bagian_search":
+            return self._enter_search(user_id, action[1])
+        if kind == "bagian_list":
+            return self._show_page(user_id, action[1], 0)
+        if kind == "bagian_quiz":
+            return self._start_quiz(user_id, action[1])
         if kind == "search_again":
-            return self._enter(user_id, BTN_SEARCH)
+            st = self._states.get(user_id, {})
+            return self._enter_search(user_id, st.get("bagian", ""))
         if kind == "card":
             return self._show_card(user_id, action[1])
         if kind == "variant":
             return self._show_variant(user_id, action[1], action[2])
-        if kind == "section":
-            return self._show_page(user_id, action[1], 0)
         if kind == "page":
             st = self._states.get(user_id, {})
-            return self._show_page(user_id, st.get("section", ""), st.get("page", 0) + action[1])
+            return self._show_page(user_id, st.get("bagian", ""), st.get("page", 0) + action[1])
         if kind == "quiz_opt":
             return self._quiz_answer(user_id, action[1])
         if kind == "quiz_stop":
             return self._quiz_finish(user_id)
         if kind == "guide_topic":
             return self._show_guide_topic(user_id, action[1])
+        if kind == "prosedur_group":
+            return self._show_prosedur_topics(user_id, action[1])
+        if kind == "prosedur_topic":
+            return self._show_prosedur_topic(user_id, action[1])
         return self._show_menu(user_id)
 
     # -- pencarian --------------------------------------------------------- #
     def _do_search(self, user_id: str, query: str) -> list[OutgoingMessage]:
+        st = self._states.get(user_id, {})
+        bagian_id = st.get("bagian", "")
         if not query:
-            return self._enter(user_id, BTN_SEARCH)
-        results = self.atlas.search(query, limit=8)
+            return self._enter_search(user_id, bagian_id)
+        atlas = self._bagian_atlas(bagian_id)
+        results = atlas.search(query, limit=8)
         if not results:
             self._labels[user_id] = {"🔎 Cari lagi": ("search_again",)}
             return [
                 OutgoingMessage(
-                    f"Tidak ditemukan cacat untuk *{query}*.\n\n"
+                    f"Tidak ditemukan cacat untuk *{query}* "
+                    f"di {BAGIAN_NAMES.get(bagian_id, '')}.\n\n"
                     "Coba kata kunci lain (mis. *gores*, *korosi*) "
                     "atau kode (mis. *B11*).",
                     buttons=["🔎 Cari lagi", BTN_BACK],
@@ -291,9 +331,17 @@ class QCGateway:
             )
         ]
 
-    # -- daftar per tahap ---------------------------------------------------- #
-    def _show_page(self, user_id: str, section: str, page: int) -> list[OutgoingMessage]:
-        entries = self.atlas.by_section(section)
+    # -- daftar per bagian ---------------------------------------------------- #
+    def _bagian_entries(self, bagian_id: str) -> list[dict]:
+        """Semua entri bagian, urutan atlas dipertahankan."""
+        sections = BAGIAN_SECTIONS.get(bagian_id, [])
+        entries = []
+        for section in sections:
+            entries.extend(self.atlas.by_section(section))
+        return entries
+
+    def _show_page(self, user_id: str, bagian_id: str, page: int) -> list[OutgoingMessage]:
+        entries = self._bagian_entries(bagian_id)
         n_pages = max(1, (len(entries) + _PAGE_SIZE - 1) // _PAGE_SIZE)
         page = max(0, min(page, n_pages - 1))
         chunk = entries[page * _PAGE_SIZE : (page + 1) * _PAGE_SIZE]
@@ -312,14 +360,14 @@ class QCGateway:
         if page < n_pages - 1:
             labels[BTN_NEXT] = ("page", +1)
             nav.append(BTN_NEXT)
-        labels[BTN_SECTIONS] = ("menu", BTN_LIST)
+        labels[BTN_BAGIAN] = ("bagian", bagian_id)
         self._labels[user_id] = labels
-        self._states[user_id] = {"state": "list", "section": section, "page": page}
-        sec_name = dict(SECTIONS).get(section, section)
+        self._states[user_id] = {"state": "list", "bagian": bagian_id, "page": page}
+        nama = BAGIAN_NAMES.get(bagian_id, bagian_id)
         return [
             OutgoingMessage(
-                f"📖 *{sec_name}* — hal. {page + 1}/{n_pages}\n\nPilih kode:",
-                buttons=buttons + nav + [BTN_SECTIONS, BTN_BACK],
+                f"📖 *{nama}* — hal. {page + 1}/{n_pages}\n\nPilih kode:",
+                buttons=buttons + nav + [BTN_BAGIAN, BTN_BACK],
                 markdown=True,
             )
         ]
@@ -368,8 +416,14 @@ class QCGateway:
         ]
 
     # -- kuis ----------------------------------------------------------------- #
+    def _start_quiz(self, user_id: str, bagian_id: str) -> list[OutgoingMessage]:
+        quiz = Quiz(self._bagian_atlas(bagian_id), n_questions=_QUIZ_N)
+        self._states[user_id] = {"state": "quiz", "quiz": quiz, "bagian": bagian_id}
+        return self._quiz_next(user_id)
+
     def _quiz_next(self, user_id: str) -> list[OutgoingMessage]:
-        quiz: Quiz = self._states[user_id]["quiz"]
+        st = self._states.get(user_id, {})
+        quiz: Quiz = st["quiz"]
         q = quiz.next_question()
         if q is None:
             return self._quiz_finish(user_id)
@@ -381,9 +435,10 @@ class QCGateway:
         labels[BTN_QUIZ_STOP] = ("quiz_stop",)
         self._labels[user_id] = labels
         n = quiz.answered + 1
+        nama = BAGIAN_NAMES.get(st.get("bagian", ""), "")
         return [
             OutgoingMessage(
-                f"🎯 *Latihan kilat* — soal {n}/{_QUIZ_N} (skor: {quiz.score})\n\n"
+                f"🎯 *Latihan kilat — {nama}* — soal {n}/{_QUIZ_N} (skor: {quiz.score})\n\n"
                 f"{q['prompt']}",
                 buttons=buttons + [BTN_QUIZ_STOP],
                 markdown=True,
@@ -419,10 +474,72 @@ class QCGateway:
         else:
             text = (
                 f"🎯 Skor {score}/{total}.\n\n"
-                "Coba buka kartu cacatnya lewat 🔍 Cari cacat, "
+                "Coba buka kartu cacatnya lewat 🔍 Cari, "
                 "lalu ulangi latihannya."
             )
         return [OutgoingMessage(text, buttons=list(_MENU_BUTTONS), markdown=True)]
+
+    # -- prosedur kerja ---------------------------------------------------------- #
+    def _show_prosedur_groups(self, user_id: str) -> list[OutgoingMessage]:
+        self._states[user_id] = {"state": "prosedur"}
+        labels: dict[str, tuple] = {}
+        buttons = []
+        for grup in self.panduan.groups():
+            labels[grup] = ("prosedur_group", grup)
+            buttons.append(grup)
+        self._labels[user_id] = labels
+        return [
+            OutgoingMessage(
+                "📋 *Prosedur Kerja*\n\n"
+                "Tata cara inspeksi per area/mesin sesuai SOP.\n\n"
+                "Pilih area:",
+                buttons=buttons + [BTN_BACK],
+                markdown=True,
+            )
+        ]
+
+    def _show_prosedur_topics(self, user_id: str, grup: str) -> list[OutgoingMessage]:
+        topics = self.panduan.by_group(grup)
+        if not topics:
+            return self._show_prosedur_groups(user_id)
+        self._states[user_id] = {"state": "prosedur_topics", "grup": grup}
+        labels: dict[str, tuple] = {}
+        buttons = []
+        for t in topics:
+            label = Panduan.label(t)
+            labels[label] = ("prosedur_topic", t["id"])
+            buttons.append(label)
+        self._labels[user_id] = labels
+        return [
+            OutgoingMessage(
+                f"📋 *Prosedur Kerja — {grup}*\n\nPilih topik:",
+                buttons=buttons + [BTN_BACK],
+                markdown=True,
+            )
+        ]
+
+    def _show_prosedur_topic(self, user_id: str, topic_id: str) -> list[OutgoingMessage]:
+        topic = self.panduan.get(topic_id)
+        if topic is None:
+            return self._show_prosedur_groups(user_id)
+        grup = (topic.get("grup") or "").strip()
+        self._states[user_id] = {"state": "prosedur_topic", "topic": topic_id}
+        # Pertahankan daftar topik grup agar user bisa pindah topik langsung.
+        labels: dict[str, tuple] = {}
+        buttons = []
+        for t in self.panduan.by_group(grup):
+            label = Panduan.label(t)
+            labels[label] = ("prosedur_topic", t["id"])
+            buttons.append(label)
+        self._labels[user_id] = labels
+        title = f"{topic.get('emoji', '📋')} *{topic.get('judul', '')}*"
+        return [
+            OutgoingMessage(
+                f"{title}\n\n{topic.get('isi', '')}",
+                buttons=buttons + [BTN_BACK],
+                markdown=True,
+            )
+        ]
 
     # -- foto ------------------------------------------------------------------ #
     def _handle_photo(self, message: IncomingMessage) -> list[OutgoingMessage]:
