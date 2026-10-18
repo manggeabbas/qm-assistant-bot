@@ -13,8 +13,14 @@ from qm_coil.wizard import (
     handle_text_input,
     start_new_wizard,
 )
+from qm_training.bot.adapters.base import OutgoingMessage
 
 SOURCE_COIL = "QH2608K2531HA10"  # material K -> S30403
+
+
+def _labels(msg: OutgoingMessage) -> list[str]:
+    """Label tombol dari inline_buttons sebuah pesan."""
+    return [t_ for row in (msg.inline_buttons or []) for t_, _ in row]
 
 
 def tap(store, user_id, data):
@@ -163,13 +169,13 @@ class CoilWizardAdapterTest(unittest.TestCase):
     """CoilWizard.handle: mapping label tombol -> callback + OutgoingMessage."""
 
     def test_handle_lewat_label_tombol(self):
-        from qm_training.bot.adapters.base import IncomingMessage
+        from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 
         wizard = CoilWizard(CoilSessionStore())
         out = wizard.handle(IncomingMessage(user_id="7", text="/new"))
         self.assertTrue(out)
         self.assertIn("Silakan pilih mesin", out[0].text)
-        self.assertIn("FT", out[0].buttons)
+        self.assertIn("FT", _labels(out[0]))
 
         # tap via label (seperti reply keyboard Telegram)
         out = wizard.handle(IncomingMessage(user_id="7", text="FT"))
@@ -181,6 +187,50 @@ class CoilWizardAdapterTest(unittest.TestCase):
 
         out = wizard.handle(IncomingMessage(user_id="7", text="Lanjut"))
         self.assertIn("spesifikasi", out[0].text)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+class CoilWizardInlineTest(unittest.TestCase):
+    """Tap tombol inline (callback_data) via CoilWizard.handle."""
+
+    def _handle(self, store, uid, data):
+        from qm_training.bot.adapters.base import IncomingMessage
+        wiz = CoilWizard(store)
+        return wiz.handle(
+            IncomingMessage(user_id=uid, text=data, is_callback=True)
+        )
+
+    def test_tap_mesin_via_callback_data(self):
+        store = CoilSessionStore()
+        uid = "u-inline-1"
+        out = self._handle(store, uid, "action:new_form")
+        self.assertIn("FT", _labels(out[0]))
+        out = self._handle(store, uid, "machine:FT")
+        self.assertIn("Mesin terpilih", out[0].text)
+        self.assertEqual(store.get(uid)["step"], STEPS.INPUT_SOURCE_COIL)
+
+    def test_tap_mesin_basi_ditolak(self):
+        store = CoilSessionStore()
+        uid = "u-inline-2"
+        # mulai & pilih mesin -> step INPUT_SOURCE_COIL
+        self._handle(store, uid, "action:new_form")
+        self._handle(store, uid, "machine:FT")
+        # tap basi machine:FJ dari pesan lama
+        out = self._handle(store, uid, "machine:FJ")
+        self.assertIn("tidak berlaku", out[0].text)
+        # sesi tidak ke-reset
+        self.assertEqual(store.get(uid)["step"], STEPS.INPUT_SOURCE_COIL)
+        self.assertEqual(store.get(uid)["machine"], "FT")
+
+    def test_callback_tak_dikenal_aman(self):
+        store = CoilSessionStore()
+        uid = "u-inline-3"
+        self._handle(store, uid, "action:new_form")
+        out = self._handle(store, uid, "ngawur:xyz")
+        self.assertIn("tidak dikenali", out[0].text)
 
 
 if __name__ == "__main__":

@@ -34,7 +34,6 @@ from qm_coil.menu import (
     MenuKeyboard,
     main_menu_keyboard,
     main_menu_text,
-    to_reply_buttons,
 )
 from qm_coil.registration import (
     begin_registration,
@@ -61,10 +60,15 @@ def _label_map(replies: list) -> dict[str, str]:
 
 
 def _to_outgoing(replies: list) -> list[OutgoingMessage]:
+    """WizardReply/AdminReply/RegistrationReply -> OutgoingMessage.
+
+    ``buttons`` sudah berformat MenuKeyboard = list baris berisi
+    (label, callback_data) — langsung jadi inline_buttons.
+    """
     return [
         OutgoingMessage(
             text=reply.text,
-            buttons=to_reply_buttons(getattr(reply, "buttons", [])),
+            inline_buttons=[list(row) for row in getattr(reply, "buttons", [])],
             markdown=bool(getattr(reply, "markdown", False)),
         )
         for reply in replies
@@ -265,6 +269,12 @@ class CoilGateway:
             self._reg_labels[user_id] = _label_map(replies)
             return _to_outgoing(replies)
 
+        # Tap tombol inline: text sudah berupa callback_data.
+        if message.is_callback and text:
+            replies = handle_registration_callback(user, text, self.conn)
+            self._reg_labels[user_id] = _label_map(replies)
+            return _to_outgoing(replies)
+
         label_map = self._reg_labels.get(user_id, {})
         if text in label_map:
             replies = handle_registration_callback(
@@ -306,6 +316,20 @@ class CoilGateway:
             replies = self.admin.handle_admin_command(user_id)
             self._admin_labels[user_id] = _label_map(replies)
             return _to_outgoing(replies)
+
+        # Tap tombol inline: text sudah berupa callback_data -> routing
+        # langsung tanpa peta label. (Peta label tetap ada di bawah untuk
+        # kompatibilitas keyboard lama.)
+        if message.is_callback and text:
+            if text.startswith("admin:"):
+                replies = self.admin.handle_callback(user_id, text)
+                if replies is not None:
+                    if text == "admin:panel":
+                        self.admin._clear_pending(user_id)
+                    self._admin_labels[user_id] = _label_map(replies)
+                    return _to_outgoing(replies)
+            else:
+                return _to_outgoing(handle_callback(user_id, text, self.sessions))
 
         label_map = self._admin_labels.get(user_id, {})
         if text in label_map:

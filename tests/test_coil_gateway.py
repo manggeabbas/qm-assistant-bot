@@ -10,7 +10,12 @@ from qm_coil.employees import add_or_update_employee
 from qm_coil.invites import create_invite_tokens
 from qm_coil.texts import TEXTS
 from qm_coil.users import USER_STATUS, create_user, get_user_by_telegram_id, update_user
-from qm_training.bot.adapters.base import IncomingMessage
+from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
+
+
+def _labels(msg: OutgoingMessage) -> list[str]:
+    """Label tombol dari inline_buttons sebuah pesan."""
+    return [t_ for row in (msg.inline_buttons or []) for t_, _ in row]
 
 
 def msg(user_id, text, update_id=None, username=None):
@@ -61,7 +66,7 @@ class GatewayAccessTest(unittest.TestCase):
 
         out = self.gw.handle(msg("42", "12345678"))
         self.assertIn("KONFIRMASI DATA", out[0].text)
-        self.assertIn("✅ Benar", out[0].buttons)
+        self.assertIn("✅ Benar", _labels(out[0]))
 
         out = self.gw.handle(msg("42", "✅ Benar"))
         self.assertIn("Registrasi berhasil", out[0].text)
@@ -106,12 +111,12 @@ class GatewayActiveTest(unittest.TestCase):
     def test_new_memulai_wizard(self):
         out = self.gw.handle(msg("42", "/new"))
         self.assertIn("Silakan pilih mesin", out[0].text)
-        self.assertIn("FT", out[0].buttons)
+        self.assertIn("FT", _labels(out[0]))
 
     def test_masuk_coil_tampilkan_menu_utama(self):
         out = self.gw.handle(msg("42", "/coil"))
         self.assertIn("Form Generator", out[0].text)
-        self.assertIn("🚀 Mulai Buat Form", out[0].buttons)
+        self.assertIn("🚀 Mulai Buat Form", _labels(out[0]))
         self.assertTrue(out[0].markdown)
 
     def test_tombol_menu_coil(self):

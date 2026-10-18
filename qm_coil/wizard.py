@@ -784,6 +784,20 @@ def handle_callback(
     if data == "action:cancel":
         return cancel_wizard(user_id, store)
 
+    # Guard tombol basi: tombol inline di pesan lama tetap bisa di-tap.
+    # Pilihan mesin hanya berlaku saat user memang sedang di langkah
+    # pilih mesin; tap basi tidak boleh me-reset progres wizard.
+    if data.startswith("machine:"):
+        step = store.get(user_id).get("step")
+        if step not in (STEPS.SELECT_MACHINE, STEPS.IDLE, None):
+            return [
+                WizardReply(
+                    text="⚠️ Pilihan mesin ini sudah tidak berlaku.\n"
+                    "Sesi Anda tetap berjalan — lanjutkan dari pesan terakhir."
+                )
+            ]
+        return _handle_machine_selection_cb(user_id, data, store)
+
     # Sisanya butuh sesi wizard aktif.
     if not _session_active(store, user_id):
         return [
@@ -792,8 +806,6 @@ def handle_callback(
             )
         ]
 
-    if data.startswith("machine:"):
-        return _handle_machine_selection_cb(user_id, data, store)
     if data == "action:back_to_machine":
         return start_new_wizard(user_id, store, from_callback=True)
     if data == "action:confirm_material":
@@ -960,14 +972,15 @@ class CoilWizard:
     def handle(self, message) -> list:
         from qm_training.bot.adapters.base import OutgoingMessage
 
-        from qm_coil.menu import to_reply_buttons
-
         user_id = message.user_id
         text = (message.text or "").strip()
 
         replies: list[WizardReply]
         callback_map = self._callback_map.get(str(user_id), {})
-        if text in callback_map:
+        if message.is_callback and text:
+            # Tap tombol inline: text sudah berupa callback_data.
+            replies = handle_callback(user_id, text, self.store)
+        elif text in callback_map:
             replies = handle_callback(user_id, callback_map[text], self.store)
         elif text in ("/new", "mulai", "🚀 Mulai Buat Form"):
             replies = start_new_wizard(user_id, self.store)
@@ -983,13 +996,14 @@ class CoilWizard:
         out = []
         merged_map: dict[str, str] = {}
         for reply in replies:
-            buttons = to_reply_buttons(reply.buttons)
             for row in reply.buttons:
                 for label, data in row:
                     merged_map[label] = data
             out.append(
                 OutgoingMessage(
-                    text=reply.text, buttons=buttons, markdown=reply.markdown
+                    text=reply.text,
+                    inline_buttons=[list(row) for row in reply.buttons],
+                    markdown=reply.markdown,
                 )
             )
         if merged_map:

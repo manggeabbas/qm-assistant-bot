@@ -85,7 +85,7 @@ class AssistantRouter:
             self.store.reset(message.user_id)
             return [
                 OutgoingMessage(
-                    "Dibatalkan.", buttons=self._menu_buttons(message.user_id)
+                    "Dibatalkan.", inline_buttons=self._menu_inline_buttons(message.user_id)
                 )
             ]
 
@@ -159,6 +159,13 @@ class AssistantRouter:
             buttons.append(BTN_ADMIN)
         return buttons
 
+    def _menu_inline_buttons(
+        self, user_id: str | None = None
+    ) -> list[list[tuple[str, str]]]:
+        """Tombol inline menu utama. callback_data = label tombol agar
+        ditangkap pengecekan teks yang sudah ada (text == BTN_COIL, ...)."""
+        return [[(label, label)] for label in self._menu_buttons(user_id)]
+
     def _is_coil_owner(self, user_id: str) -> bool:
         """Owner Form Gulungan (pengelola /admin)."""
         owner_ids = getattr(self.coil, "owner_ids", None) or ()
@@ -168,7 +175,7 @@ class AssistantRouter:
         return OutgoingMessage(
             "🤖 QM Assistant\n\n"
             "Pilih layanan yang Anda butuhkan:",
-            buttons=self._menu_buttons(user_id),
+            inline_buttons=self._menu_inline_buttons(user_id),
         )
 
     def _with_home(

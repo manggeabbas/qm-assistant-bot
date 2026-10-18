@@ -44,6 +44,17 @@ BTN_EDIT_Q = "✏️ Edit Pertanyaan"
 BTN_DONE = "✅ Selesai"
 BTN_SKIP = "⏭️ Lewati"
 
+
+def _ib(labels: list[str]) -> list[list[tuple[str, str]]]:
+    """Label tombol -> baris-baris inline keyboard.
+
+    callback_data = label tombolnya sendiri, sehingga pencocokan teks
+    yang sudah ada di workflow (mis. ``text == BTN_CONFIRM``) tetap
+    berlaku untuk tap tombol inline.
+    """
+    return [[(label, label)] for label in labels]
+
+
 _USE_THEME = {BTN_USE_THEME.lower(), "gunakan", "gunakan tema", "1", "ya", "ok"}
 _EDIT_THEME = {BTN_EDIT_THEME.lower(), "edit", "edit tema"}
 _CONFIRM = {BTN_CONFIRM.lower(), "konfirmasi", "ya", "ok", "lanjut"}
@@ -367,7 +378,7 @@ class Workflow:
                 if count < 0:
                     raise ValueError
             except ValueError:
-                return [OutgoingMessage("Masukkan angka jumlah personil, atau tekan ⏭️ Lewati.", buttons=[BTN_SKIP])]
+                return [OutgoingMessage("Masukkan angka jumlah personil, atau tekan ⏭️ Lewati.", inline_buttons=_ib([BTN_SKIP]))]
             session.personnel_count = count
             session.personnel_set = True
         session.state = State.DATA_REVIEW.value
@@ -456,7 +467,7 @@ class Workflow:
             return [
                 OutgoingMessage(
                     "Pilih nomor pertanyaan yang ingin diedit:",
-                    buttons=[f"edit_q:{i}" for i in range(1, 6)],
+                    inline_buttons=_ib([f"edit_q:{i}" for i in range(1, 6)]),
                 )
             ]
         if text.startswith("edit_q:"):
@@ -475,7 +486,7 @@ class Workflow:
             return [
                 OutgoingMessage(
                     f"📷 Foto diterima ({len(session.photos)}). Kirim lagi atau tekan ✅ Selesai.",
-                    buttons=[BTN_DONE],
+                    inline_buttons=_ib([BTN_DONE]),
                 )
             ]
         if text in _CONFIRM:
@@ -573,7 +584,7 @@ class Workflow:
     def _theme_preview(self, session: Session) -> OutgoingMessage:
         return OutgoingMessage(
             f"📚 Tema terdeteksi:\n\n{session.theme}",
-            buttons=[BTN_USE_THEME, BTN_EDIT_THEME],
+            inline_buttons=_ib([BTN_USE_THEME, BTN_EDIT_THEME]),
         )
 
     def _ask_archive(self, session: Session) -> OutgoingMessage:
@@ -592,7 +603,7 @@ class Workflow:
         return OutgoingMessage("👥 Masukkan Shift/Regu:")
 
     def _ask_personnel(self, session: Session) -> OutgoingMessage:
-        return OutgoingMessage("👥 Jumlah Personil Absen? (angka) atau lewati.", buttons=[BTN_SKIP])
+        return OutgoingMessage("👥 Jumlah Personil Absen? (angka) atau lewati.", inline_buttons=_ib([BTN_SKIP]))
 
     def _data_summary(self, session: Session) -> OutgoingMessage:
         personnel = f"{session.personnel_count}人" if session.personnel_count is not None else "—"
@@ -607,12 +618,12 @@ class Workflow:
             f"Shift/Regu : {session.shift_group}",
             f"Personil   : {personnel}",
         ]
-        return OutgoingMessage("\n".join(lines), buttons=[BTN_CONFIRM, BTN_EDIT_DATA])
+        return OutgoingMessage("\n".join(lines), inline_buttons=_ib([BTN_CONFIRM, BTN_EDIT_DATA]))
 
     def _edit_data_menu(self, session: Session) -> OutgoingMessage:
         return OutgoingMessage(
             "✏️ Pilih field yang ingin diedit:",
-            buttons=[f"edit:{field}" for field in _DATA_FIELDS],
+            inline_buttons=_ib([f"edit:{field}" for field in _DATA_FIELDS]),
         )
 
     def _question_preview(self, session: Session) -> OutgoingMessage:
@@ -621,20 +632,20 @@ class Workflow:
         lines = ["📝 Preview Pertanyaan:", ""]
         for index, item in enumerate(session.questions, start=1):
             lines.append(f"{index}. {item['question']}")
-        return OutgoingMessage("\n".join(lines), buttons=[BTN_EDIT_Q, BTN_REGENERATE, BTN_CONFIRM])
+        return OutgoingMessage("\n".join(lines), inline_buttons=_ib([BTN_EDIT_Q, BTN_REGENERATE, BTN_CONFIRM]))
 
     def _question_reminder(self, session: Session) -> OutgoingMessage:
         # Deliberately NOT a "Preview Pertanyaan" message: stray input while
         # waiting for confirmation must not resend the preview.
         return OutgoingMessage(
             "Silakan tekan ✅ Konfirmasi untuk melanjutkan, ✏️ Edit Pertanyaan, atau 🔄 Generate Ulang.",
-            buttons=[BTN_EDIT_Q, BTN_REGENERATE, BTN_CONFIRM],
+            inline_buttons=_ib([BTN_EDIT_Q, BTN_REGENERATE, BTN_CONFIRM]),
         )
 
     def _ask_photos(self, session: Session) -> OutgoingMessage:
         return OutgoingMessage(
             f"📷 Kirim foto dokumentasi (saat ini {len(session.photos)}). Tekan ✅ Selesai bila cukup.",
-            buttons=[BTN_DONE],
+            inline_buttons=_ib([BTN_DONE]),
         )
 
     @staticmethod

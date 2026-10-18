@@ -79,7 +79,10 @@ class TestThemeGate(unittest.TestCase):
             messages = adapter.receive("1", document_path=MATERIAL, update_id=2)
             self.assertEqual(len(messages), 1)
             self.assertIn("Tema terdeteksi", messages[0].text)
-            self.assertEqual(messages[0].buttons, [BTN_USE_THEME, BTN_EDIT_THEME])
+            self.assertEqual(
+                [t_ for row in messages[0].inline_buttons for t_, _ in row],
+                [BTN_USE_THEME, BTN_EDIT_THEME],
+            )
             # Must STOP at theme confirmation.
             self.assertEqual(store.get("1").state, State.WAITING_THEME_CONFIRMATION.value)
             self.assertFalse(store.get("1").theme_confirmed)
