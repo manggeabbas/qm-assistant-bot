@@ -56,17 +56,20 @@ class TelegramBotAdapter:
 
     # -- sending ----------------------------------------------------------- #
 
+    def _inline_markup(self, message: OutgoingMessage) -> dict:
+        return {
+            "inline_keyboard": [
+                [{"text": text, "callback_data": data} for text, data in row]
+                for row in message.inline_buttons
+            ],
+        }
+
     def send_message(self, chat_id: str, message: OutgoingMessage) -> None:
         payload = {"chat_id": chat_id, "text": message.text}
         if message.markdown:
             payload["parse_mode"] = "Markdown"
         if message.inline_buttons:
-            payload["reply_markup"] = {
-                "inline_keyboard": [
-                    [{"text": text, "callback_data": data} for text, data in row]
-                    for row in message.inline_buttons
-                ],
-            }
+            payload["reply_markup"] = self._inline_markup(message)
         elif message.buttons:
             payload["reply_markup"] = {
                 "keyboard": [[{"text": button}] for button in message.buttons],
@@ -206,6 +209,7 @@ class TelegramBotAdapter:
                 username=callback.get("from", {}).get("username"),
                 is_callback=True,
                 callback_id=str(callback.get("id", "")) or None,
+                callback_message_id=(callback.get("message") or {}).get("message_id"),
             )
         message = update.get("message", {})
         chat = message.get("chat", {})
@@ -247,6 +251,29 @@ class TelegramBotAdapter:
 
     # -- dispatch ---------------------------------------------------------- #
 
+    def edit_message(self, chat_id: str, message_id: int, message: OutgoingMessage) -> bool:
+        """Edit teks + tombol inline pesan yang sudah terkirim.
+
+        Mengembalikan True bila Telegram menerima edit; False bila gagal
+        (mis. pesan dihapus user atau isi tidak berubah) — pemanggil
+        sebaiknya fallback mengirim pesan baru.
+        """
+        payload = {
+            "chat_id": chat_id,
+            "message_id": message_id,
+            "text": message.text,
+        }
+        if message.markdown:
+            payload["parse_mode"] = "Markdown"
+        if message.inline_buttons:
+            payload["reply_markup"] = self._inline_markup(message)
+        try:
+            with self._send_lock:
+                resp = self.session.post(self._url("editMessageText"), json=payload, timeout=30)
+            return bool(resp.json().get("ok", False))
+        except Exception:  # noqa: BLE001 - gagal edit tak boleh mematikan bot
+            return False
+
     def answer_callback(self, callback_id: str) -> None:
         """Tutup indikator loading pada tombol inline yang di-tap."""
         try:
@@ -272,7 +299,15 @@ class TelegramBotAdapter:
             min_sticker_display_seconds=self.sticker_min_display,
         )
         for message in outgoing:
-            self.send_message(incoming.user_id, message)
+            if message.edit_message_id:
+                # Edit pesan yang sama (mis. paginasi); bila gagal
+                # (pesan dihapus/tak berubah), kirim sebagai pesan baru.
+                if not self.edit_message(
+                    incoming.user_id, message.edit_message_id, message
+                ):
+                    self.send_message(incoming.user_id, message)
+            else:
+                self.send_message(incoming.user_id, message)
 
     def _notify_error(self, chat_id: str, exc: Exception) -> None:
         try:

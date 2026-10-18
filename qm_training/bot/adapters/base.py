@@ -20,6 +20,9 @@ class IncomingMessage:
     # True bila pesan berasal dari tap tombol inline (callback_query).
     is_callback: bool = False
     callback_id: str | None = None
+    # ID pesan tempat tombol inline di-tap (dari callback_query.message).
+    # Dipakai untuk edit pesan yang sama (mis. paginasi daftar).
+    callback_message_id: int | None = None
 
 
 @dataclass
@@ -33,6 +36,9 @@ class OutgoingMessage:
     # Bila diisi, dikirim sebagai inline_keyboard (tanpa reply keyboard).
     # Tap tombol inline TIDAK memposting pesan ke chat (chat tetap bersih).
     inline_buttons: list[list[tuple[str, str]]] = field(default_factory=list)
+    # Bila diisi: edit pesan dengan ID ini (editMessageText) alih-alih
+    # mengirim pesan baru. Dipakai mis. untuk paginasi daftar.
+    edit_message_id: int | None = None
 
 
 class TelegramAdapter(Protocol):

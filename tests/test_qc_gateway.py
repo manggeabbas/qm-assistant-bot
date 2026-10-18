@@ -299,3 +299,47 @@ class GatewayPhotoTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GatewayPaginationEditTest(unittest.TestCase):
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def _masuk_daftar(self, uid="9"):
+        out = self.gw.handle(msg(uid, "/qc"))
+        out = tap(self.gw, uid, out[0], BTN_LUAR_JALUR)
+        return tap(self.gw, uid, out[0], "📖 Daftar")
+
+    def test_halaman_pertama_pesan_baru(self):
+        out = self._masuk_daftar()
+        self.assertIsNone(out[0].edit_message_id)
+
+    def test_tap_next_mengedit_pesan_yang_sama(self):
+        out = self._masuk_daftar()
+        # simulasikan tap ▶ pada pesan daftar (message_id 555)
+        m = msg("9", "qc:page:+1", is_callback=True, callback_message_id=555)
+        out2 = self.gw.handle(m)
+        self.assertEqual(len(out2), 1)
+        self.assertEqual(out2[0].edit_message_id, 555)
+        self.assertIn("hal. 2/", out2[0].text)
+
+    def test_tap_prev_kembali_mengedit(self):
+        self._masuk_daftar()
+        m = msg("9", "qc:page:+1", is_callback=True, callback_message_id=555)
+        out2 = self.gw.handle(m)
+        m2 = msg("9", "qc:page:-1", is_callback=True, callback_message_id=555)
+        out3 = self.gw.handle(m2)
+        self.assertEqual(out3[0].edit_message_id, 555)
+        self.assertIn("hal. 1/", out3[0].text)
+
+    def test_tap_kode_dari_daftar_tetap_pesan_baru(self):
+        out = self._masuk_daftar()
+        first_cb = cbs(out[0])[0][1]
+        m = msg("9", first_cb, is_callback=True, callback_message_id=555)
+        out2 = self.gw.handle(m)
+        self.assertIsNone(out2[0].edit_message_id)
+        self.assertIn("🔍 *", out2[0].text)
+
+
+if __name__ == "__main__":
+    unittest.main()

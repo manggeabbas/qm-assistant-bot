@@ -6,6 +6,8 @@ ditangani router (user terdaftar, sama seperti layanan lain).
 
 Semua tombol memakai *inline keyboard* (menempel di bawah pesan): tap tombol
 TIDAK memposting pesan ke chat, sehingga riwayat chat tetap bersih.
+Paginasi daftar mengedit pesan yang sama (editMessageText), bukan
+mengirim pesan baru setiap halaman.
 
 Skema callback_data (prefix ``qc:``):
     qc:menu | qc:bag:<bagian_id>
@@ -103,7 +105,7 @@ class QCGateway:
 
         # Tap tombol inline -> callback_data "qc:...".
         if text.startswith("qc:"):
-            return self._handle_callback(user_id, text)
+            return self._handle_callback(user_id, message)
 
         # Tombol 🏠 (inline maupun ketik) selalu kembali ke menu utama.
         if text == BTN_BACK:
@@ -128,11 +130,16 @@ class QCGateway:
         )
 
     # -- callback ---------------------------------------------------------- #
-    def _handle_callback(self, user_id: str, data: str) -> list[OutgoingMessage]:
-        parts = data.split(":")
+    def _handle_callback(
+        self, user_id: str, message: IncomingMessage
+    ) -> list[OutgoingMessage]:
+        parts = (message.text or "").split(":")
         action = parts[1] if len(parts) > 1 else ""
         arg = ":".join(parts[2:]) if len(parts) > 2 else ""
         st = self._states.get(user_id, {})
+        # ID pesan tempat tombol di-tap — dipakai untuk edit pesan yang
+        # sama (paginasi daftar), bukan mengirim pesan baru.
+        edit_id = message.callback_message_id
 
         if action == "menu":
             return self._show_menu(user_id)
@@ -149,7 +156,10 @@ class QCGateway:
                 delta = int(arg)
             except ValueError:
                 delta = 0
-            return self._show_page(user_id, st.get("bagian", ""), st.get("page", 0) + delta)
+            return self._show_page(
+                user_id, st.get("bagian", ""), st.get("page", 0) + delta,
+                edit_id=edit_id,
+            )
         if action == "card":
             return self._show_card(user_id, arg)
         if action == "var":
@@ -328,7 +338,9 @@ class QCGateway:
             entries.extend(self.atlas.by_section(section))
         return entries
 
-    def _show_page(self, user_id: str, bagian_id: str, page: int) -> list[OutgoingMessage]:
+    def _show_page(
+        self, user_id: str, bagian_id: str, page: int, edit_id: int | None = None
+    ) -> list[OutgoingMessage]:
         if bagian_id not in _BAGIAN_BUTTONS:
             return self._show_menu(user_id)
         entries = self._bagian_entries(bagian_id)
@@ -353,6 +365,7 @@ class QCGateway:
                 f"📖 *{nama}* — hal. {page + 1}/{n_pages}\n\nPilih kode:",
                 inline_buttons=rows,
                 markdown=True,
+                edit_message_id=edit_id,
             )
         ]
 

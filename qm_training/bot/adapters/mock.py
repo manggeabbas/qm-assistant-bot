@@ -23,13 +23,17 @@ class MockTelegramAdapter:
         self.sticker_returns_none = sticker_returns_none
         self.sticker_available = sticker_available
         self.sent: list[tuple[str, OutgoingMessage]] = []
+        self.edited: list[tuple[str, int, OutgoingMessage]] = []
         self.stickers_sent: list[tuple[str, int]] = []
         self.stickers_deleted: list[tuple[str, int]] = []
         self.chat_actions: list[tuple[str, str]] = []
         self._next_message_id = 1000
 
     def send_message(self, chat_id: str, message: OutgoingMessage) -> None:
-        self.sent.append((chat_id, message))
+        if message.edit_message_id:
+            self.edited.append((chat_id, message.edit_message_id, message))
+        else:
+            self.sent.append((chat_id, message))
 
     def send_chat_action(self, chat_id: str, action: str = "typing") -> None:
         self.chat_actions.append((chat_id, action))

@@ -110,3 +110,46 @@ class InlineKeyboardTest(unittest.TestCase):
         last = adapter.session.posts[-1]
         self.assertIn("answerCallbackQuery", last["url"])
         self.assertEqual(last["json"]["callback_query_id"], "cb123")
+
+
+class EditMessageTest(unittest.TestCase):
+    def _adapter(self):
+        adapter = TelegramBotAdapter(token="<redacted>", workflow=None)
+        adapter.session = _FakeSession()
+        return adapter
+
+    def test_callback_membawa_message_id(self):
+        adapter = self._adapter()
+        incoming = adapter._to_incoming({
+            "update_id": 6,
+            "callback_query": {
+                "id": "cb1", "from": {"id": 7}, "data": "qc:page:+1",
+                "message": {"message_id": 1234, "chat": {"id": 7}},
+            },
+        })
+        self.assertEqual(incoming.callback_message_id, 1234)
+
+    def test_edit_message_mengirim_editMessageText(self):
+        adapter = self._adapter()
+        ok = adapter.edit_message(
+            "1", 1234,
+            OutgoingMessage("hal. 2", inline_buttons=[[("◀", "qc:page:-1")]]),
+        )
+        self.assertTrue(ok)
+        post = adapter.session.posts[0]
+        self.assertIn("editMessageText", post["url"])
+        self.assertEqual(post["json"]["message_id"], 1234)
+        self.assertEqual(post["json"]["text"], "hal. 2")
+        self.assertIn("inline_keyboard", post["json"]["reply_markup"])
+
+    def test_edit_gagal_mengembalikan_false(self):
+        class FailSession(_FakeSession):
+            def post(self, url, json=None, **kwargs):
+                self.posts.append({"url": url, "json": json})
+                class R:
+                    def json(self):
+                        return {"ok": False, "description": "message is not modified"}
+                return R()
+        adapter = self._adapter()
+        adapter.session = FailSession()
+        self.assertFalse(adapter.edit_message("1", 1234, OutgoingMessage("x")))
