@@ -1,0 +1,17 @@
+[Unit]
+Description=QM Assistant Telegram Bot (Form Gulungan + Form Pelatihan + Bantuan QC)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hatch/workspace/qm-assistant-bot
+EnvironmentFile=/home/hatch/workspace/qm-assistant-bot/systemd/proxy.env
+ExecStart=/home/hatch/workspace/qm-assistant-bot/.venv/bin/python main.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/hatch/workspace/qm-assistant-bot/logs/bot.log
+StandardError=append:/home/hatch/workspace/qm-assistant-bot/logs/bot.log
+
+[Install]
+WantedBy=multi-user.target

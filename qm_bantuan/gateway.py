@@ -5,11 +5,12 @@ sebagai ``qc_handler`` (pola yang sama dengan ``CoilGateway``). Otorisasi
 ditangani router (user terdaftar, sama seperti layanan lain).
 
 Alur (tombol = reply keyboard teks biasa):
-    /qc -> menu: [🔍 Cari cacat] [📖 Daftar cacat] [🎯 Latihan kilat] [📸 Analisis foto]
+    /qc -> menu: [🔍 Cari cacat] [📖 Daftar cacat] [🎯 Latihan kilat] [📸 Analisis foto] [📘 Panduan Kerja]
     🔍 -> ketik kata kunci/kode -> kartu (atau daftar pilihan bila banyak)
     📖 -> pilih tahap -> halaman kode (10/hal.) -> kartu
     🎯 -> kuis 5 soal acak dari atlas, skor sesi
     📸 -> kirim foto -> analisis Gemini (opini kedua, manusia memutuskan)
+    📘 -> pilih topik -> isi panduan kerja (data-driven dari panduan.json)
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 from qm_training.core.errors import AIProviderError
 
 from qm_bantuan.cards import defect_card, search_line, section_line, variant_summary
-from qm_bantuan.data import SECTIONS, Atlas
+from qm_bantuan.data import SECTIONS, Atlas, Panduan
 from qm_bantuan.quiz import Quiz
 
 # -- label tombol -------------------------------------------------------- #
@@ -28,6 +29,7 @@ BTN_SEARCH = "🔍 Cari cacat"
 BTN_LIST = "📖 Daftar cacat"
 BTN_QUIZ = "🎯 Latihan kilat"
 BTN_PHOTO = "📸 Analisis foto"
+BTN_GUIDE = "📘 Panduan Kerja"
 BTN_BACK = "◀ Kembali"
 BTN_SEARCH_AGAIN = "🔎 Cari lagi"
 BTN_SECTIONS = "📖 Tahap"
@@ -35,7 +37,7 @@ BTN_PREV = "◀"
 BTN_NEXT = "▶"
 BTN_QUIZ_STOP = "⏹ Selesai"
 
-_MENU_BUTTONS = [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO]
+_MENU_BUTTONS = [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO, BTN_GUIDE]
 _PAGE_SIZE = 10
 _QUIZ_N = 5
 _MIME_BY_SUFFIX = {
@@ -49,9 +51,10 @@ _MIME_BY_SUFFIX = {
 class QCGateway:
     """Satu pintu masuk alur Bantuan QC untuk router."""
 
-    def __init__(self, atlas: Atlas | None = None, ai_provider=None) -> None:
+    def __init__(self, atlas: Atlas | None = None, ai_provider=None, panduan: Panduan | None = None) -> None:
         self.atlas = atlas or Atlas.bundled()
         self.ai_provider = ai_provider  # butuh .analyze_image(bytes, mime) utk foto
+        self.panduan = panduan or Panduan.bundled()
         self._states: dict[str, dict] = {}
         self._labels: dict[str, dict[str, tuple]] = {}
         self._seen_updates: dict[str, set] = {}
@@ -179,6 +182,8 @@ class QCGateway:
                     markdown=True,
                 )
             ]
+        if button == BTN_GUIDE:
+            return self._show_guide_list(user_id)
         return self._show_menu(user_id)
 
     # -- aksi tombol (label map) ------------------------------------------ #
@@ -201,6 +206,8 @@ class QCGateway:
             return self._quiz_answer(user_id, action[1])
         if kind == "quiz_stop":
             return self._quiz_finish(user_id)
+        if kind == "guide_topic":
+            return self._show_guide_topic(user_id, action[1])
         return self._show_menu(user_id)
 
     # -- pencarian --------------------------------------------------------- #
@@ -312,6 +319,49 @@ class QCGateway:
             OutgoingMessage(
                 f"📖 *{sec_name}* — hal. {page + 1}/{n_pages}\n\nPilih kode:",
                 buttons=buttons + nav + [BTN_SECTIONS, BTN_BACK],
+                markdown=True,
+            )
+        ]
+
+    # -- panduan kerja ------------------------------------------------------------ #
+    def _show_guide_list(self, user_id: str) -> list[OutgoingMessage]:
+        self._states[user_id] = {"state": "guide"}
+        labels: dict[str, tuple] = {}
+        buttons = []
+        for t in self.panduan.topics():
+            label = Panduan.label(t)
+            labels[label] = ("guide_topic", t["id"])
+            buttons.append(label)
+        self._labels[user_id] = labels
+        return [
+            OutgoingMessage(
+                "📘 *Panduan Kerja*\n\n"
+                "Aturan & tata cara kerja divisi QC "
+                "(untuk karyawan baru maupun penyegaran).\n\n"
+                "Pilih topik:",
+                buttons=buttons + [BTN_BACK],
+                markdown=True,
+            )
+        ]
+
+    def _show_guide_topic(self, user_id: str, topic_id: str) -> list[OutgoingMessage]:
+        topic = self.panduan.get(topic_id)
+        if topic is None:
+            return self._show_guide_list(user_id)
+        self._states[user_id] = {"state": "guide_topic", "topic": topic_id}
+        # Pertahankan daftar topik agar user bisa pindah topik langsung.
+        labels: dict[str, tuple] = {}
+        buttons = []
+        for t in self.panduan.topics():
+            label = Panduan.label(t)
+            labels[label] = ("guide_topic", t["id"])
+            buttons.append(label)
+        self._labels[user_id] = labels
+        title = f"{topic.get('emoji', '📘')} *{topic.get('judul', '')}*"
+        return [
+            OutgoingMessage(
+                f"{title}\n\n{topic.get('isi', '')}",
+                buttons=buttons + [BTN_BACK],
                 markdown=True,
             )
         ]

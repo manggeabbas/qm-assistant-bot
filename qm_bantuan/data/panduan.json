@@ -1,0 +1,28 @@
+{
+ "topics": [
+  {
+   "emoji": "📊",
+   "id": "grade",
+   "isi": "Acuan resmi: Prosedur TTRI-QM-ZY-35-2025, Tabel 1.\n\n🟢 *Kualitas A*\n```\nDua permukaan terjamin. Boleh ada cacat ringan (L) di bawah 5%. Rilis normal tanpa amplas.\n```\n🟡 *Kualitas A1*\n```\nSatu permukaan terjamin. Cacat sedang (M) atau parah (H) di bawah 5%, dan hilang/berkurang setelah diamplas.\n```\n🟠 *Kualitas B*\n```\nCacat 5% ke atas, atau cacat (H) yang berdepth/beda warna parah, atau cacat di dua permukaan, dan tidak hilang diamplas.\n```\n🔴 *Kualitas B1*\n```\nAda cacat sangat parah (S), atau lebih dari 3 cacat parah (H) di satu permukaan.\n```\n🔄 *Kualitas C*\n```\nGiling Ulang.\n```\n↩️ *Kualitas R*\n```\nDigulung Ulang, atau bagian cacatnya dipotong.\n```\n✂️ *Kualitas F*\n```\nDiiris samping / FT.\n```\n⛔ *Kualitas S*\n```\nPembuangan: cacat tingkat S (lubang, S04, permukaan terlipat, sisi tergores) atau berat gulungan <3T.\n```",
+   "judul": "Kriteria Kualitas"
+  },
+  {
+   "emoji": "⚖️",
+   "id": "prinsip",
+   "isi": "Acuan: Prosedur TTRI-QM-ZY-35-2025, pasal 5.2.1.\n\n1. *Langsung downgrade.* Bila mutu atau ukuran gulungan tidak memenuhi standar, langsung turunkan grade — tanpa mempertimbangkan apakah proses hilir bisa menghilangkannya.\n2. *Konsisten antar shift.* Bila tingkat dan bentuk cacatnya sama, penilaian shift sebelum dan sesudah harus sama. Dilarang menilai beda antar shift untuk kasus yang sama.",
+   "judul": "Prinsip Penilaian"
+  },
+  {
+   "emoji": "🚨",
+   "id": "batch",
+   "isi": "Acuan: Prosedur TTRI-QM-ZY-35-2025, pasal 5.3.\n\n*Cacat ditemukan saat shift:*\nGulungan pertama langsung lapor ke personel lini untuk konfirmasi. Info detail (lokasi, bentuk, tingkat, siklus muncul) ke supervisor lini. Bila mencapai tingkat downgrade, kirim info + foto ke grup WeChat terkait. Yang belum bisa dipastikan, tahan di area inspeksi.\n\n*🟡 Peringatan kuning:*\n≥16 gulungan *berurutan* dengan cacat sedang (M) yang sama dalam satu shift → mulai gulungan ke-17 di-downgrade + terbitkan Surat Peringatan Kualitas Kuning.\n\n*🔴 Peringatan merah:*\n≥10 berurutan atau ≥12 kumulatif cacat downgrade yang sama (atau ≥15 kumulatif dari proses sebelumnya) → terbitkan Surat Peringatan Kualitas Merah.\n\n*Sebelum ada jawaban atasan:*\nkumulatif ≥12 (atau ≥15 dari proses sebelumnya) → dahulukan downgrade dan minta logistik *menahan pengiriman* sementara.\n\nCatatan: hitungan memakai gulungan kecil hasil belah.",
+   "judul": "Cacat Batch & Peringatan"
+  },
+  {
+   "emoji": "🔢",
+   "id": "kode",
+   "isi": "Acuan: Prosedur TTRI-QM-ZY-35-2025, pasal 6.2.\n\nFormat:\n`[kode cacat][permukaan][lebar][meter awal][meter akhir][tingkat]`\n\nContoh: *R13TD07900800H*\n• `R13` — kode jenis cacat\n• `T` — permukaan atas (B = bawah, D = kedua sisi)\n• `D` — posisi lebar (L = 1/4 sisi operasi, R = 1/4 sisi drive, C = tengah, B = kedua sisi, A = seluruh lebar)\n• `0790` — cacat mulai 790 m dari kepala strip\n• `0800` — cacat berakhir 800 m\n• `H` — tingkat parah\n\nArtinya: cacat roller parah di permukaan atas, dari meter 790 sampai 800.",
+   "judul": "Kode Pencatatan Cacat"
+  }
+ ]
+}

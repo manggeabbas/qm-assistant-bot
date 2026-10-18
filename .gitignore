@@ -19,3 +19,4 @@ storage/
 
 # OS
 .DS_Store
+logs/$

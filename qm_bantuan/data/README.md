@@ -42,3 +42,35 @@ Aturan perilaku bot yang dijaga kode (bukan data):
   dan otomatis menjadi kartu terpisah di bot.
 
 Sumber penyusunan: `~/workspace/qm-bantuan-qc/atlas/` (VERIFIKASI.md dkk).
+
+---
+
+# Cara update Panduan Kerja (panduan.json)
+
+Menu 📘 *Panduan Kerja* juga **data-driven**: daftar topik dibaca dari
+`panduan.json` saat bot start. Mengubah/menambah topik **tidak perlu
+utak-atik kode**.
+
+## Update rutin
+
+1. Edit `panduan.json` (tambah/ubah topik).
+2. Validasi cepat: `.venv/bin/python -c "import json; d=json.load(open('qm_bantuan/data/panduan.json')); print([t['id'] for t in d['topics']])"`
+3. Restart bot.
+
+## Skema topik (jangan diubah strukturnya)
+
+```jsonc
+{
+  "topics": [
+    {
+      "id": "grade",          // id unik, dipakai navigasi tombol
+      "emoji": "📊",           // emoji sub-topik
+      "judul": "Kriteria Grade",
+      "isi": "..."            // markdown Telegram klasik (*tebal*, _miring_, `kode`)
+    }
+  ]
+}
+```
+
+Sumber konten: `~/workspace/qm-bantuan-qc/atlas/KRITERIA_GRADE_TABEL1.md`
+dan `KODE_PENCATATAN.md` — jangan mengarang isi di luar dokumen acuan.

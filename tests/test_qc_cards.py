@@ -37,6 +37,21 @@ class CardTest(unittest.TestCase):
         self.assertIn("database belum ada", card)
         self.assertNotIn("→ *A*", card)
 
+    def test_terjemahan_tampil_dengan_mandarin(self):
+        # B22: kriteria Mandarin sudah diterjemahkan; Mandarin tetap tampil.
+        card = defect_card(self.atlas.get("B22"))
+        self.assertIn("tidak jelas terlihat secara visual", card)
+        self.assertIn("🇨🇳", card)
+        self.assertIn("钢带表面有轧机背衬辊形态的条状缺陷", card)
+        # B23: rule terjemahan + Mandarin.
+        card23 = defect_card(self.atlas.get("B23"))
+        self.assertIn("dilas secara manual", card23)
+        self.assertIn("轧机断带", card23)
+        # A10: catatan terjemahan + Mandarin.
+        card10 = defect_card(self.atlas.get("A10"))
+        self.assertIn("gesekan antara strip dengan strip", card10)
+        self.assertIn("互相摩擦造成", card10)
+
     def test_kartu_aturan_tanpa_tingkat(self):
         # R61: tampilkan aturan + "database belum ada" untuk kriteria.
         card = defect_card(self.atlas.get("R61"))
@@ -62,6 +77,18 @@ class CardTest(unittest.TestCase):
         # C39 punya superseded_note ambang scrap <3T.
         card = defect_card(self.atlas.get("C39"))
         self.assertIn("<3T", card)
+
+    def test_penjelasan_dihighlight_dan_subtopik_beremoji(self):
+        card = defect_card(self.atlas.get("C11"))
+        # sub-topik kriteria
+        self.assertIn("📋", card)
+        # emoji per tingkat
+        self.assertIn("🟢 *L* (Ringan)", card)
+        self.assertIn("🟡 *M* (Sedang)", card)
+        self.assertIn("🟠 *H* (Parah)", card)
+        self.assertIn("🔴 *S* (Serius)", card)
+        # penjelasan di dalam blok highlight (monospace)
+        self.assertIn("```", card)
 
     def test_search_line(self):
         line = search_line(self.atlas.get("C11"))

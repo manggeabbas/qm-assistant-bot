@@ -142,3 +142,35 @@ class Atlas:
     def display_name(entry: dict) -> str:
         """Nama Indonesia; bila kosong pakai Mandarin (jangan karang)."""
         return entry.get("name_id") or entry.get("name_cn") or entry.get("code", "")
+
+
+PANDUAN_PATH = DATA_DIR / "panduan.json"
+
+
+class Panduan:
+    """Bungkus panduan.json: topik panduan kerja (data-driven, tanpa hardcode).
+
+    Skema tiap topik: {"id", "emoji", "judul", "isi" (markdown)}.
+    Update isi = ganti file panduan.json lalu restart bot.
+    """
+
+    def __init__(self, path: str | Path | None = None) -> None:
+        path = Path(path) if path else PANDUAN_PATH
+        with open(path, encoding="utf-8") as fh:
+            raw = json.load(fh)
+        self._topics: list[dict] = list(raw.get("topics", []))
+        self._by_id = {str(t.get("id", "")): t for t in self._topics}
+
+    @classmethod
+    def bundled(cls) -> "Panduan":
+        return cls(PANDUAN_PATH)
+
+    def topics(self) -> list[dict]:
+        return list(self._topics)
+
+    def get(self, topic_id: str) -> dict | None:
+        return self._by_id.get(str(topic_id or "").strip())
+
+    @staticmethod
+    def label(topic: dict) -> str:
+        return f"{topic.get('emoji', '📘')} {topic.get('judul', '')}".strip()

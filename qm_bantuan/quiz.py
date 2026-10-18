@@ -96,7 +96,7 @@ class Quiz:
             self._score += 1
             return True, (
                 f"✅ Benar! {question['code']} tingkat {question['level']} "
-                f"({level_name}) {ARROW} grade {question['grade']}."
+                f"({level_name}) {ARROW} kualitas {question['grade']}."
             )
         return False, (
             f"❌ Kurang tepat. Jawaban yang benar: {question['level']} "
@@ -135,7 +135,7 @@ class Quiz:
             prompt = f'"{title}": {desc}'
             if variant_jenis:
                 prompt += f"\nVarian: {variant_jenis}"
-            prompt += "\n\nTingkat & grade apa yang tepat?"
+            prompt += "\n\nTingkat & kualitas apa yang tepat?"
             return {
                 "code": code,
                 "title": title,

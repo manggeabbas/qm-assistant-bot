@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Watchdog: pastikan hanya satu instance bot FormPelatihan-QM yang berjalan.
+# Watchdog: pastikan hanya satu instance QM Assistant Bot (@qmywibot) yang berjalan.
 # Dipanggil oleh cron tiap 5 menit. Bot sendiri juga punya single-instance
 # lock (output/bot.lock), jadi script ini hanya starter cadangan.
 set -u
-BOT_DIR="/home/hatch/workspace/formpelatihanQM"
+BOT_DIR="/home/hatch/workspace/qm-assistant-bot"
 cd "$BOT_DIR" || exit 1
 mkdir -p logs
 
-if pgrep -f "[f]ormpelatihanQM/.venv/bin/python main[.]py" >/dev/null 2>&1; then
+if pgrep -f "[q]m-assistant-bot/.venv/bin/python main[.]py" >/dev/null 2>&1; then
   exit 0
 fi
 
@@ -17,6 +17,11 @@ for f in logs/bot.log logs/watchdog.log; do
     tail -n 1000 "$f" > "$f.tmp" && mv "$f.tmp" "$f"
   fi
 done
+
+# Muat proxy env (tanpa kredensial) agar bot bisa menjangkau Telegram
+set -a
+. "$BOT_DIR/systemd/proxy.env"
+set +a
 
 echo "$(date -Iseconds) watchdog: bot tidak berjalan, memulai ulang..." >> logs/watchdog.log
 nohup "$BOT_DIR/.venv/bin/python" main.py >> logs/bot.log 2>&1 &

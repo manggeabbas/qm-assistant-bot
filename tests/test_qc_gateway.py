@@ -11,6 +11,7 @@ from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 from qm_bantuan.data import Atlas
 from qm_bantuan.gateway import (
     BTN_BACK,
+    BTN_GUIDE,
     BTN_LIST,
     BTN_PHOTO,
     BTN_QUIZ,
@@ -42,14 +43,18 @@ class GatewayMenuTest(unittest.TestCase):
     def test_qc_menampilkan_menu(self):
         out = self.gw.handle(msg("1", "/qc"))
         self.assertEqual(len(out), 1)
-        self.assertEqual(out[0].buttons, [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO])
+        self.assertEqual(
+            out[0].buttons, [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO, BTN_GUIDE]
+        )
         self.assertIn("Bantuan QC", out[0].text)
 
     def test_tombol_kembali_ke_menu(self):
         self.gw.handle(msg("1", "/qc"))
         self.gw.handle(msg("1", BTN_SEARCH))
         out = self.gw.handle(msg("1", BTN_BACK))
-        self.assertEqual(out[0].buttons, [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO])
+        self.assertEqual(
+            out[0].buttons, [BTN_SEARCH, BTN_LIST, BTN_QUIZ, BTN_PHOTO, BTN_GUIDE]
+        )
 
     def test_idempotensi_update_duplikat(self):
         m = msg("1", "/qc", update_id=77)

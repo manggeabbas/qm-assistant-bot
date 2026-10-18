@@ -42,7 +42,7 @@ class QuizQuestionTest(unittest.TestCase):
         self.assertTrue(q["code"])
         self.assertIn(" — ", q["title"])  # "C11 — Tergores"
         self.assertIn(q["code"], q["title"])
-        self.assertIn("Tingkat & grade apa yang tepat?", q["prompt"])
+        self.assertIn("Tingkat & kualitas apa yang tepat?", q["prompt"])
         self.assertIn(q["level"], ("L", "M", "H", "S"))
         self.assertIn(q["grade"], QUIZ_GRADES)
 

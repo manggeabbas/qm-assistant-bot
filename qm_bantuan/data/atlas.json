@@ -289,9 +289,13 @@
    },
    "name_cn": "热轧运输撞伤",
    "name_id": "Terbentur dari proses pengiriman RSS",
-   "notes": "Tingkat cacat mencapai H(parah) ke atas, harus dilakukan pemotongan. (Catatan: dokumen memuat satu kalimat tambahan hanya dalam Mandarin tanpa terjemahan Indonesia: '热酸入口需提供来料撞伤照片等相关证据，否则记录为当产线撞伤' — perlu konfirmasi.)",
+   "notes": "Tingkat cacat mencapai H (parah) ke atas, harus dilakukan pemotongan. Bagian masuk asam panas wajib menyediakan foto benturan material datang dan bukti terkait lainnya, jika tidak maka dicatat sebagai benturan di lini produksi saat itu.",
    "rule": null,
-   "section": "bahan_baku"
+   "section": "bahan_baku",
+   "notes_cn": "热酸入口需提供来料撞伤照片等相关证据，否则记录为当产线撞伤",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "R05",
@@ -1381,9 +1385,13 @@
    },
    "name_cn": "热酸凿痕",
    "name_id": "Bekas Pahat",
-   "notes": "主要为钢卷跟设备刮擦或钢带与钢带之间互相摩擦造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Terutama disebabkan oleh gesekan antara gulungan dengan peralatan, atau gesekan antara strip dengan strip.",
    "rule": null,
-   "section": "asam_panas"
+   "section": "asam_panas",
+   "notes_cn": "主要为钢卷跟设备刮擦或钢带与钢带之间互相摩擦造成",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "A11",
@@ -2421,27 +2429,35 @@
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视不明显 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A"
+     "desc": "Di permukaan strip terdapat cacat garis berbentuk rol penyangga (backup roll) rolling mill, terjadi di permukaan bawah, tidak jelas terlihat secara visual.",
+     "grade": "A",
+     "desc_cn": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视不明显"
     },
     "M": {
-     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视明显，上表面隐约可见，打磨后可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A1"
+     "desc": "Di permukaan strip terdapat cacat garis berbentuk rol penyangga rolling mill, terjadi di permukaan bawah, jelas terlihat secara visual, samar-samar terlihat di permukaan atas, hilang setelah diamplas.",
+     "grade": "A1",
+     "desc_cn": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视明显，上表面隐约可见，打磨后可消除"
     },
     "H": {
-     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视较明显，打磨后不可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "Di permukaan strip terdapat cacat garis berbentuk rol penyangga rolling mill, terjadi di kedua permukaan, cukup jelas terlihat secara visual, tidak hilang setelah diamplas.",
+     "grade": "B",
+     "desc_cn": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视较明显，打磨后不可消除"
     },
     "S": {
-     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视非常明显，且有轻微手感，打磨后不可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B1"
+     "desc": "Di permukaan strip terdapat cacat garis berbentuk rol penyangga rolling mill, terjadi di kedua permukaan, sangat jelas terlihat secara visual, ada sedikit handfeel, tidak hilang setelah diamplas.",
+     "grade": "B1",
+     "desc_cn": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视非常明显，且有轻微手感，打磨后不可消除"
     }
    },
    "name_cn": "轧机背衬印",
    "name_id": "Tanda Roler Penyangga",
-   "notes": "轧机侧支撑辊后面的背衬辊印转印到工辊再转印到钢带表面所致。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Disebabkan oleh bekas rol penyangga di belakang rol penyangga samping rolling mill yang tercetak ke rol kerja, lalu tercetak ke permukaan strip.",
    "rule": null,
-   "section": "rolling_mill"
+   "section": "rolling_mill",
+   "notes_cn": "轧机侧支撑辊后面的背衬辊印转印到工辊再转印到钢带表面所致",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "B23",
@@ -2451,8 +2467,12 @@
    "name_cn": "轧机焊缝",
    "name_id": "Tanda Las dari Rolling Mill",
    "notes": "",
-   "rule": "轧机断带，手工焊接，到出口后必须切除处理。[hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi]",
-   "section": "rolling_mill"
+   "rule": "Strip putus di rolling mill, dilas secara manual, setelah sampai di bagian keluar (exit) harus dipotong dan dibuang.",
+   "section": "rolling_mill",
+   "rule_cn": "轧机断带，手工焊接，到出口后必须切除处理",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "B24",
@@ -2805,27 +2825,35 @@
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "钢卷表面淡淡的黄色色差印呈点状或线状分布 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A"
+     "desc": "Di permukaan gulungan terdapat bekas perbedaan warna kuning samar, tersebar berbentuk titik-titik atau garis.",
+     "grade": "A",
+     "desc_cn": "钢卷表面淡淡的黄色色差印呈点状或线状分布"
     },
     "M": {
-     "desc": "钢卷表面淡黄色色差印，目视较明显 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A1"
+     "desc": "Di permukaan gulungan terdapat bekas perbedaan warna kuning muda, cukup jelas terlihat secara visual.",
+     "grade": "A1",
+     "desc_cn": "钢卷表面淡黄色色差印，目视较明显"
     },
     "H": {
-     "desc": "钢卷表面黄色，白色或黑色色差印，呈块状分布，目视明显 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "Di permukaan gulungan terdapat bekas perbedaan warna kuning, putih, atau hitam, tersebar berbentuk blok, jelas terlihat secara visual.",
+     "grade": "B",
+     "desc_cn": "钢卷表面黄色，白色或黑色色差印，呈块状分布，目视明显"
     },
     "S": {
-     "desc": "钢卷表面深黄色，白色或黑色色差印，目视明显，呈块状或整面发生。 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B1"
+     "desc": "Di permukaan gulungan terdapat bekas perbedaan warna kuning tua, putih, atau hitam, jelas terlihat secara visual, terjadi berbentuk blok atau di seluruh permukaan.",
+     "grade": "B1",
+     "desc_cn": "钢卷表面深黄色，白色或黑色色差印，目视明显，呈块状或整面发生"
     }
    },
    "name_cn": "酸液残留",
    "name_id": "Bekas Cairan Asid",
-   "notes": "产线停机后火或急降速造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Disebabkan oleh api (burner) setelah lini berhenti atau penurunan kecepatan secara darurat.",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "notes_cn": "产线停机后火或急降速造成",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "C17",
@@ -2872,27 +2900,34 @@
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A"
+     "desc": "Terlihat jelas, berbentuk seperti lubang jarum atau goresan pendek, tanpa kedalaman, tanpa handfeel, hilang setelah diamplas 20 kali dengan amplas 800.",
+     "grade": "A",
+     "desc_cn": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除"
     },
     "M": {
-     "desc": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A1"
+     "desc": "Terlihat jelas, berbentuk seperti lubang jarum atau goresan pendek, cekungan berwarna putih atau putih muda, kedalaman dangkal, tanpa handfeel, hilang setelah diamplas bolak-balik 30 kali dengan amplas 800.",
+     "grade": "A1",
+     "desc_cn": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除"
     },
     "H": {
-     "desc": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "1mm＜d≤2mm, terlihat jelas, cekungan titik berwarna kehitaman atau abu-abu, ada sedikit handfeel, tidak hilang setelah diamplas bolak-balik 50 kali dengan amplas 600.",
+     "grade": "B",
+     "desc_cn": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除"
     },
     "S": {
-     "desc": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "d＞2mm, terlihat sangat jelas, cekungan titik berwarna kehitaman atau abu-abu gelap, ada handfeel dan kedalaman yang jelas, sudah tercetak ke permukaan atas, tidak perlu diamplas, langsung ditentukan turun grade.",
+     "grade": "B",
+     "desc_cn": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级"
     }
    },
    "name_cn": "针尖压入",
    "name_id": "Penekanan Berbentuk Jarum",
    "notes": "",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "C20",
@@ -3146,9 +3181,13 @@
    },
    "name_cn": "挤干辊印",
    "name_id": "Tanda Roler Pemerasan",
-   "notes": "多为挤干辊损伤后留下坑洞造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Sebagian besar disebabkan oleh cekungan/lubang yang tertinggal setelah rol pemerasan rusak.",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "notes_cn": "多为挤干辊损伤后留下坑洞造成",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "C30",
@@ -3230,9 +3269,13 @@
    },
    "name_cn": "防皱辊印",
    "name_id": "Tanda Roler Pencegah Kerutan",
-   "notes": "多为防皱辊损伤后留下坑洞造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Sebagian besar disebabkan oleh cekungan/lubang yang tertinggal setelah rol pencegah kerutan rusak.",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "notes_cn": "多为防皱辊损伤后留下坑洞造成",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "C33",
@@ -3292,27 +3335,34 @@
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "缺陷直径＜5mm且为下表面发生，上表面无转印 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A"
+     "desc": "Diameter cacat ＜5mm dan terjadi di permukaan bawah, tidak tercetak ke permukaan atas.",
+     "grade": "A",
+     "desc_cn": "缺陷直径＜5mm且为下表面发生，上表面无转印"
     },
     "M": {
-     "desc": "5mm≤d＜10mm，用800目砂纸打磨可抛除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A1"
+     "desc": "5mm≤d＜10mm, hilang setelah dipoles dengan amplas 800 mesh.",
+     "grade": "A1",
+     "desc_cn": "5mm≤d＜10mm用800目砂纸打磨可抛除"
     },
     "H": {
-     "desc": "10mm≤d＜15mm，用800目砂纸打磨不可抛除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "10mm≤d＜15mm, tidak hilang setelah dipoles dengan amplas 800 mesh.",
+     "grade": "B",
+     "desc_cn": "10mm≤d＜15mm用800目砂纸打磨不可抛除"
     },
     "S": {
-     "desc": "d＞15mm，用800目砂纸打磨不可抛除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B1"
+     "desc": "d＞15mm, tidak hilang setelah dipoles dengan amplas 800 mesh.",
+     "grade": "B1",
+     "desc_cn": "d＞15mm，用800目砂纸打磨不可抛除"
     }
    },
    "name_cn": "虫印",
    "name_id": "Tanda Serangga",
    "notes": "Apabila hanya ada pada satu permukaan saja maka dapat dirilis.",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "C36",
@@ -3936,9 +3986,13 @@
    },
    "name_cn": "衬纸折印",
    "name_id": "Tanda Kertas",
-   "notes": "钢卷在卷取过程中，衬纸折叠，转印到钢带上形成折印。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "notes": "Selama proses penggulungan, kertas pelapis terlipat lalu tercetak ke strip membentuk bekas lipatan.",
    "rule": null,
-   "section": "penyelesaian"
+   "section": "penyelesaian",
+   "notes_cn": "钢卷在卷取过程中，衬纸折叠，转印到钢带上形成折印",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "D09",
@@ -4035,27 +4089,34 @@
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A"
+     "desc": "Terlihat jelas, berbentuk seperti lubang jarum atau goresan pendek, tanpa kedalaman, tanpa handfeel, hilang setelah diamplas 20 kali dengan amplas 800.",
+     "grade": "A",
+     "desc_cn": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除"
     },
     "M": {
-     "desc": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "A1"
+     "desc": "Terlihat jelas, berbentuk seperti lubang jarum atau goresan pendek, cekungan berwarna putih atau putih muda, kedalaman dangkal, tanpa handfeel, hilang setelah diamplas bolak-balik 30 kali dengan amplas 800.",
+     "grade": "A1",
+     "desc_cn": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除"
     },
     "H": {
-     "desc": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "1mm＜d≤2mm, terlihat jelas, cekungan titik berwarna kehitaman atau abu-abu, ada sedikit handfeel, tidak hilang setelah diamplas bolak-balik 50 kali dengan amplas 600.",
+     "grade": "B",
+     "desc_cn": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除"
     },
     "S": {
-     "desc": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级 [hanya tersedia dalam Mandarin di dokumen]",
-     "grade": "B"
+     "desc": "d＞2mm, terlihat sangat jelas, cekungan titik berwarna kehitaman atau abu-abu gelap, ada handfeel dan kedalaman yang jelas, sudah tercetak ke permukaan atas, tidak perlu diamplas, langsung ditentukan turun grade.",
+     "grade": "B",
+     "desc_cn": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级"
     }
    },
    "name_cn": "附着物印痕",
    "name_id": "Tanda Tertekan",
    "notes": "",
    "rule": null,
-   "section": "penyelesaian"
+   "section": "penyelesaian",
+   "flags": [
+    "Diterjemahkan ke Indonesia oleh Ember (2026-10-18) dari teks Mandarin — PERLU VERIFIKASI user."
+   ]
   },
   {
    "code": "D15",

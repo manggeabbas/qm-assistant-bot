@@ -16,10 +16,19 @@ from qm_bantuan.data import (
 )
 
 _GRADE_LEGEND = (
-    "Grade: A/A1/B/B1 = lolos bertingkat · "
+    "Kualitas: A/A1/B/B1 = lolos bertingkat · "
     "C = Giling Ulang · R = Digulung Ulang · "
     "F = Diiris Samping · S = Pembuangan"
 )
+
+# Emoji sub-topik: warna mengikuti keparahan tingkat.
+_LEVEL_EMOJI = {"L": "🟢", "M": "🟡", "H": "🟠", "S": "🔴"}
+
+
+def _pre(text: str) -> str:
+    """Blok monospace = highlight penjelasan (aman dari backtick di teks)."""
+    clean = text.replace("```", "").replace("`", "")
+    return f"```\n{clean}\n```"
 
 
 def grade_label(grade: str) -> str:
@@ -39,18 +48,30 @@ def _header(entry: dict, variant: dict | None = None) -> str:
     return f"{title}\n{sub}" if sub else title
 
 
-def _handling_notes(entry: dict) -> str:
+def _cn_line(cn_text: str | None) -> str:
+    """Baris Mandarin pendamping (tetap ditampilkan di samping terjemahan)."""
+    cn = (cn_text or "").strip()
+    return f"🇨🇳 _{cn}_" if cn else ""
+
+
+def _handling_block(entry: dict) -> str:
+    """Blok penanganan di bawah sub-topik 📏 (tanpa mengulang rule)."""
     parts = []
     rule = (entry.get("rule") or "").strip()
     if rule:
-        parts.append(f"📏 Aturan: {rule}")
+        parts.append(f"• Aturan: {rule}")
     notes = (entry.get("notes") or "").strip()
     if notes:
         parts.append(f"📌 Catatan: {notes}")
+        cn = _cn_line(entry.get("notes_cn"))
+        if cn:
+            parts.append(cn)
     sup = (entry.get("superseded_note") or "").strip()
     if sup:
         parts.append(f"⚠️ {sup}")
-    return "\n".join(parts)
+    if not parts:
+        return ""
+    return "📏 *Penanganan:*\n" + "\n".join(parts)
 
 
 def defect_card(entry: dict, variant: dict | None = None) -> str:
@@ -58,44 +79,52 @@ def defect_card(entry: dict, variant: dict | None = None) -> str:
     lines = [_header(entry, variant), ""]
 
     if Atlas.has_criteria(entry, variant):
+        lines.append("📋 *Kriteria tingkat:*")
         for lv in Atlas.ordered_levels(entry, variant):
             lvl = Atlas.levels_of(entry, variant)[lv]
             desc = (lvl.get("desc") or "").strip()
             grade = (lvl.get("grade") or "").strip()
-            lines.append(f"*{lv}* ({LEVEL_NAMES[lv]}) → *{grade_label(grade)}*")
+            emoji = _LEVEL_EMOJI.get(lv, "•")
+            lines.append(f"{emoji} *{lv}* ({LEVEL_NAMES[lv]}) → *{grade_label(grade)}*")
             if desc:
-                lines.append(f"  {desc}")
+                lines.append(_pre(desc))
+                cn = _cn_line(lvl.get("desc_cn"))
+                if cn:
+                    lines.append(cn)
         lines.append("")
-        lines.append(_GRADE_LEGEND)
+        lines.append(f"ℹ️ {_GRADE_LEGEND}")
+        handling = _handling_block(entry)
+        if handling:
+            lines.append("")
+            lines.append(handling)
     else:
         # Tanpa kriteria: pengertian saja + "database belum ada" (jangan karang).
-        if Atlas.has_rule(entry):
-            lines.append(f"📏 Aturan: {(entry.get('rule') or '').strip()}")
+        rule = (entry.get("rule") or "").strip()
+        notes = (entry.get("notes") or "").strip()
+        sup = (entry.get("superseded_note") or "").strip()
+        if rule or notes or sup:
+            lines.append("📏 *Penanganan:*")
+            if rule:
+                lines.append(_pre(rule))
+                cn = _cn_line(entry.get("rule_cn"))
+                if cn:
+                    lines.append(cn)
+            if notes:
+                lines.append(f"📌 Catatan: {notes}")
+                cn = _cn_line(entry.get("notes_cn"))
+                if cn:
+                    lines.append(cn)
+            if sup:
+                lines.append(f"⚠️ {sup}")
             lines.append("")
         lines.append("ℹ️ Kriteria tingkat: *database belum ada*.")
-
-    notes = _handling_notes(entry)
-    # _handling_notes sudah mencakup rule; hindari duplikasi untuk kasus berkriteria.
-    if Atlas.has_criteria(entry, variant):
-        if notes:
-            lines.append("")
-            lines.append(notes)
-    elif Atlas.has_rule(entry):
-        extra = "\n".join(
-            p
-            for p in notes.split("\n")
-            if not p.startswith("📏 Aturan:")
-        )
-        if extra:
-            lines.append("")
-            lines.append(extra)
 
     return "\n".join(lines).strip()
 
 
 def variant_summary(entry: dict) -> str:
     """Ringkasan varian Jenis (satu baris per varian: tingkat → grade)."""
-    lines = [_header(entry), ""]
+    lines = [_header(entry), "", "📑 *Varian jenis:*"]
     for i, v in enumerate(Atlas.variants(entry)):
         pairs = ", ".join(
             f"{lv}→{Atlas.levels_of(entry, v)[lv].get('grade', '?')}"
@@ -103,7 +132,7 @@ def variant_summary(entry: dict) -> str:
         )
         lines.append(f"{i + 1}. {v.get('jenis') or f'Jenis {i + 1}'}: {pairs or '—'}")
     lines.append("")
-    lines.append("Pilih jenis untuk melihat kriteria lengkap.")
+    lines.append("👉 Pilih jenis untuk melihat kriteria lengkap.")
     return "\n".join(lines).strip()
 
 
