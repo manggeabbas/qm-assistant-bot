@@ -1,4 +1,4 @@
-"""Router /start QM Assistant: 1 bot, 1 token, 2 alur.
+"""Router /start QM Assistant: 1 bot, 1 token, 3 alur.
 
 Alur pesan:
 
@@ -14,6 +14,11 @@ Alur pesan:
            Otorisasi milik Form Gulungan sendiri (SQLite): owner selalu
            lolos, user NEW redeem token undangan, REGISTRATION
            menyelesaikan NIK, BLOCKED ditolak. Dikelola via /admin.
+    pilih "🔍 Bantuan QC"
+        -> mode=qc, pesan sintetis "/qc" diteruskan ke QCGateway
+           (qm_bantuan/gateway.py): kamus cacat, daftar per tahap,
+           latihan kilat, analisis foto. Otorisasi sama seperti
+           Form Pelatihan (user terdaftar).
     /cancel atau /batal (mode apa pun)
         -> kembali ke menu
     tombol "🏠 Menu Utama" (mode/layanan apa pun)
@@ -31,12 +36,14 @@ from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 from qm_assistant.session import (
     MODE_COIL,
     MODE_MENU,
+    MODE_QC,
     MODE_TRAINING,
     AssistantSessionStore,
 )
 
 BTN_COIL = "📋 Form Gulungan"
 BTN_TRAINING = "📚 Form Pelatihan"
+BTN_QC = "🔍 Bantuan QC"
 BTN_ADMIN = "🛠 Admin"
 BTN_HOME = "🏠 Menu Utama"
 
@@ -50,12 +57,16 @@ class AssistantRouter:
 
     ``training_workflow`` adalah instance ``qm_training.bot.workflow.Workflow``
     (dibangun oleh ``qm_training.app.build_workflow``). ``coil_handler``
-    adalah ``qm_assistant.coil_gateway.CoilGateway``.
+    adalah ``qm_assistant.coil_gateway.CoilGateway``. ``qc_handler`` adalah
+    ``qm_bantuan.gateway.QCGateway`` (boleh None -> layanan dinonaktifkan).
     """
 
-    def __init__(self, training_workflow, coil_handler, store: AssistantSessionStore | None = None) -> None:
+    def __init__(
+        self, training_workflow, coil_handler, qc_handler=None, store: AssistantSessionStore | None = None
+    ) -> None:
         self.training = training_workflow
         self.coil = coil_handler
+        self.qc = qc_handler
         self.store = store or AssistantSessionStore()
 
     # -- entrypoint (dipakai TelegramBotAdapter sebagai .handle) ------------- #
@@ -110,6 +121,16 @@ class AssistantRouter:
             # oleh user NEW dan dijawab "Token tidak valid".)
             return self._with_home(self.coil.handle(replace(message, text="/coil")))
 
+        # Pindah ke Bantuan QC: otorisasi sama seperti Form Pelatihan
+        # (user terdaftar). Gateway menerima "/qc" sintetis.
+        if text == BTN_QC:
+            if not self._authorized(message.user_id):
+                return [self._denied_message(message.user_id)]
+            self.store.set_mode(message.user_id, MODE_QC)
+            if self.qc is None:
+                return [OutgoingMessage("Layanan Bantuan QC belum aktif.")]
+            return self._with_home(self.qc.handle(replace(message, text="/qc")))
+
         mode = self.store.get_mode(message.user_id)
 
         if mode == MODE_MENU:
@@ -120,13 +141,20 @@ class AssistantRouter:
                 return [self._denied_message(message.user_id)]
             return self._with_home(self.training.handle(message))
 
+        if mode == MODE_QC:
+            if not self._authorized(message.user_id):
+                return [self._denied_message(message.user_id)]
+            if self.qc is None:
+                return [OutgoingMessage("Layanan Bantuan QC belum aktif.")]
+            return self._with_home(self.qc.handle(message))
+
         # mode == MODE_COIL: otorisasi milik gateway (invite/registrasi/DB).
         return self._with_home(self.coil.handle(message))
 
     # -- helpers ------------------------------------------------------------ #
 
     def _menu_buttons(self, user_id: str | None = None) -> list[str]:
-        buttons = [BTN_COIL, BTN_TRAINING]
+        buttons = [BTN_COIL, BTN_TRAINING, BTN_QC]
         if user_id is not None and self._is_coil_owner(user_id):
             buttons.append(BTN_ADMIN)
         return buttons

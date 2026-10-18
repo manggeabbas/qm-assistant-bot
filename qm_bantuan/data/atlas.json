@@ -1,0 +1,4310 @@
+{
+ "defects": [
+  {
+   "code": "S01-1",
+   "has_image": false,
+   "jenis": "Jenis 1: Baja Stomata",
+   "levels": {
+    "M": {
+     "desc": "Jejak berbentuk garis berwarna abu-abu atau putih, tampak jelas pada sudut tertentu; panjang cacat >10 mm, lebar <3 mm, dengan frekuensi ≤2–3 titik per 10 meter.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Jejak berbentuk garis berwarna abu-abu atau putih, tampak jelas dari berbagai sudut; panjang cacat >10 mm, lebar <3 mm, dengan frekuensi ≤4–5 titik per 10 meter.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Jejak berbentuk garis berwarna abu-abu atau putih, tampak jelas dari berbagai sudut; panjang cacat >10 mm, lebar <3 mm, dengan frekuensi >5 titik per 10 meter.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "炼钢气孔",
+   "name_id": "Jenis 1 : Baja Stomata",
+   "notes": "Kebanyakan terjadi di seluruh permukaan",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S01-2",
+   "has_image": false,
+   "jenis": "Jenis 2: Pengelupasan Tipe Garis Hujan",
+   "levels": {
+    "M": {
+     "desc": "Jejak berbentuk garis putih, panjang cacat >20 mm, terjadi secara sporadis di permukaan atas dan bawah, tampak jelas secara visual, dengan frekuensi ≤2–3 titik per 10 meter.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Jejak garis putih, panjang cacat >20 mm, muncul cukup padat di bagian atas dan bawah, terlihat jelas secara visual, dengan frekuensi <4–5 titik per 10 meter, dan tidak dapat dihilangkan dengan pengamplasan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Jejak garis putih, panjang cacat >20 mm, muncul padat di bagian atas dan bawah, terlihat jelas secara visual, dengan frekuensi >5 titik per 10 meter, dan tidak dapat dihilangkan dengan pengamplasan.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "雨丝状剥片",
+   "name_id": "Jenis 2: Pengelupasan Tipe Garis Hujan",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S03",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Jejak linier putih atau putih pudar, berkarat, tidak terasa jika di sentuh, panjang cacat ≤2M, lebar ＜1CM, satu gulungan diperbolehkan 12 kejadian",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Jejak linier hitam, terlihat jelas, mengandung karat, panjang cacat ≤5M, lebar ≤2CM, satu gulungan diperbolehkan ada 5 kejadian",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda strip hitam, terlihat jelas, mengandung karat, panjang cacat ≤15M, lebar ≤3CM, satu gulungan di perbolehkan 2 kejadian",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Jejak garis hitam terlihat jelas, beberapa bagian sudah mengelupas atau bolong, bahkan sudah tembus jadi lubang. Panjang cacat ＞15M, lebar ＞3CM.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "黑带",
+   "name_id": "Garis Hitam",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Ada bekas beda warna, pada sudut tertentu baru dapat terlihat, tidak ada kedalaman dan tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Lebar cacat ＜1cm. Panjang cacat ＜5cm, Cacat berbentuk garis memutih, letak posisi cacat tidak menentu, tidak ada kedalaman, tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "1cm＜Lebar cacat≤2cm, 5cm＜Panjang Cacat≤10cm, ada terlihat garis memutih, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Lebar cacat ＞2cm, Panjang Cacat ＞10cm, garis yang memutih, ada kedalaman, ada handfeel, atau pada permukaan baja ada tanda akan berlubang.",
+     "grade": "S"
+    }
+   },
+   "name_cn": "大型脱皮",
+   "name_id": "Oksidasi Skala Besar",
+   "notes": "Tingkat H ke atas harus dilakukan pemotongan",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sisi samping atau sisi tengah gulungan muncul perbedaan warna yang sangat jelas, pada posisi tertentu biasanya baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Secara kasap mata plat baja posisi samping dan tengah muncul bekas beda warna yang ringan, dapat dilihat walaupun dari sembarang sisi, tetapi tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Secara kasap mata terlihat perbedaan warna yang sangat jelas, ada handfeel yang ringan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Secara kasap mata terlihat perbedaan warna yang sangat parah, lebih kasar dan setengahnya mempunyai handfeel.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "炼钢修磨痕",
+   "name_id": "Bekas Grinding Baja",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S09",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "炼钢孔洞",
+   "name_id": "Lubang SS",
+   "notes": "Tidak peduli letak lubang ada di posisi mana, bagian tersebut harus dipotong.",
+   "rule": "Tidak diizinkan.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "S11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Ada garis bulu yang ringan panjangnya di bawah 1mm.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tanda pecahan kecil yang berbentuk sudah ada lubang retakan sepanjang 1mm.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bentuk cacat seperti lubang pecahan sepanjang 2-3mm.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Bentuk cacat seperti lubang pecahan dengan jarak. Panjang cacat di atas 4mm.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "炼钢裂边",
+   "name_id": "Tanda Retak SS",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H ke atas harus dikerjakan lagi di Mesin Pengirisan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R01-1",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧宽度偏宽",
+   "name_id": "Kelebaran Terlalu Lebar",
+   "notes": "Pemecahan dari R01 mengikuti daftar kode resmi. R01-1 = Kelebaran Terlalu Lebar (热轧宽度偏宽); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R01).",
+   "rule": "Kelebaran tidak mencukupi toleransi permintaan pelanggan, Seluruh gulungan dihitung kembali sebanyak 3 kali lalu ambil hasil yang paling kecil. Staff lapangan menghubungi bagian perencanaan untuk konfirmasi apakah gulungan tersebut perlu turun kualitas atau ubah spesifikasi.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R01-2",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧宽度偏窄",
+   "name_id": "Kelebaran Menyempit",
+   "notes": "Pemecahan dari R01 mengikuti daftar kode resmi. R01-2 = Kelebaran Menyempit (热轧宽度偏窄); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R01).",
+   "rule": "Kelebaran tidak mencukupi toleransi permintaan pelanggan, Seluruh gulungan dihitung kembali sebanyak 3 kali lalu ambil hasil yang paling kecil. Staff lapangan menghubungi bagian perencanaan untuk konfirmasi apakah gulungan tersebut perlu turun kualitas atau ubah spesifikasi.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R01-3",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧宽度不均",
+   "name_id": "Kelebaran Tidak Rata",
+   "notes": "Pemecahan dari R01 mengikuti daftar kode resmi. R01-3 = Kelebaran Tidak Rata (热轧宽度不均); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R01).",
+   "rule": "Kelebaran tidak mencukupi toleransi permintaan pelanggan, Seluruh gulungan dihitung kembali sebanyak 3 kali lalu ambil hasil yang paling kecil. Staff lapangan menghubungi bagian perencanaan untuk konfirmasi apakah gulungan tersebut perlu turun kualitas atau ubah spesifikasi.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R02",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bagian sisi tepi gulungan ada tanda goresan ringan, Tidak dapat terlihat kasap mata kalau panjangnya 1m ke atas.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bagian sisi tepi gulungan ada tanda goresan ringan, dapat terlihat secara jelas dari sudut yang berbeda, Tetapi tidak terlihat adanya retak dan tonjolan.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bagian tepi gulungan ada robekan, tonjolan dan bentuk-bentuk lainnya.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Robekan yang bersifat kontinu dan tingkat kedalamannya agak dalam, atau karena goresan yang ada di tepi mesin sehingga menyebabkan gulungan tergulung menjadi 90°.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧边部损伤",
+   "name_id": "Kerusakan Bagian Tepi",
+   "notes": "Tingkat keparahan cacat mencapai H ke atas harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R03-1",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧厚度偏厚",
+   "name_id": "Ketebalan Terlalu Tebal",
+   "notes": "Pemecahan dari R03 mengikuti daftar kode resmi. R03-1 = Ketebalan Terlalu Tebal (热轧厚度偏厚); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R03).",
+   "rule": "Ketebalan produk jadi melebihi toleransi pada permintaan, dihitung ketebalan pada lokasi samping sisi dengan jarak ke pinggir sepanjang 40-70mm tidak melebihi atau kurang dari ketebalan toleransi (Pakai sisi yang lebih tipis). Staff lapangan dapat menghubungi pihak perencanaan untuk mengkonfirmasi apakah gulungan harus diturunkan kualitasnya atau tidak.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R03-2",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧厚度偏薄",
+   "name_id": "Ketebalan Terlalu Tipis",
+   "notes": "Pemecahan dari R03 mengikuti daftar kode resmi. R03-2 = Ketebalan Terlalu Tipis (热轧厚度偏薄); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R03).",
+   "rule": "Ketebalan produk jadi melebihi toleransi pada permintaan, dihitung ketebalan pada lokasi samping sisi dengan jarak ke pinggir sepanjang 40-70mm tidak melebihi atau kurang dari ketebalan toleransi (Pakai sisi yang lebih tipis). Staff lapangan dapat menghubungi pihak perencanaan untuk mengkonfirmasi apakah gulungan harus diturunkan kualitasnya atau tidak.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R03-3",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧厚度不均",
+   "name_id": "Ketebalan Tidak Rata",
+   "notes": "Pemecahan dari R03 mengikuti daftar kode resmi. R03-3 = Ketebalan Tidak Rata (热轧厚度不均); aturan pengukuran/toleransi sama untuk ketiga sub-kode (dari SOP R03).",
+   "rule": "Ketebalan produk jadi melebihi toleransi pada permintaan, dihitung ketebalan pada lokasi samping sisi dengan jarak ke pinggir sepanjang 40-70mm tidak melebihi atau kurang dari ketebalan toleransi (Pakai sisi yang lebih tipis). Staff lapangan dapat menghubungi pihak perencanaan untuk mengkonfirmasi apakah gulungan harus diturunkan kualitasnya atau tidak.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bagian sisi tepi gulungan ada bekas goresan yang bersifat ringan, Tidak dapat terlihat kasap mata dalam rentang 1m.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bagian sisi tepi gulungan terdapat tanda terbentur, dalam rentang 1m dengan sudut berbeda dapat terlihat jelas cacatnya, akan tetapi tidak muncul tanda retak maupun terlipat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda retak terbentur, tonjolan karena terbentur, atau terlipat karena tonjolan mencapai 90°.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Adanya bekas terbentur yang bersifat secara kontinu dan dengan kedalaman yang agak dalam, atau dikarenakan gulungan yang terjatuh menyebabkan bagian sisi tepi menjadi lebih besar atau penyok.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧运输撞伤",
+   "name_id": "Terbentur dari proses pengiriman RSS",
+   "notes": "Tingkat cacat mencapai H(parah) ke atas, harus dilakukan pemotongan. (Catatan: dokumen memuat satu kalimat tambahan hanya dalam Mandarin tanpa terjemahan Indonesia: '热酸入口需提供来料撞伤照片等相关证据，否则记录为当产线撞伤' — perlu konfirmasi.)",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R05",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧侧凸",
+   "name_id": "Sisi Gulungan Tidak Rata",
+   "notes": "Lapisan Gulungan yang keluar melebihi 100MM dicatat S(Parah).",
+   "rule": "Lingkar dalam sebanyak 3 lapisan, Lingkar luar sebanyak 2 lapisan panjang sisi tepi yang rusak adalah ≤20MM, lalu bagian yang diiris ≤10MM, Gulungan ini tetap harus dilakukan penggulungan ulang.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Dapat terlihat ada lapisan gulungan yang longgar (celahnya harus dalam rentang <1mm)",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Lapisan gulungan yang longgar rapat terlihat dengan jelas secara kasap mata (Panjang longgar ≧1-3mm)",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Lapisan yang longgar paling tidak selebar satu jari (panjang longgar ≧4-6mm)",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Lapisan gulungan yang longgar sepanjang ＞6mm",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "钢卷松散",
+   "name_id": "Gulungan Longgar",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R10",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Perbedaan Warna yang tipis atau ringan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Perbedaan warna yang terlihat jelas, tapi bekas pahat tidak telihat jelas dan tidak ada karat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terdapat sedikit pengkaratan, ada bekas pahat dan bergumpal",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Berbentuk lebih padat, area bekas pahat besar, handfeel yang terasa sekali, kebanyakan terapat korosi.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧凿痕",
+   "name_id": "Bekas pahat",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bentuknya seperti helaian rambut, tidak mudah dilihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bisa terlihat dengan jelas, Goresan berwarna hitam gelap berupa garis, tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bentuk cacat berupa garis agak berwarna hitam, ada handfeel yang ringan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Handfeel sangat terasa, Ada penumpukan zat yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧刮伤",
+   "name_id": "Tergores",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R13",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Setelah melalui proses penekanan/menggiling tidak terlalu terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Setelah melalui proses penekanan/menggiling baru dapat dilihat di sudut tertentu.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah melewati proses penekanan baru dapat terlihat dengan jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Setelah melewati proses penekanan terlihat sangat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧辊印",
+   "name_id": "Tanda Batangan Hot Rolling",
+   "notes": "Tanda Roller bahan baku setelah dilakukan penggilingan siklusnya berubah menjadi lebih panjang (Biasanya panjangnya antara 10-30M), Pada umumnya tidak ada handfeel. Apabila menemukan cacat seperti ini temukan asal cacat berdasarkan jarak siklusnya.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R14",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧卷取痕",
+   "name_id": "Tanda Gulungan Terlipat",
+   "notes": "",
+   "rule": "Tidak ada handfeel bisa dibawa. Apabila ada handfeel harus dilakukan pemotongan.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R17",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "H": {
+     "desc": "Permukaan terlihat jelas sangat kasar, Kebanyakan muncul pada gulungan yang mengalami Pencucian Acid Terlalu Banyak.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan terlihat jelas sangat kasar, Ketika dipegang dengan tangan sangat terasa sekali ada handfeelnya.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧表面粗糙",
+   "name_id": "Permukaan Kasar",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R18",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "M": {
+     "desc": "Setelah melewati proses penggilingan benda asing akan jatuh dan meninggalkan tanda warna yang ringan, tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah melewati proses penggilingan bekas beda warnanya terlihat sangat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Benda asingnya tidak hilang, atau setelah melewati proses penggilingan benda asingnya hilang tetapi meninggalkan bekas yang lebar, kedalamannya sangat dalam, bahkan kemungkinan akan menyebabkan lubang",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧轧入异物",
+   "name_id": "Benda Asing Tergiling",
+   "notes": "Tingkat H(parah) ke atas harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R19",
+   "name_id": "Gulungan Bersisik",
+   "name_cn": "氧化铁皮轧入",
+   "section": "bahan_baku",
+   "has_image": false,
+   "jenis": null,
+   "variants": [
+    {
+     "jenis": "Jenis 1",
+     "jenis_cn": "1类",
+     "levels": {
+      "L": {
+       "desc": "Jarak dari sisi 30MM, setelah melewati penipisan bagian tersebut memutih, Tersebar menjadi bentuk titik-titik atau bentuk garis, warnanya agak terang, tidak ada handfeel",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Dalam jarak 30MM yang dihitung dari sisi gulungan, bagian tersebut memutih, Tersebar menjadi bentuk titik-titik atau bentuk garis, tidak ada handfeel, perbedaan warnanya sangat kentara.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Dalam jarak 30MM yang dihitung dari sisi gulungan, bagian tersebut memutih, Tersebar menjadi bentuk titik-titik atau bentuk garis, kecekungan cacat sangat dalam dan ada handfeel yang sangat jelas.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Jarak dari sisi 30MM, setelah melewati penipisan bagian tersebut muncul bintik putih atau garis putih, Dua sisi ada cekungannya dan dalam, handfeel sangat terasa, terdapat korosi yang sangat besar, beberapa titik penyebaran ada yang berbentuk seperti mengecap atas bawah.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 2",
+     "jenis_cn": "2类",
+     "levels": {
+      "L": {
+       "desc": "Tersebar di seluruh permukaan, cacat berupa titik-titik putih atau bekas tanda garis tipis, biasanya banyak muncul di sisi samping, pada jarak 1m muncul 1-3 titik, tidak ada cekungan.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Tersebar di seluruh permukaan, cacat berupa titik-titik putih atau bekas tanda garis tipis, biasanya banyak muncul di sisi samping, jarak 1m muncul 4-8 titik, tidak ada cekungan.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Tersebar di seluruh permukaan, cacat berupa titik-titik putih atau bekas tanda garis tipis, biasanya banyak muncul di sisi samping, pada jarak 1m muncul 8-15 kali titik.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Tersebar di seluruh permukaan, cacat berupa titik-titik putih atau bekas tanda garis tipis, biasanya banyak muncul di sisi samping, pada jarak 1m muncul 15 titik ke atas.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    }
+   ],
+   "levels": {},
+   "rule": null,
+   "notes": "Daftar resmi hanya mengenal kode tunggal; varian Jenis disimpan sebagai array variants.",
+   "flags": [
+    "perlu konfirmasi user: apakah varian Jenis perlu jadi sub-kode seperti S01-1/S01-2",
+    "keputusan user 2026-10-18: tetap satu entri + varian sesuai dokumen (tidak dipecah jadi sub-kode)."
+   ]
+  },
+  {
+   "code": "R20",
+   "name_id": "Bekas Terkelupas Kulit Teroksidasi",
+   "name_cn": "氧化皮脱落痕",
+   "section": "bahan_baku",
+   "has_image": false,
+   "jenis": null,
+   "variants": [
+    {
+     "jenis": "Jenis 1 (Tingkat Reduksi penekanan ≥55%)",
+     "jenis_cn": "1类（轧下率≥55%）",
+     "levels": {
+      "L": {
+       "desc": "Tampak permukaan plat baja ada beda warna yang terlihat samar-samar, bisa dilihat dari sudut pandang yang berbeda.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Tampak permukaan plat ada perbedaan warna yang ringan, pada sudut pandang tertentu rata-rata dapat terlihat.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Permukaan plat nampak garis putih dengan jelas, perbedaan warna terlihat dengan jelas.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Plat baja nampak adanya garis putih, dalam satu gulungan cacat muncul secara kontinu, ada handfeel.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 2 (Tingkat Reduksi penekanan 55%)",
+     "jenis_cn": "＜ 2类（轧下率＜55%）",
+     "levels": {
+      "L": {
+       "desc": "Permukaan baja tampak bekas perbedaan warna yang samar, dari sudut tertentu cacat baru dapat terlihat.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Permukaan baja tampak bekas perbedaan warna yang ringan, dari sudut tertentu cacat baru dapat terlihat.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Permukaan baja tampak garis putih yang sangat terlihat, dan perbedaan warna sangat kentara sekali.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Permukaan baja terlihat jelas adanya cacat garis putih, dalam satu gulungan muncul terus menerus, ada handfeel.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    }
+   ],
+   "levels": {},
+   "rule": null,
+   "notes": "Daftar resmi hanya mengenal kode tunggal; varian Jenis disimpan sebagai array variants.",
+   "flags": [
+    "perlu konfirmasi user: apakah varian Jenis perlu jadi sub-kode seperti S01-1/S01-2",
+    "keputusan user 2026-10-18: tetap satu entri + varian sesuai dokumen (tidak dipecah jadi sub-kode)."
+   ]
+  },
+  {
+   "code": "R21",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Setelah melalui proses penggilingan cacat tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Setelah melalui proses penggilingan, pada sudut tertentu baru dapat dilihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah melalui proses penggilingan, cacat dapat terlihat dengan jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Setelah melalui proses penggilingan cacat dapat terlihat dengan sangat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热裂辊痕",
+   "name_id": "Bekas Retak Gulungan Panas",
+   "notes": "Bekas retakan dari bahan baku setelah dilakukan penggilingan siklusnya berubah menjadi lebih panjang (Biasanya panjangnya antara 10-30M), Pada umumnya tidak ada handfeel. Apabila menemukan cacat seperti ini temukan asal cacat berdasarkan jarak siklusnya.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R23",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Setelah melalui proses penggilingan cacat tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Setelah melalui proses penggilingan, pada sudut tertentu baru dapat dilihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah melalui proses penggilingan, cacat dapat terlihat dengan jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Setelah melalui proses penggilingan cacat dapat terlihat dengan sangat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧附着物",
+   "name_id": "Bekas Cetakan Benda",
+   "notes": "Bekas cetakan benda dari bahan baku setelah dilakukan penggilingan siklusnya berubah menjadi lebih panjang (Biasanya panjangnya antara 10-30M), Pada umumnya tidak ada handfeel. Apabila menemukan cacat seperti ini maka temukan asal cacat berdasarkan jarak siklusnya.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R25",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧线缝",
+   "name_id": "Bekas Tepi Jahitan",
+   "notes": "",
+   "rule": "Kontrol Plat baja kelebaran 1000mm (3 kaki): Lebar 1028mm, maka toleransi bekas tepi jahitan yang ada di samping kanan kiri tidak boleh menyebabkan lebar gulungan kurang dari 1005mm; Kontrol Plat baja kelebaran 1200mm (4 kaki): Lebar 1248mm, 1250mm toleransi kelebaran tidak boleh kurang dari 1225mm, Lebar 1278/1280mm maka toleransi bekas tepi jahitan yang ada di samping kanan kiri tidak boleh menyebabkan lebar gulungan kurang dari 1255mm; Kontrol Plat Baja kelebaran 1500mm (5 kaki): Lebar 1528mm/1530mm maka toleransi bekas tepi jahitan yang ada di samping kanan kiri tidak boleh menyebabkan lebar gulungan kurang dari 1505mm, Lebar 1548mm/1555mm toleransi kelebaran tidak boleh kurang dari 1525mm.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R30",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat ringan berbentuk tipis-tipis seperti bulu rambut, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Berbentuk bulu rambut sepanjang 1MM atau tanda terkelupas kecil.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Berbentuk bulu rambut sepanjang 2MM atau tanda terkelupas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Berbentuk bulu rambut ＞2MM dan ada tanda terkelupas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧毛边",
+   "name_id": "Sisi Kasar",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H(parah) ke atas harus dikerjakan lagi di Mesin Pengirisan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R31",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat ringan seperti garis-garis tipis berbentuk bulu rambut dengan panjang kurang dari 1mm",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tanda terkelupas kecil sepanjang 1mm",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda terkelupas sepanjang 2-3mm dan ada sisi yang terbuka.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Tanda terkelupas sepanjang lebih dari 4mm dan ada berbentuk zigzag.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "连续型裂边",
+   "name_id": "Retak Tepi Bersifat Kontinu",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H(parah) ke atas harus dikerjakan lagi di Mesin Pengirisan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R32",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat ringan seperti garis-garis tipis berbentuk bulu rambut dengan panjang kurang dari 1mm.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tanda terkelupas kecil sepanjang 1mm.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda terkelupas sepanjang 2-3mm dan ada sisi yang terbuka.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Tanda terkelupas sepanjang lebih dari 4mm dan ada berbentuk zigzag.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "间断型裂边",
+   "name_id": "Retak Tepi Bersifat Putus-Putus",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H(parah) ke atas harus dikerjakan lagi di Mesin Pengirisan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R33",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧孔洞",
+   "name_id": "Lubang",
+   "notes": "Tidak peduli letak lubang ada di posisi mana, bagian tersebut harus dipotong.",
+   "rule": "Tidak diizinkan.",
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R36",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang tepi harus ≤3mm, dalam panjang 1m ≤2 buah gelombang.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang Cacat ＞3mm digiling kembali. Apabila tidak dapat digiling kembali maka turun kualitas menjadi kualitas 2.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "边波",
+   "name_id": "Gelombang Tepi",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R37",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Dalam panjang 1m ≤3mm, jumlah gelombang ≤2, jarak ke tepi sisi gulungan ≤10mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang Cacat ＞3mm digiling kembali. Apabila tidak dapat digiling kembali maka turun kualitas menjadi kualitas 2.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "中波",
+   "name_id": "Gelombang Tengah",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R43",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bekas garis berwarna abu-abu atau putih, pada sudut tertentu baru dapat terlihat, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤1/10m",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bekas garis berwarna abu-abu atau putih, pada sudut tertentu dapat terlihat jelas, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤2-3/10m",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bekas garis berwarna abu-abu atau putih, dari sudut yang berbeda-beda terlihat dengan jelas, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤4-5/10m",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Bekas garis berwarna abu-abu atau putih, dari sudut yang berbeda-beda terlihat dengan jelas, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ＞5/10m",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "一类脱皮",
+   "name_id": "Pengelupasan Jenis 1",
+   "notes": "Kebanyakan muncul di seluruh permukaan gulungan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R44",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat berbentuk seperti bekas benang tipis yang berwarna keabu-abuan atau putih, Pada sudut tertentu baru dapat terlihat, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤1/10m",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat berbentuk seperti bekas benang tipis atau bekas titik-titik tanda tusukan yang berwarna keabu-abuan atau putih, Pada sudut yang pasti baru dapat terlihat dengan jelas, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤2-3/10m",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat berbentuk seperti bekas benang tipis atau bekas titik-titik tanda tusukan yang berwarna keabu-abuan atau putih, Bisa terlihat jelas dari sudut pandang yang berbeda, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ≤4-5/10m",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berbentuk seperti bekas benang tipis atau bekas titik-titik tanda tusukan yang berwarna keabu-abuan atau putih, Bisa terlihat jelas dari sudut pandang yang berbeda, Panjang cacat ＞10mm, lebar cacat ＜3mm, siklus muncul cacat ＞5/10m",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "二类脱皮",
+   "name_id": "Pengelupasan Jenis 2",
+   "notes": "Kebanyakan muncul di 2 bagian sisi kanan dan kiri dalam jarak 200mm ke masing-masing sisi.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R50",
+   "name_id": "Bentuk Plat Buruk",
+   "name_cn": "板型不良",
+   "section": "bahan_baku",
+   "has_image": false,
+   "jenis": null,
+   "variants": [
+    {
+     "jenis": "Jenis 1 (Bergelombang)",
+     "jenis_cn": "1类（边波）",
+     "levels": {
+      "L": {
+       "desc": "Tinggi gelombang ≤3mm, pada jarak 1m jumlah gelombang ≤2 buah.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Panjang Cacat ＞3mm digiling kembali. Apabila tidak dapat digiling kembali maka turun kualitas menjadi kualitas 2.",
+       "grade": "A1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 2 (Perbedaan Warna)",
+     "jenis_cn": "2类（色差）",
+     "levels": {
+      "L": {
+       "desc": "Tidak dapat terlihat dengan mudah",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Mudah Terlihat",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Sangat jelas terlihat",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Ada handfeel",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 3 (Lapisan dalam tergores)",
+     "jenis_cn": "3类（层间擦伤）",
+     "levels": {
+      "L": {
+       "desc": "Ada penekanan berbentuk jarum kecil, pada permukaan tampak tidak jelas.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Tanda tergores berbentuk titik-titik, tanda seperti kali, garis pendek pendek.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Ada handfeel yang ringan, permukaan agak kasar.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Handfeel yang sangat tajam, penumpukan zat logam yang dalam dan terendap dalam plat baja.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 4 (Garis bergelombang karena perbedaan ketebalan)",
+     "jenis_cn": "4类(荆条拉伸)",
+     "levels": {
+      "L": {
+       "desc": "Arah kelebaran gulungan muncul seperti bentuk naik yang ada pada gelombang, tidak ada handfeel, tidak mudah dilihat.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Arah kelebaran gulungan muncul seperti bentuk naik yang ada pada gelombang, tidak ada handfeel, pada sudut tertentu dapat dilihat atau ketika kita melihat dengan cara miringkan badan cacat baru dapat terlihat.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Arah kelebaran gulungan muncul seperti bentuk naik yang ada pada gelombang, ada sedikit handfeel, cacat mudah dilihat dari sisi tepi gulungan",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Arah kelebaran gulungan muncul seperti bentuk naik yang ada pada gelombang, ada handfeel yang sangat terasa, cacat bisa terlihat di muka plat baja.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    }
+   ],
+   "levels": {},
+   "rule": null,
+   "notes": "Daftar resmi hanya mengenal kode tunggal; varian Jenis disimpan sebagai array variants.",
+   "flags": [
+    "perlu konfirmasi user: apakah varian Jenis perlu jadi sub-kode seperti S01-1/S01-2",
+    "keputusan user 2026-10-18: tetap satu entri + varian sesuai dokumen (tidak dipecah jadi sub-kode)."
+   ]
+  },
+  {
+   "code": "R51",
+   "name_id": "Bekas Lecet",
+   "name_cn": "热轧擦伤",
+   "section": "bahan_baku",
+   "has_image": false,
+   "jenis": null,
+   "variants": [
+    {
+     "jenis": "Jenis 1 (Berbentuk Gumpalan)",
+     "jenis_cn": "1类（团状）",
+     "levels": {
+      "L": {
+       "desc": "Lecet berupa gumpalan berwarna abu-abu, perbedaan warna tidak terlalu terlihat, tidak ada handfeel, siklus munculnya ≥25m",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Lecet berupa gumpalan berwarna abu-abu, perbedaan warna agak terlihat, handfeel tidak terlalu kentara, siklus munculnya ≥20m",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Lecet berupa gumpalan berwarna abu-abu, perbedaan warna sangat terlihat, apabila dipegang dengan tangan handfeel terasa sekali, siklus munculnya ≥10m",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Lecet berupa gumpalan berwarna abu-abu, perbedaan warna sangat terlihat, ada benda yang membuat permukaan seperti ada cembungan (penumpukan zat nikel), ketika dipegang ada handfeel yang sangat terasa, siklus munculnya ≥10m",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    },
+    {
+     "jenis": "Jenis 2 (Berbentuk Garis)",
+     "jenis_cn": "2类（线状）",
+     "levels": {
+      "L": {
+       "desc": "Ada tanda garis yang terlihat samar-samar, ada perbedaan warna yang ringan.",
+       "grade": "A"
+      },
+      "M": {
+       "desc": "Tanda garis terlihat sangat jelas, tidak ada handfeel.",
+       "grade": "A1"
+      },
+      "H": {
+       "desc": "Tanda garis terlihat dengan jelas, muncul seperti garis yang berwarna gelap kehitaman, ada sedikit handfeel.",
+       "grade": "B"
+      },
+      "S": {
+       "desc": "Tanda garis sangat terlihat, ada handfeel yang sangat terasa.",
+       "grade": "B1"
+      }
+     },
+     "notes": ""
+    }
+   ],
+   "levels": {},
+   "rule": null,
+   "notes": "Daftar resmi hanya mengenal kode tunggal; varian Jenis disimpan sebagai array variants.",
+   "flags": [
+    "perlu konfirmasi user: apakah varian Jenis perlu jadi sub-kode seperti S01-1/S01-2",
+    "keputusan user 2026-10-18: tetap satu entri + varian sesuai dokumen (tidak dipecah jadi sub-kode)."
+   ]
+  },
+  {
+   "code": "R52",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "H": {
+     "desc": "Terlihat secara kasap mata, warna menjadi abu-abu putih, ada tanda pemanjangan garis yang terlihat dengan jelas, ada handfeel ringan.",
+     "grade": "TIDAK_DIIZINKAN"
+    },
+    "S": {
+     "desc": "Sangat terlihat secara kasap mata, cekungan sangat besar, dan mengarah akan menjadi lubang.",
+     "grade": "TIDAK_DIIZINKAN"
+    }
+   },
+   "name_cn": "热轧疤痕",
+   "name_id": "Bekas Luka",
+   "notes": "Tidak peduli posisi cacat Bekas Luka bahan baku ada di mana, ketika keparahan mencapai H(parah) harus dilakukan pemotongan. (Catatan: kolom Kualitas di dokumen memuat 'Tidak diizinkan' untuk A/A1/B dan 'S' pada kolom B1 — pemetaan H/S→TIDAK_DIIZINKAN mengikuti catatan penanganan; perlu konfirmasi.)",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R56",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan gulungan terlihat berwarna putih ringan yang berbentuk bintik-bintik, perbedaan warna terlihat ringan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Permukaan gulungan terlihat bekas berbentuk keping-keping kecil tidak berpola berwarna putih atau abu-abu. (Beberapa bagian mungkin berbentuk seperti bulat bulat menggulung).",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Permukaan gulungan terlihat berbentuk bekas keping-keping yang besar yang berwarna keputihan atau keabu-abuan, bentuk cacat tidak beraturan/berpola, perbedaan warna terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan gulungan terlihat berwarna keputihan atau keabu-abuan dalam skala besar, bentuk cacat tidak beraturan/berpola, perbedaan warna terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热轧腐蚀",
+   "name_id": "Korosi RSS",
+   "notes": "",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "R61",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热轧卷重不足",
+   "name_id": null,
+   "notes": "Kode \"berat tidak mencukupi\" disengaja diadakan untuk setiap lini produksi (konfirmasi user 2026-10-18).",
+   "rule": "Konfirmasi ke pihak perencanaan apakah dapat dikirim ke pelanggan awal atau tidak, apabila tidak bisa maka gulungan masuk ke gudang.",
+   "section": "bahan_baku",
+   "flags": [
+    "kode disengaja per lini produksi: R61 (hot rolling), A13 (asam panas), B20 (rolling mill), C39 (asam dingin), D01 (penyelesaian) — konfirmasi user 2026-10-18",
+    "tidak ada nama Indonesia di dokumen; hanya nama Mandarin (keputusan user 2026-10-18: ikuti yang ada)"
+   ]
+  },
+  {
+   "code": "W04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bagian sisi tepi gulungan ada bekas goresan yang bersifat ringan, Tidak dapat terlihat kasap mata dalam rentang 1m.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bagian sisi tepi gulungan terdapat tanda terbentur, dalam rentang 1m dengan sudut berbeda dapat terlihat jelas cacatnya, akan tetapi tidak muncul tanda retak maupun terlipat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda retak terbentur, tonjolan karena terbentur, atau terlipat karena tonjolan mencapai 90°.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Adanya bekas terbentur yang bersifat secara kontinu dan dengan kedalaman yang agak dalam, atau dikarenakan gulungan yang terjatuh menyebabkan bagian sisi tepi menjadi lebih besar atau penyok.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "物流撞伤",
+   "name_id": "Terbentur Pengiriman",
+   "notes": "Tingkat cacat mencapai H(parah) ke atas, harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "W56",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan gulungan terlihat berwarna putih ringan yang berbentuk bintik-bintik, perbedaan warna terlihat ringan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Permukaan gulungan terlihat bekas berbentuk keping-keping kecil tidak berpola berwarna putih atau abu-abu. (Beberapa bagian mungkin berbentuk seperti bulat bulat menggulung).",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Permukaan gulungan terlihat berbentuk bekas keping-keping yang besar yang berwarna keputihan atau keabu-abuan, bentuk cacat tidak beraturan/berpola, perbedaan warna terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan gulungan terlihat berwarna keputihan atau keabu-abuan dalam skala besar, bentuk cacat tidak beraturan/berpola, perbedaan warna terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "物流腐蚀",
+   "name_id": "Korosi Pengiriman",
+   "notes": "Korosi dari FPD paling utama terjadi di gulungan bagian samping, penyebab utama adalah karena hujan dan air masuk ke dalam gulungan, setelah masuk ke proses penggilingan di CRP tingkat keparahan cacat agak ringan, dan bekas tandanya juga tidak terlalu kelihatan.",
+   "rule": null,
+   "section": "bahan_baku"
+  },
+  {
+   "code": "A01-1",
+   "has_image": false,
+   "jenis": "A01-1: Lebar menyempit asam panas (热酸宽度偏窄)",
+   "levels": {},
+   "name_cn": "热酸宽度偏窄",
+   "name_id": "Lebar asam panas sempit",
+   "notes": "",
+   "rule": "Akibat panas dan asam, lebar gulungan yang sudah jadi tidak memenuhi toleransi pesanan pelanggan.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A01-2",
+   "has_image": false,
+   "jenis": "A01-2: Lebar tidak merata asam panas (热酸宽度不均)",
+   "levels": {},
+   "name_cn": "热酸宽度不均",
+   "name_id": "Lebar asam panas tidak merata",
+   "notes": "",
+   "rule": "Akibat panas dan asam, lebar gulungan yang sudah jadi berfluktuasi, melebihi rentang kendali.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A02",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m pada sudut yang berbeda dapat terlihat, tapi tidak muncul ada retakan ataupun tanda melengkung atau menonjol.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bagian tepi gulungan ada robekan, tonjolan dan bentuk-bentuk lainnya.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Robekan yang bersifat kontinu dan tingkat kedalamannya agak dalam, atau karena goresan yang ada di tepi mesin sehingga menyebabkan gulungan tergulung menjadi 90°.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸边部损伤",
+   "name_id": "Kerusakan Bagian Tepi",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H(parah) atau di atasnya lagi, harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A03-1",
+   "has_image": false,
+   "jenis": "A03-1: Tebal menipis asam panas (热酸厚度偏薄)",
+   "levels": {},
+   "name_cn": "热酸厚度偏薄",
+   "name_id": "Ketebalan asam panas tipis",
+   "notes": "",
+   "rule": "Akibat panas dan asam, ketebalan produk jadi melebihi toleransi pesanan.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A03-2",
+   "has_image": false,
+   "jenis": "A03-2: Tebal tidak merata asam panas (热酸厚度不均)",
+   "levels": {},
+   "name_cn": "热酸厚度不均",
+   "name_id": "Ketebalan asam panas yang tidak merata",
+   "notes": "",
+   "rule": "Akibat panas dan asam, ketebalan produk jadi berfluktuasi di seluruh gulungan, melampaui batas kendali.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bagian sisi tepi gulungan ada bekas goresan yang bersifat ringan, Tidak dapat terlihat kasap mata dalam rentang 1m.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bagian sisi tepi gulungan terdapat tanda terbentur, dalam rentang 1m dengan sudut berbeda dapat terlihat jelas cacatnya, akan tetapi tidak muncul tanda retak maupun terlipat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda retak terbentur, tonjolan karena terbentur, atau terlipat karena tonjolan mencapai 90°.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Adanya bekas terbentur yang bersifat secara kontinu dan dengan kedalaman yang agak dalam, atau dikarenakan gulungan yang terjatuh menyebabkan bagian sisi tepi menjadi lebih besar atau penyok.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸撞伤",
+   "name_id": "Terbentur di dalam CRP",
+   "notes": "Tingkat cacat mencapai H(parah) ke atas, harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A05",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "M": {
+     "desc": "Cacat tidak terlalu nampak, diamplas dengan amplas 800 atau 1000 bisa hilang.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat terlihat jelas, diamplas dengan amplas 800 atau 1000 tidak bisa hilang",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat terlihat sangat jelas, diamplas dengan amplas 800 atau 1000 tidak bisa hilang",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸腐蚀",
+   "name_id": "Korosi",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang ringan, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, pada sudut tertentu cacat sudah dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang ringan secara terus menerus, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, pada sudut tertentu cacat sudah dapat terlihat, perbedaan warna tidak terlalu terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang sangat terlihat jelas, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, cacat terlihat dengan mudah, perbedaan warna sangat terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang berwarna hitam, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, perbedaan warna sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸酸洗不均",
+   "name_id": "Pencucian Acid Tidak Merata",
+   "notes": "Ketika muncul cacat pencucian acid tidak merata, hal yang pertama dilakukan adalah bertanya dan konfirmasi terlebih dahulu ke Staff Lini Produksi Pencucian Acid apakah ada sesuatu yang abnormal. Apabila setelah bertanya ternyata tidak ada abnormal, bisa bertanya lagi ke staff lini produksi sebelumnya. Apabila ada, maka lini produksi tersebut yang harus bertanggung jawab atas kualitas gulungannya.",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A07",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热酸酸洗过度",
+   "name_id": "Pencucian Acid Terlalu Lama",
+   "notes": "",
+   "rule": "Apabila Permukaan plat baja mengalami perubahan warna menjadi putih di bagian tertentu ataupun di seluruh permukaan maka dipotong menjadi pembuangan atau turun kualitas 2.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A08",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat tidak mudah terlihat, Korosi jarang muncul, dalam satuan tertentu",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat terlihat dengan jelas, pada posisi tertentu terdapat jumlah yang tidak dapat dihitung perubahannya.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, titik-titik korosi padat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Warna permukaan berubah menjadi hitam, titik-titik korosi sangat padat.",
+     "grade": "TIDAK_DIIZINKAN"
+    }
+   },
+   "name_cn": "热酸酸洗不足",
+   "name_id": "Pencucian Acid Tidak Mencukupi",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A09",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan baja tampak bekas perbedaan warna yang samar, dari sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tampak permukaan plat ada perbedaan warna yang ringan, pada sudut pandang tertentu rata-rata dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat nampak jelas terdapat garis putih memanjang, perbedaan warna terlihat sangat jelas",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat nampak jelas seperti garis putih yang memanjang, terus menerus muncul di seluruh permukaan, ada handfeel",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸污痕",
+   "name_id": "Noda Pencucian Acid",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A10",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Perbedaan Warna yang tipis atau ringan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Perbedaan warna yang terlihat jelas, tapi bekas pahat tidak telihat jelas dan tidak ada karat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terdapat sedikit pengkaratan, ada bekas pahat dan bergumpal",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Berbentuk lebih padat, area bekas pahat besar, handfeel yang terasa sekali, kebanyakan terapat korosi.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸凿痕",
+   "name_id": "Bekas Pahat",
+   "notes": "主要为钢卷跟设备刮擦或钢带与钢带之间互相摩擦造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bentuk cacat seperti helaian rambut, tidak mudah terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu baru dapat terlihat, handfeel tidak terlalu terasa.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat agak terlihat, ada handfeel yang ringan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan baja terlihat mengkilap, terlihat berkelok-kelok, ada handfeel yang parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸划伤",
+   "name_id": "Tergores",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A12",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热酸折痕",
+   "name_id": "Tanda Terlipat",
+   "notes": "",
+   "rule": "Pelanggan tidak menerima tanda terlipat, apabila muncul dan bagian penyemarataan tidak dapat menghilangkan tanda terlipat, dan apabila muncul di kepala atau ekor harus dilakukan pemotongan, apabila ditengah muncul maka dilakukan penurunan kualitas atau dilakukan pembagian gulungan. (Gulungan baja putih biasanya setelah dilakukan penggilingan tanda terlipat bisa hilang)",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A13",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热酸卷重异常",
+   "name_id": "Berat Gulungan di Luar Normal",
+   "notes": "(Catatan: nama Indonesia 'Tanda Pengendapan Tembaga' tidak selaras dengan nama Mandarin '热酸卷重异常' (berat gulungan asam panas tidak normal) dan isi aturan yang membahas berat gulungan — perlu konfirmasi.)",
+   "rule": "Konfirmasi ke pihak perencanaan apakah dapat dikirim ke pelanggan awal atau tidak, apabila tidak bisa maka gulungan masuk ke gudang.",
+   "section": "asam_panas",
+   "flags": [
+    "pasangan kode \"berat tidak mencukupi\" per lini (disengaja): R61/A13/B20/C39/D01"
+   ]
+  },
+  {
+   "code": "A14",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Perbedaan warna tidak terlihat dengan jelas, warna permukaan gulungan lebih terlihat berubah menjadi abu-abu keputihan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Perbedaan warna terlihat dengan jelas, warna permukaan gulungan berubah menjadi keabu-abuan.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Perbedaan warna terlihat sangat jelas, warna permukaan gulungan berubah menjadi abu-abu gelap.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Warna permukaan gulungan berubah menjadi abu-abu gelap.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸酸洗发暗",
+   "name_id": "Permukaan Menghitam",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A15",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan baja tampak bekas perbedaan warna yang samar, dari sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tampak permukaan plat ada perbedaan warna yang ringan, pada sudut pandang tertentu rata-rata dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat nampak jelas terdapat garis putih memanjang, perbedaan warna terlihat sangat jelas",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat nampak jelas seperti garis putih yang memanjang, terus menerus muncul di seluruh permukaan, ada handfeel",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸水洗不良",
+   "name_id": "Pembersihan Air Tidak Normal",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A16",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "热酸残留酸液",
+   "name_id": "Bekas Cairan Acid",
+   "notes": "(Catatan: kolom Kualitas di dokumen memuat penanda 'L/M/H/S' untuk baris aturan ini — tidak dapat dipetakan ke grade A/A1/B/B1/S; diperlakukan sebagai aturan. Perlu konfirmasi.)",
+   "rule": "Bekas cairan asam yang tertinggal, di pencucian asam dingin setelah dilihat apabila tidak ada beda warna yang terlihat dapat dirilis normal, apabila masih ada warna kehitaman yang membuat beda warna maka dilakukan penurunan kualitas 2.",
+   "section": "asam_panas"
+  },
+  {
+   "code": "A17",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Terkadang tepi visualnya berkarat",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Secara visual terang karat hitam",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Karat hitam terlihat jelas",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Karat hitam gelap secara visual",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸黑边",
+   "name_id": "Sisi Yang Menghitam",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A18",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bisa dihilangkan dengan alkohol",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tidak dapat dihilangkan dengan alkohol",
+     "grade": "A1"
+    }
+   },
+   "name_cn": "热酸压入异物",
+   "name_id": "Benda Asing Yang Tertekan",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A19",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat berbentuk seperti lubang-lubang jarum yang memiliki cekungan, dan jarang muncul.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Diameter kecekungan tanda tertekan ≤2mm, dalam kisaran 1m cacat hanya dapat muncul 1 tanda cacat.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Tanda kecekungan tertekan terlihat jelas memiliki kedalaman, ukuran diameter kecekungan 2mm＜kecekungan≤5MM, dalam kisaran 1m hanya boleh 1 tanda cacat.",
+     "grade": "B1"
+    },
+    "S": {
+     "desc": "Permukaan cacat agak besar, sangat dalam atau pada kisaran 1m muncul cacat yang sangat parah melebihi 3 tanda cacat.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸附着物印痕",
+   "name_id": "Tanda Benda Asing yang menempel",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A20",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Titik-titik berwarna putih, panjang ≤5mm, dalam 1 m dikontrol titik-titik cacat ≤3 titik.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat berbentuk titik putih, panjang cacat lebih besar dari 5mm.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Cacat muncul Berbentuk seperti kepingan, gumpalan atau garis-garis.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berbentuk sangat padat, tidak dapat diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸粘胶",
+   "name_id": "Adesi Karet",
+   "notes": "Apabila hanya muncul di satu permukaan maka dilakukan pengamplasan kertas 800/1000 dan kalau hilang maka tidak perlu turun kualitas. Apabila muncul dua permukaan atau tidak hilang setelah diamplas, maka turun kualitas 2.",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A21",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang ≤3mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "热酸边波",
+   "name_id": "Gelombang Samping",
+   "notes": "(Catatan: tingkat S memiliki deskripsi sama dengan M/H tetapi kolom grade B1='/' di dokumen sehingga S tidak dipetakan — perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A22",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang ≤3mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "热酸中波/四分之一波",
+   "name_id": "Gelombang Tengah/ ¼gelombang",
+   "notes": "(Catatan: tingkat S memiliki deskripsi sama dengan M/H tetapi kolom grade B1='/' di dokumen sehingga S tidak dipetakan — perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A23",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat berbentuk titik berwarna putih, diameter cacat ≤5mm, dalam 1m ≤3 titik.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat berbentuk titik berwarna putih, diameter cacat ＞5mm, bisa hilang setelah diamplas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bentuk cacat berupa gumpalan berwarna putih atau berbentuk garis-garis, tidak dapat hilang setelah diamplas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berbentuk sangat padat, setelah diamplas tidak dapat hilang.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸污点",
+   "name_id": "Bintik kotor",
+   "notes": "Jika muncul pada dua sisi atas bawah dan tidak dapat diamplas, maka turun kualitas menjadi kualitas 2.",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A24",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bekas perbedaan warna yang pucat, bisa terlihat di posisi yang berbeda.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bekas warna hitam yang ringan, pada posisi tertentu dapat terlihat, permukaan cacat yang muncul agak kecil, rata rata muncul 3-5m/100m",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat dengan bekas warna abu-abu kehitaman, permukaan muncul agak besar, rata-rata muncul 5-10m/100m",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang muncul di permukaan baja dengan area tanda minyak yang luas, warna berubah menjadi hitam gelap, rata-rata muncul ＞10m/100m",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸油泥腐蚀",
+   "name_id": "Tanda Minyak",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A25",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sudut tertentu baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu terlihat sangat jelas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada sudut yang berbeda dapat terlihat dengan sangat jelas, dan muncul dalam skala besar",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Dapat terlihat dengan jelas, dan muncul dalam skala besar dan tidak dapat diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸刷辊痕",
+   "name_id": "Tanda Roller Penggosok",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A26",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan warna plat baja tidak ada keabnormalan",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Karena overheat maka menyebabkan plat baja berwarna putih, atau berubah berwarna hitam, maka harus dilakukan pemotongan. Plat baja yang mengalami overheat harus diambil sampel untuk melihat hasil pengujian mekanisnya.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "热酸退火过度",
+   "name_id": "Proses Pembakaran Terlalu Lama (overheat)",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A27",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Warna Plat baja tidak ada keabnormalan",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Karena pembakaran pada tungku waktunya tidak lama, dan suhunya rendah, atau pembakaran berhenti maka menyebabkan plat baja berwarna putih, atau berubah berwarna hitam, maka harus dilakukan pemotongan. Plat baja yang mengalami pembakaran tidak lama harus diambil sampel untuk melihat hasil pengujian mekanisnya.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "热酸退火不足",
+   "name_id": "Pembakaran Tidak Mencukupi",
+   "notes": "",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "A28",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada Seluruh permukaan tidak dapat terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Sangat terlihat adanya tanda cekung",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Ada tanda cekung yang sangat dalam, bagian sisi belakang ada bekasnya.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Sangat jelas terlihat; ada handfeel yang parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热酸压痕",
+   "name_id": "Tanda Tertekan Asam Panas",
+   "notes": "Toleransi keparahan cacat tidak boleh melebih tingkat medium (M).",
+   "rule": null,
+   "section": "asam_panas"
+  },
+  {
+   "code": "B01-1",
+   "has_image": false,
+   "jenis": "B01-1: Lebar menyempit rolling mill (轧机宽度偏窄)",
+   "levels": {},
+   "name_cn": "轧机宽度偏窄",
+   "name_id": "Lebar terlalu sempit",
+   "notes": "",
+   "rule": "Karena pabrik penggilingan, lebar gulungan yang sudah selesai tidak memenuhi rentang toleransi pesanan pelanggan.",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B01-2",
+   "has_image": false,
+   "jenis": "B01-2: Lebar tidak merata (轧机宽度不均)",
+   "levels": {},
+   "name_cn": "轧机宽度不均",
+   "name_id": "Lebar tidak rata",
+   "notes": "",
+   "rule": "Karena adanya pabrik penggilingan, lebar produk akhir berfluktuasi di seluruh gulungan, melebihi toleransi pesanan.",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B02",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat berbentuk seperti kepingan, garis-garis dan warna cacat dengan warna gulungan terdapat perbedaan yang ringan, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat berbentuk seperti kepingan, garis-garis dan warna cacat dengan warna gulungan terdapat perbedaan yang ringan, pada sudut tertentu cacat baru terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat berbentuk seperti kepingan, garis-garis dan warna cacat dengan warna gulungan terdapat perbedaan yang sangat jelas, cacat terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berbentuk seperti kepingan, garis-garis dan warna cacat dengan warna gulungan terdapat perbedaan yang sangat jelas, cacat terlihat sangat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "色差",
+   "name_id": "Beda Warna",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B03-1",
+   "has_image": false,
+   "jenis": "B03-1: Tebal melebihi standar rolling mill (轧机厚度偏厚)",
+   "levels": {},
+   "name_cn": "轧机厚度偏厚",
+   "name_id": "Tebal terlalu tebal",
+   "notes": "(Catatan: teks aturan di dokumen menulis 'lebar gulungan' padahal ini cacat ketebalan — kemungkinan salah tulis di dokumen; perlu konfirmasi.)",
+   "rule": "Akibat masalah pada mesin, lebar gulungan yang dihasilkan tidak memenuhi toleransi pesanan pelanggan.",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B03-2",
+   "has_image": false,
+   "jenis": "B03-2: Tebal menipis rolling mill (轧机厚度偏薄)",
+   "levels": {},
+   "name_cn": "轧机厚度偏薄",
+   "name_id": "Tebal terlalu tipis",
+   "notes": "(Catatan: teks aturan di dokumen menulis 'lebar gulungan' padahal ini cacat ketebalan — kemungkinan salah tulis di dokumen; perlu konfirmasi.)",
+   "rule": "Akibat masalah pada mesin, lebar gulungan yang dihasilkan berfluktuasi, melebihi batas kendali.",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan strip baja terdapat tonjolan titik yang jelas, tanpa terasa saat diraba | Kriteria amplas: d≤1mm, dapat dihilangkan dengan amplas 800 digosok 20 kali, dalam periode yang sama hanya diperbolehkan 10 titik.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Permukaan strip baja terdapat tonjolan titik atau garis yang jelas, tanpa terasa saat diraba | Kriteria amplas: 1mm＜d≤3mm, dapat dihilangkan dengan amplas 800 digosok 20 kali, dalam periode yang sama hanya diperbolehkan 5 titik.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Permukaan strip baja terdapat tonjolan titik atau garis yang jelas, dengan sedikit terasa saat diraba | Kriteria amplas: d≤1mm, dapat dihilangkan dengan amplas 600 digosok 40 kali, dalam periode yang sama hanya diperbolehkan 5 titik; 1mm＜d≤3mm, dapat dihilangkan dengan amplas 600 digosok 40 kali, dalam periode yang sama hanya diperbolehkan 3 titik; 3mm＜d≤5mm, dapat dihilangkan dengan amplas 600 digosok 50 kali, dalam periode yang sama hanya diperbolehkan 1 titik.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan strip baja terdapat tonjolan titik atau garis yang jelas, atau titik kecil muncul padat, dengan terasa jelas saat diraba. | Kriteria amplas: d≤1mm, tidak dapat dihilangkan dengan amplas 600 digosok 40 kali; 1mm＜d≤3mm, tidak dapat dihilangkan dengan amplas 600 digosok 40 kali; 3mm＜d≤5mm, tidak dapat dihilangkan dengan amplas 600 digosok 50 kali; d＞5mm, semua tingkat langsung ditetapkan sebagai sangat serius.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "辊印",
+   "name_id": "Tanda Benjolan Roller",
+   "notes": "(Catatan: baris kriteria amplas di dokumen memiliki kolom Kualitas 'L / L/M/H / H/S' yang berbeda dari baris deskripsi umum 'L / L/M / H/S'; pemetaan memakai baris deskripsi umum — perlu konfirmasi.)",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B05",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Panjang cacat ≤1mm, Lebar cacat ≤1mm, Cacat berbentuk seperti jarum putih, pada jarak tertentu baru dapat terlihat, tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ≤3mm, Lebar cacat ≤2mm, Cacat berbentuk seperti garis putih, cacat dapat terlihat jelas, tidak ada handfeel.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ≤4mm, Lebar cacat ≤3mm, Cacat berbentuk seperti garis putih, cacat terlihat jelas, ada handfeel, diamplas menggunakan amplas 800 dan 1000 bisa hilang.",
+     "grade": "B1"
+    },
+    "S": {
+     "desc": "Panjang cacat >4mm, Lebar cacat >3mm, Cacat berbentuk seperti garis putih, cacat terlihat sangat jelas, ada handfeel yang sangat parah, diamplas menggunakan amplas 800 dan 1000 tidak bisa hilang.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "爆辊印擦伤",
+   "name_id": "Cedera Akibat Benjolan",
+   "notes": "Cara menentukan asal usul cacat bisa dari panjang siklus batangan pekerja sebenarnya. (Catatan: kolom Kualitas di dokumen hanya memuat '/, L, M, H' — tingkat S tidak punya grade; S diasumsikan →B1 sama seperti H. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Panjang Cacat ≤1mm, Lebar Cacat ≤1mm, Cacat berbentuk seperti garis pendek yang terlihat menonjol, Pada sudut tertentu baru dapat terlihat, Tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Panjang Cacat ≤3mm, Lebar Cacat ≤2mm, Cacat berbentuk seperti garis pendek yang terlihat menonjol, Cacat nampak terlihat jelas, Tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Panjang Cacat ≤4mm, Lebar Cacat ≤3mm, Cacat berbentuk seperti garis-garis panjang yang terlihat menonjol, Cacat nampak terlihat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Panjang Cacat >4mm, Lebar Cacat >3mm, Cacat berbentuk seperti garis-garis panjang atau titik-titik yang berwarna hitam atau putih dan terlihat menonjol, Cacat nampak sangat jelas, ada handfeel yang sangat terasa.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "爆辊印",
+   "name_id": "Kerutan Yang Jatuh Pada Gulungan",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B07",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat seperti garis ringan atau ada bekas tanda garis yang jaraknya seperti jarak tanda gulungan pengikis minyak secara terus menerus, pada sudut tertentu baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat seperti garis ringan atau ada bekas tanda garis yang jaraknya seperti jarak tanda gulungan pengikis minyak secara terus menerus, pada sudut tertentu sangat jelas terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat seperti garis ringan atau ada bekas tanda garis yang jaraknya seperti jarak tanda gulungan pengikis minyak secara terus menerus, cacat berbentuk titik-titik yang memiliki benjolan, cacat nampak terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat seperti garis ringan atau ada bekas tanda garis yang jaraknya seperti jarak tanda gulungan pengikis minyak secara terus menerus, cacat berbentuk titik-titik yang memiliki benjolan, cacat sangat nampak terlihat.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "研磨辊痕",
+   "name_id": "Tanda Bekas Bubut",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B08",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Muncul beberapa tanda terbakar yang memiliki pola dan berwarna kehitaman, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Muncul beberapa tanda terbakar yang memiliki pola dan berwarna kehitaman, pada sudut tertentu baru terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Muncul beberapa tanda terbakar yang memiliki pola dan berwarna kehitaman, cacat terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Muncul beberapa tanda terbakar yang memiliki pola dan berwarna kehitaman, cacat sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "热烧伤",
+   "name_id": "Cedera Akibat Suhu Panas",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B09",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang terlihat pada permukaan berbentuk seperti rambut-rambut tipis, pendek dan ada jarak yang sama seperti roler pekerja, cacat tidak mudah terlihat",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang terlihat pada permukaan berbentuk seperti rambut-rambut tipis, pendek dan ada jarak yang sama seperti roler pekerja, pada sudut tertentu cacat baru terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang terlihat pada permukaan berbentuk seperti rambut-rambut tipis, pendek dan ada jarak yang sama seperti roler pekerja, cacat agak terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang terlihat pada permukaan berbentuk seperti rambut-rambut tipis, pendek dan ada jarak yang sama seperti roler pekerja, cacat sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "横向辊印",
+   "name_id": "Goresan dari Roller Pekerja",
+   "notes": "Cara menentukan asal usul cacat bisa dari panjang siklus batangan pekerja sebenarnya.",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B10",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan terdapat titik titik berwarna abu-abu, cacat berbentuk seperti gumpalan ataupun garis horizontal yang memiliki beda warna, cacat tidak terlihat jelas, tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan terdapat titik titik berwarna abu-abu, cacat berbentuk seperti bekas gumpalan ataupun garis horizontal, perbedaan warna agak terlihat jelas, handfeel tidak terlalu terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan terdapat titik titik berwarna abu-abu, cacat berbentuk seperti bekas gumpalan ataupun garis horizontal, perbedaan warna terlihat jelas, ada garis mengkilap dari logam baja, ada handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan terdapat gumpalan berwarna abu-abu, perbedaan warna terlihat jelas, ada unsur-unsur yang terlihat menonjol (Unsur Logam yang menumpuk), ketika dipegang ada handfeel yang sangat terasa.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "辊印线",
+   "name_id": "Garis Tanda Gulungan",
+   "notes": "Batas toleransi keparahan cacat hanya boleh tingkat ringan (L).",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bentuknya seperti helaian rambut, tidak mudah dilihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bisa terlihat dengan jelas, Goresan berwarna hitam gelap berupa garis, tidak ada handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bentuk cacat berupa garis agak berwarna hitam, ada handfeel yang ringan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Handfeel sangat terasa, Ada penumpukan zat yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "划伤",
+   "name_id": "Tergores",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B12",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat nampak tidak terlalu jelas, tidak ada handfeel",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat nampak agak jelas, ada sedikit handfeel",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Cacat nampak dengan jelas, ada handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat nampak dengan jelas, ada handfeel yang sangat terasa.",
+     "grade": "TIDAK_DIIZINKAN"
+    }
+   },
+   "name_cn": "折痕",
+   "name_id": "Tanda Pengapitan",
+   "notes": "Toleransi keparahan cacat tidak boleh melebih tingkat medium (M).",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B13-1",
+   "has_image": false,
+   "jenis": "B13-1 (Cacat Titik Putih)",
+   "levels": {
+    "L": {
+     "desc": "Cacat Titik Putih: Perbedaan warna putih yang terlihat jelas, tanpa kedalaman atau tekstur ≤ 10 titik per meter.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat Titik Putih: Perbedaan warna putih yang jelas terlihat, tanpa kedalaman atau tekstur. 10 kejadian＜per meter ≤20 kejadian",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat Titik Putih: Perbedaan warna putih sangat jelas terlihat, tanpa tekstur, dan sering terjadi, 20 kejadian＜per meter≤25 kejadian. Dapat dihilangkan dengan mengamplas 50 kali menggunakan kertas amplas 600.",
+     "grade": "A1 (bila hilang diamplas) / B (bila tidak hilang diamplas)"
+    },
+    "S": {
+     "desc": "Cacat Titik Putih: Perbedaan warna putih sangat jelas terlihat di seluruh permukaan, dengan sedikit tekstur. Lebih dari 25 titik per meter.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "点状异物1类",
+   "name_id": "Benda Asing Berbentuk Bintik Kategori 1",
+   "notes": "(Catatan: dokumen menulis '≤2 kejadian' pada tingkat M; Mandarin '≤20处' — diperbaiki menjadi ≤20. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "rolling_mill",
+   "flags": [
+    "grade kondisional amplas DIPERTAHANKAN sesuai SOP — keputusan user 2026-10-18 ('ikuti petunjuk SOPnya saja')"
+   ]
+  },
+  {
+   "code": "B13-2",
+   "has_image": false,
+   "jenis": "B13-2 (Cacat Garis/Blok Putih)",
+   "levels": {
+    "L": {
+     "desc": "Cacat garis putih atau blok warna putih: Perbedaan warna putih berupa garis atau blok yang tidak jelas terlihat dan tanpa tekstur. Panjang garis kurang dari atau sama dengan 20 cm per kejadian.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat garis putih atau blok warna putih: terlihat jelas, tidak ada tekstur, panjang garis ≤20cm/kejadian, diamplas bisa hilang",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat garis putih atau blok warna putih, terlihat jelas, tidak ada tekstur, 20cm＜panjang garis cacat ≤50cm/kejadian. Menggunakan amplas 600 diampelas 50 kali.",
+     "grade": "A1 (bila hilang diamplas) / B (bila tidak hilang diamplas)"
+    },
+    "S": {
+     "desc": "Cacat garis putih atau blok warna putih, terlihat jelas, terjadi di seluruh permukaan, ada sedikit tekstur, panjang garis cacat ＞50cm/kejadian",
+     "grade": "B"
+    }
+   },
+   "name_cn": "点状异物2类",
+   "name_id": "Benda Asing Berbentuk Bintik Kategori 2",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill",
+   "flags": [
+    "grade kondisional amplas DIPERTAHANKAN sesuai SOP — keputusan user 2026-10-18 ('ikuti petunjuk SOPnya saja')"
+   ]
+  },
+  {
+   "code": "B13-3",
+   "has_image": false,
+   "jenis": "B13-3 (Cacat Titik Hitam)",
+   "levels": {
+    "M": {
+     "desc": "Cacat Bintik Hitam: Titik kecil berwarna hitam yang tidak terlihat jelas, tanpa kedalaman atau tekstur. Per meter kurang dari atau sama dengan 5 kejadian, mudah dihilangkan dengan pengamplasan.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat Titik Hitam: Titik hitam yang jelas terlihat dan memiliki sedikit tekstur. Terjadi kurang dari atau sama dengan 5 kejadian. Dapat dihilangkan dengan mengamplas 50 kali menggunakan kertas amplas 600.",
+     "grade": "A1 (bila hilang diamplas) / B (bila tidak hilang diamplas)"
+    },
+    "S": {
+     "desc": "Cacat Titik Hitam: Titik hitam yang jelas terlihat dan ada tekstur pada permukaan. Terjadi lebih dari 5 titik per meter.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "点状异物3类",
+   "name_id": "Benda Asing Berbentuk Bintik Kategori 3",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill",
+   "flags": [
+    "grade kondisional amplas DIPERTAHANKAN sesuai SOP — keputusan user 2026-10-18 ('ikuti petunjuk SOPnya saja')"
+   ]
+  },
+  {
+   "code": "B14",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "停机印",
+   "name_id": "Tanda Berhenti Mesin",
+   "notes": "",
+   "rule": "1. Pada bagian kepala gulungan baja dalam jarak 15 meter, apabila muncul bekas berhenti mesin, tidak dilakukan penurunan grade (tanpa mempertimbangkan tingkat keparahannya). Jika setelah 15 meter muncul 2 garis atau lebih, pada prinsipnya ditetapkan sebagai cacat grade B. Namun apabila masih dapat diproses dengan slitting/pemotongan oleh line produksi (slitting offline), maka ditetapkan sebagai grade R. 2. Pada bagian ekor gulungan dalam jarak 15 meter, apabila muncul lebih dari 2 bekas berhenti mesin, diturunkan menjadi grade R dan dikirim ke proses slitting untuk dipotong/dibuang bagian cacatnya.",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B15",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan terdapat beberapa bagian yang muncul garis horizontal berpola yang memiliki warna putih, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan terdapat beberapa bagian yang muncul garis horizontal berpola yang memiliki warna putih, pada sudut tertentu baru terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan terdapat beberapa bagian yang muncul garis horizontal berpola yang memiliki warna putih, cacat agak jelas terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan terdapat beberapa bagian yang muncul garis horizontal berpola yang memiliki warna putih, cacat sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "工辊震纹",
+   "name_id": "Kerutan Akibat Getaran",
+   "notes": "(Catatan: kolom Kualitas di dokumen memuat 'L / M / H / H' — kolom B1 tertulis 'H' bukan 'S'; kemungkinan salah tulis, S diasumsikan →B1. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B16",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan hingga bagian sisi samping terdapat garis-garis horizontal berwarna putih yang beraturan, cacat tidak mudah terlihat",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan hingga bagian sisi samping terdapat garis-garis horizontal berwarna putih yang beraturan, pada sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan hingga bagian sisi samping terdapat garis-garis horizontal berwarna putih yang beraturan, cacat terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan hingga bagian sisi samping terdapat garis-garis horizontal berwarna putih yang beraturan, cacat sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "打滑震纹",
+   "name_id": "Kerutan Akibat Licin",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B17",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada dua permukaan gulungan yaitu atas bawah terdapat kerutan berbentuk tulang rusuk, atau berbentuk seperti tulisan '人' yang gelap, cacat tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada dua permukaan gulungan yaitu atas bawah terdapat kerutan berbentuk tulang rusuk, atau berbentuk seperti tulisan '人' yang gelap, cacat pada sudut tertentu mudah terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada dua permukaan gulungan yaitu atas bawah terdapat kerutan berbentuk tulang rusuk, atau berbentuk seperti tulisan '人' yang gelap, cacat dapat terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada dua permukaan gulungan yaitu atas bawah terdapat kerutan berbentuk tulang rusuk, atau berbentuk seperti tulisan '人' yang gelap, cacat sangat terlihat dengan jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "排骨纹",
+   "name_id": "Kerutan Berbentuk Tulang Rusuk",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B18",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, pada sudut tertentu baru dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, cacat dapat terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, sangat jelas terlihat.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "水波纹",
+   "name_id": "Tanda Seperti Gelombang Air",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B19",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat tidak terlalu terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat pada sudut tertentu baru dapat terlihat, ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat terlihat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat sangat terlihat jelas, ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "顶伤",
+   "name_id": "Tanda Tertekan",
+   "notes": "Cara menentukan kualitas berdasarkan panjang siklus batangan pekerja sebenarnya.",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B20",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "轧机卷重异常",
+   "name_id": "Berat Gulungan di Luar Normal",
+   "notes": "(Catatan: nama Indonesia 'Benda Asing Berbentuk Bintik' tidak selaras dengan nama Mandarin '轧机卷重异常' (berat gulungan rolling mill tidak normal) dan isi aturan yang membahas berat gulungan — perlu konfirmasi.)",
+   "rule": "Konfirmasi ke pihak perencanaan apakah dapat dikirim ke pelanggan awal atau tidak, apabila tidak bisa maka gulungan masuk ke gudang.",
+   "section": "rolling_mill",
+   "flags": [
+    "pasangan kode \"berat tidak mencukupi\" per lini (disengaja): R61/A13/B20/C39/D01"
+   ]
+  },
+  {
+   "code": "B21",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, pada sudut tertentu baru dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, cacat dapat terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, sangat jelas terlihat.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "斜纹",
+   "name_id": "Tanda Kerutan Miring",
+   "notes": "",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B22",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视不明显 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，下表面发生，目视明显，上表面隐约可见，打磨后可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视较明显，打磨后不可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "钢带表面有轧机背衬辊形态的条状缺陷，双面发生，目视非常明显，且有轻微手感，打磨后不可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "轧机背衬印",
+   "name_id": "Tanda Roler Penyangga",
+   "notes": "轧机侧支撑辊后面的背衬辊印转印到工辊再转印到钢带表面所致。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B23",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "轧机焊缝",
+   "name_id": "Tanda Las dari Rolling Mill",
+   "notes": "",
+   "rule": "轧机断带，手工焊接，到出口后必须切除处理。[hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi]",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B24",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m pada sudut yang berbeda dapat terlihat, tapi tidak muncul ada retakan ataupun tanda melengkung atau menonjol.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bagian tepi gulungan ada robekan, tonjolan dan bentuk-bentuk lainnya.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Robekan yang bersifat kontinu dan tingkat kedalamannya agak dalam, atau karena goresan yang ada di tepi mesin sehingga menyebabkan gulungan tergulung menjadi 90°.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "轧机打边",
+   "name_id": "Sisi Tergores Rolling Mill",
+   "notes": "Tingkat keparahan cacat mencapai tingkat H(parah) atau di atasnya lagi, harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "rolling_mill"
+  },
+  {
+   "code": "B25",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "轧机厚度不均",
+   "name_id": "Ketebalan Rolling Mill  Tidak Sama Rata",
+   "notes": "",
+   "rule": "Ketebalan beberapa bagian gulungan baja yang sama melebihi atau di bawah persyaratan pelanggan, atau melebihi standar kontrol plant (tidak termasuk 30m pertama).",
+   "section": "rolling_mill"
+  },
+  {
+   "code": "C01-1",
+   "has_image": false,
+   "jenis": "C01-1: Lebar menyempit asam dingin (冷酸宽度偏窄)",
+   "levels": {},
+   "name_cn": "冷酸宽度偏窄",
+   "name_id": "Lebar terlalu sempit",
+   "notes": "",
+   "rule": "Akibat perlakuan asam dingin, lebar gulungan yang sudah jadi tidak memenuhi toleransi pesanan pelanggan.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C01-2",
+   "has_image": false,
+   "jenis": "C01-2: Lebar tidak merata asam dingin (冷酸宽度不均)",
+   "levels": {},
+   "name_cn": "冷酸宽度不均",
+   "name_id": "Lebar tidak rata",
+   "notes": "",
+   "rule": "Akibat perlakuan asam dingin, lebar gulungan yang sudah jadi berfluktuasi, melebihi rentang kendali.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C02",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m pada sudut yang berbeda dapat terlihat, tapi tidak muncul ada retakan ataupun tanda melengkung atau menonjol.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Bagian tepi gulungan ada robekan, tonjolan dan bentuk-bentuk lainnya.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Robekan yang bersifat kontinu dan tingkat kedalamannya agak dalam, atau karena goresan yang ada di tepi mesin sehingga menyebabkan gulungan tergulung menjadi 90°.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "打边",
+   "name_id": "Tepi Tegores",
+   "notes": "Apabila tingkat cacat mencapai tingkat parah (H) atau tingkat atasnya lagi, maka harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C03-1",
+   "has_image": false,
+   "jenis": "C03-1: Tebal menipis asam dingin (冷酸厚度偏薄)",
+   "levels": {},
+   "name_cn": "冷酸厚度偏薄",
+   "name_id": "Tebal terlalu tipis",
+   "notes": "(Catatan: teks aturan di dokumen menulis 'lebar gulungan' padahal ini cacat ketebalan — kemungkinan salah tulis di dokumen; perlu konfirmasi.)",
+   "rule": "Akibat perlakuan asam dingin, lebar gulungan yang sudah jadi tidak memenuhi toleransi pesanan pelanggan.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C03-2",
+   "has_image": false,
+   "jenis": "C03-2: Tebal tidak merata asam dingin (冷酸厚度不均)",
+   "levels": {},
+   "name_cn": "冷酸厚度不均",
+   "name_id": "Ketebalan tidak rata",
+   "notes": "(Catatan: teks aturan di dokumen menulis 'lebar gulungan' padahal ini cacat ketebalan — kemungkinan salah tulis di dokumen; perlu konfirmasi.)",
+   "rule": "Akibat perlakuan asam dingin, lebar gulungan yang sudah jadi berfluktuasi, melebihi rentang kendali.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "火焰纹",
+   "name_id": "Tanda Percikan Api",
+   "notes": "",
+   "rule": "Apabila ada handfeel maka harus dilakukan pemotongan, perbedaan warna yang ringan dapat dibawa",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C05",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "酸洗侧凸",
+   "name_id": "Tepi Melekuk",
+   "notes": "(Catatan: kolom Kualitas di dokumen memuat penanda 'L/M/H' untuk baris aturan ini — tidak dapat dipetakan ke grade A/A1/B/B1/S; diperlakukan sebagai aturan. Perlu konfirmasi.)",
+   "rule": "Lingkar dalam sebanyak 3 lapisan, Lingkar luar sebanyak 2 lapisan panjang sisi tepi yang rusak adalah ≤20MM, lalu bagian yang diiris ≤10MM, Gulungan ini tetap harus dilakukan penggulungan ulang.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat tidak terlalu terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat pada sudut tertentu baru dapat terlihat, ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat terlihat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat sangat terlihat jelas, ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "顶伤",
+   "name_id": "Tanda Cekung-Cembung",
+   "notes": "Cara menentukan kualitas berdasarkan panjang siklus batangan pekerja sebenarnya.",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C07",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "酸洗过度",
+   "name_id": "Pencucian Asid Terlalu Lama",
+   "notes": "",
+   "rule": "Pada permukaan plat baja muncul tanda memutih baik beberapa bagian saja atau satu permukaan, maka dilakukan pemotongan atau dapat turun kualitas 2.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C08",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat tidak mudah terlihat, Korosi jarang muncul, dalam satuan tertentu",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat terlihat dengan jelas, pada posisi tertentu terdapat jumlah yang tidak dapat dihitung perubahannya.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, titik-titik korosi padat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Warna permukaan berubah menjadi hitam, titik-titik korosi sangat padat.",
+     "grade": "TIDAK_DIIZINKAN"
+    }
+   },
+   "name_cn": "酸洗不足",
+   "name_id": "Pencucian Asid Tidak Mencukupi",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C09",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan baja tampak bekas perbedaan warna yang samar, dari sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tampak permukaan plat ada perbedaan warna yang ringan, pada sudut pandang tertentu rata-rata dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat nampak jelas terdapat garis putih memanjang, perbedaan warna terlihat sangat jelas",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat nampak jelas seperti garis putih yang memanjang, terus menerus muncul di seluruh permukaan, ada handfeel",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "酸洗污痕",
+   "name_id": "Noda Pencucian Acid",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C10",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Perbedaan warna yang ringan",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Perbedaan warna yang sangat terlihat, tidak ada handfeel",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Warna berubah menjadi gelap dan hitam, ada handfeel yang terasa sedikit.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Bekas lecet sangat terlihat jelas, ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "擦伤",
+   "name_id": "Lecet",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat terlihat seperti helaian rambut, tidak dapat terlihat dengan jelas, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Terlihat dengan jelas, garis mengkilap, tidak ada handfeel",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Garis cacat terlihat mengkilap, terlihat berkelok-kelok, ada sedikit handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Handfeel terasa sangat jelas, ada penumpukan zat logam yang sangat terasa.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "划伤",
+   "name_id": "Tergores",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C12",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat nampak tidak terlalu jelas, tidak ada handfeel",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat nampak agak jelas, ada sedikit handfeel",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Cacat nampak dengan jelas, ada handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat nampak dengan jelas, ada handfeel yang sangat terasa.",
+     "grade": "TIDAK_DIIZINKAN"
+    }
+   },
+   "name_cn": "折痕",
+   "name_id": "Tanda Terlipat",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C13",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "卷取折痕",
+   "name_id": "Tanda Pelipatan Gulungan",
+   "notes": "",
+   "rule": "Apabila tidak ada handfeel bisa dibawa, Apabila ada handfeel, harus dilakukan pemotongan.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C14",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "平整停机印",
+   "name_id": "Tanda Berhenti Mesin Penyamarataan",
+   "notes": "Ada handfeel, tingkat keparahan cacat rata-rata dapat dicatat untuk tingkat parah/serius (H)/(S), apabila rilis tingkat cacat tidak boleh melebihi tingkat M. (Catatan: kolom Kualitas di dokumen memuat 'L / Tidak diizinkan / Tidak diizinkan / Tidak diizinkan' untuk baris aturan ini — tidak dapat dipetakan; diperlakukan sebagai aturan. Perlu konfirmasi.)",
+   "rule": "Tidak ada handfeel, bisa dibawa dan dirilis normal; apabila ada handfeel maka harus dilakukan pemotongan.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C15",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "电解泥掉落",
+   "name_id": "Kandungan Garam Netral yang Jatuh",
+   "notes": "(Catatan: kolom Kualitas di dokumen memuat 'L / Tidak diizinkan / Tidak diizinkan / Tidak diizinkan' untuk baris aturan ini — tidak dapat dipetakan; diperlakukan sebagai aturan. Perlu konfirmasi.)",
+   "rule": "Apabila hanya satu sisi yang muncul dan tidak melewati mesin penyamarataan boleh di bawa, apabila melewati mesin penyamarataan dan bekasnya sudah tercetak maka harus dilakukan pemotongan",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C16",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "钢卷表面淡淡的黄色色差印呈点状或线状分布 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "钢卷表面淡黄色色差印，目视较明显 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "钢卷表面黄色，白色或黑色色差印，呈块状分布，目视明显 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "钢卷表面深黄色，白色或黑色色差印，目视明显，呈块状或整面发生。 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "酸液残留",
+   "name_id": "Bekas Cairan Asid",
+   "notes": "产线停机后火或急降速造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C17",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu cacat terlihat dengan jelas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar, tidak hilang bila diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "油印",
+   "name_id": "Tanda Minyak",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C18",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "性能异常",
+   "name_id": "Fungsi Di Luar Normal",
+   "notes": "",
+   "rule": "Setelah diambil sampel dan diuji mekaniknya, apabila tidak dapat memenuhi standar maka disebut cacat fungsi di luar normal. Untuk pelanggan dengan permintaan tinggi untuk hasil uji mekaniknya maka rilis mengganti pelanggan, apabila tidak dapat mengganti pelanggan maka turun kualitas 2 atau dilakukan penggilingan kembali.",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C19",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    }
+   },
+   "name_cn": "针尖压入",
+   "name_id": "Penekanan Berbentuk Jarum",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C20",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak terlihat secara kasap mata",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Agak terlihat jelas secara kasap mata",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat jelas secara kasap mata",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Air yang kotor terdapat benda asingnya.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "水印",
+   "name_id": "Tanda Air",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C21",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi Gelombang 1-2MM",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Tinggi Gelombang 3MM",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tinggi Gelombang 4-7MM",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Tinggi Gelombang >7MM, atau gelombang yang kecil-kecil yang rapat",
+     "grade": "B"
+    }
+   },
+   "name_cn": "边波",
+   "name_id": "Gelombang di Tepi",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C22",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang ≤3mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "中波",
+   "name_id": "Gelombang di Tengah",
+   "notes": "(Catatan: tingkat S memiliki deskripsi sama dengan M/H tetapi kolom grade B1='/' di dokumen sehingga S tidak dipetakan — perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C23",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang ≤3mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "1/4波",
+   "name_id": "Gelombang Seperempat",
+   "notes": "(Catatan: tingkat S memiliki deskripsi sama dengan M/H tetapi kolom grade B1='/' di dokumen sehingga S tidak dipetakan — perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C24",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Dapat terlihat ada lapisan gulungan yang longgar (celahnya harus dalam rentang <1mm)",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Lapisan gulungan yang longgar rapat terlihat dengan jelas secara kasap mata (Panjang longgar ≧1-3mm)",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Lapisan yang longgar paling tidak selebar satu jari (panjang longgar ≧4-6mm)",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Lapisan gulungan yang longgar sepanjang ＞6mm",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "钢卷松散",
+   "name_id": "Gulungan Longgar",
+   "notes": "(Catatan: nama Indonesia 'Gelombang di Tepi' tidak selaras dengan isi kriteria yang membahas gulungan longgar/celah antar lapisan — kemungkinan salah nama di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C25",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat berupa garis melintang horizontal, pembagian warnanya seperti warna logam yang mengkilap, cacat berbentuk seperti goresan garis seperti rambut hampir sebagian maka disebut ringan, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat berupa garis melintang horizontal, pembagian warnanya seperti warna logam yang mengkilap, apabila cacat berbentuk seperti goresan garis pendek-pendek hampir seluruh permukaan maka disebut tingkat sedang, cacat secara terus menerus, ada handfeel yang ringan.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat berupa garis melintang horizontal, pembagian warnanya seperti warna logam yang mengkilap, cacat berbentuk seperti goresan garis pendek-pendek hampir seluruh permukaan, cacat secara terus menerus, ada handfeel yang terasa jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berupa garis melintang horizontal dan memiliki kecekungan, cacat berbentuk padat, dari yang panjang sampai pendek mengkilap, ada penumpukan zat maka sangat serius.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "刷辊印",
+   "name_id": "Tanda Roller Penggosok",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C26",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "M": {
+     "desc": "Permukaan warna plat baja tidak ada keabnormalan",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Karena overheat maka menyebabkan plat baja berwarna putih, atau berubah berwarna hitam, maka harus dilakukan pemotongan. Plat baja yang mengalami overheat harus diambil sampel untuk melihat hasil pengujian mekanisnya.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "退火过度",
+   "name_id": "Proses Pembakaran Terlalu Lama (overheat)",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C27",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "M": {
+     "desc": "Permukaan warna plat baja tidak ada keabnormalan",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Karena overheat maka menyebabkan plat baja berwarna putih, atau berubah berwarna hitam, maka harus dilakukan pemotongan. Plat baja yang mengalami overheat harus diambil sampel untuk melihat hasil pengujian mekanisnya.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "退火不足",
+   "name_id": "Pembakaran Tidak Mencukupi",
+   "notes": "(Catatan: deskripsi tingkat H menyebut 'overheat' padahal kode ini adalah 退火不足 (pembakaran/annealing tidak mencukupi) — kemungkinan salah tulis di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C28",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Terlihat jelas berbentuk lubang jarum atau goresan pendek, tanpa kedalaman dan tanpa terasa saat diraba, dapat dihilangkan dengan amplas 800 digosok 20 kali",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Terlihat jelas berbentuk lubang jarum atau goresan pendek, cekungan berwarna putih atau putih muda, kedalaman relatif dangkal, tanpa terasa saat diraba, dapat dihilangkan dengan amplas 800 digosok bolak-balik 30 kali",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "1mm＜d≤2mm, terlihat jelas berupa cekungan titik berwarna hitam atau abu-abu, sedikit terasa saat diraba, tidak dapat dihilangkan dengan amplas 600 digosok bolak-balik 50 kali",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "d＞2mm, terlihat sangat jelas berupa cekungan titik berwarna hitam atau abu hitam, memiliki handfeel dan kedalaman yang jelas, sudah tercetak ke permukaan atas, tidak perlu diamplas, langsung ditentukan turun grade",
+     "grade": "B"
+    }
+   },
+   "name_cn": "附着物印痕",
+   "name_id": "Tanda Gulungan dari Tungku",
+   "notes": "(Catatan: teks Indonesia tingkat S di dokumen tercampur Mandarin dan terpotong; dinormalisasi dari 'd＞2mm，非常明显看出,呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级'. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C29",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak mudah terlihat; tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat agak terlihat; ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel yang sangat parah",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "挤干辊印",
+   "name_id": "Tanda Roler Pemerasan",
+   "notes": "多为挤干辊损伤后留下坑洞造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C30",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Diameter ≤0.5mm, sisi sebaliknya tidak ada bekas tanda cembung yang lurus.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Diameter ≥0.5mm, sisi sebaliknya ada bekas tanda cembung yang lurus.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Seluruh permukaan gulungan terdapat bekas cembungan, apabila parah di sisi sebaliknya ada bekas yang berwarna hitam",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Kemungkinan muncul secara besar.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "平整辊印",
+   "name_id": "Tanda Mesin Penyamarataan",
+   "notes": "Apabila cacat tidak sampai mengakibatkan tanda cekung dan sisi sebaliknya tidak terdapat bekas biasanya dapat toleransi.",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C31",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak mudah terlihat; tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat agak terlihat; ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel yang sangat parah",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "平整震纹",
+   "name_id": "Tanda Kerutan Penyamarataan",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C32",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak mudah terlihat; tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat agak terlihat; ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel yang sangat parah",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "防皱辊印",
+   "name_id": "Tanda Roler Pencegah Kerutan",
+   "notes": "多为防皱辊损伤后留下坑洞造成。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C33",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat tidak nampak dengan jelas",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat nampak jelas",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah diamplas dapat hilang, tidak perlu turun kualitas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Setelah diamplas tidak dapat hilang maka turun kualitas 2.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "打滑震纹",
+   "name_id": "Kerutan Akibat Licin",
+   "notes": "Toleransi keparahan cacat tidak boleh melebih tingkat medium (M).",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C34",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak terlihat secara kasap mata",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Agak terlihat jelas secara kasap mata, diamplas bisa hilang.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Agak terlihat jelas secara kasap mata, diamplas bisa hilang, apabila diamplas tidak dapat hilang",
+     "grade": "B"
+    }
+   },
+   "name_cn": "打滑印",
+   "name_id": "Tanda Licin",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C35",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "缺陷直径＜5mm且为下表面发生，上表面无转印 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "5mm≤d＜10mm，用800目砂纸打磨可抛除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "10mm≤d＜15mm，用800目砂纸打磨不可抛除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "d＞15mm，用800目砂纸打磨不可抛除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "虫印",
+   "name_id": "Tanda Serangga",
+   "notes": "Apabila hanya ada pada satu permukaan saja maka dapat dirilis.",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C36",
+   "has_image": false,
+   "jenis": "Jenis 1 (Dari Asam atau Minyak)",
+   "levels": {
+    "L": {
+     "desc": "Pada sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu cacat terlihat dengan jelas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar, tidak hilang bila diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "异物压入1类（油泥，酸泥）",
+   "name_id": "Benda Asing 1 dari asam atau minyak",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C37",
+   "has_image": false,
+   "jenis": "Jenis 2 (Benda Asing lain-lain)",
+   "levels": {
+    "L": {
+     "desc": "Pada sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu cacat baru dapat terlihat dengan jelas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, bentuknya muncul dengan besar.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas, bentuknya muncul dengan besar, diamplas tidak hilang.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "异物压入2类（其他异物）",
+   "name_id": "Benda Asing 2 lain-lain",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C38-1",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tanda titik atau lingkaran samar pada permukaan gulungan baja, 1-4 titik per meter, diampelas 25 kali dengan amplas 800",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Titik-titik atau lingkaran abu-abu atau putih pada permukaan gulungan baja, 5-10 titik per meter, diampelas 30 kali dengan amplas 800",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda melingkar berwarna abu-abu tua pada permukaan gulungan baja, 11-20 titik per meter, diampelas 50 kali dengan amplas 800",
+     "grade": "A1 (bila hilang diamplas) / B (bila tidak hilang diamplas)"
+    },
+    "S": {
+     "desc": "Tanda seperti lingkaran berwarna abu-abu tua atau hitam pekat pada permukaan gulungan baja, muncul secara padat (>20 titik per meter)",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "焦油腐蚀1类",
+   "name_id": "Korosi tar Kategori 1",
+   "notes": "Kriteria L/M/H/S di bawah disalin dari SOP C38 (焦油腐蚀). (Catatan: nama Indonesia 'Berat Tidak Normal' tidak selaras dengan nama Mandarin '焦油腐蚀' (korosi tar) dan isi kriteria yang membahas noda korosi — kemungkinan salah nama di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin",
+   "flags": [
+    "perlu konfirmasi user: pemetaan kategori 1/2 vs tingkat L/M/H/S",
+    "grade kondisional amplas DIPERTAHANKAN sesuai SOP — keputusan user 2026-10-18 ('ikuti petunjuk SOPnya saja')"
+   ]
+  },
+  {
+   "code": "C38-2",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tanda titik atau lingkaran samar pada permukaan gulungan baja, 1-4 titik per meter, diampelas 25 kali dengan amplas 800",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Titik-titik atau lingkaran abu-abu atau putih pada permukaan gulungan baja, 5-10 titik per meter, diampelas 30 kali dengan amplas 800",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Tanda melingkar berwarna abu-abu tua pada permukaan gulungan baja, 11-20 titik per meter, diampelas 50 kali dengan amplas 800",
+     "grade": "A1 (bila hilang diamplas) / B (bila tidak hilang diamplas)"
+    },
+    "S": {
+     "desc": "Tanda seperti lingkaran berwarna abu-abu tua atau hitam pekat pada permukaan gulungan baja, muncul secara padat (>20 titik per meter)",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "焦油腐蚀2类",
+   "name_id": "Korosi tar Kategori 2",
+   "notes": "Kriteria L/M/H/S di bawah disalin dari SOP C38 (焦油腐蚀). (Catatan: nama Indonesia 'Berat Tidak Normal' tidak selaras dengan nama Mandarin '焦油腐蚀' (korosi tar) dan isi kriteria yang membahas noda korosi — kemungkinan salah nama di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin",
+   "flags": [
+    "perlu konfirmasi user: pemetaan kategori 1/2 vs tingkat L/M/H/S",
+    "grade kondisional amplas DIPERTAHANKAN sesuai SOP — keputusan user 2026-10-18 ('ikuti petunjuk SOPnya saja')"
+   ]
+  },
+  {
+   "code": "C39",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "冷酸卷重异常",
+   "name_id": "Berat Gulungan di Luar Normal",
+   "notes": "(Catatan: nama Indonesia 'Gulungan Longgar' tidak selaras dengan nama Mandarin '冷酸卷重异常' (berat gulungan asam dingin tidak normal) dan isi aturan yang membahas berat gulungan — perlu konfirmasi.)",
+   "rule": "Konfirmasi ke pihak perencanaan apakah dapat dikirim ke pelanggan awal atau tidak, apabila tidak bisa maka gulungan masuk ke gudang.",
+   "section": "asam_dingin",
+   "flags": [
+    "pasangan kode \"berat tidak mencukupi\" per lini (disengaja): R61/A13/B20/C39/D01",
+    "ambang scrap <3T DIKONFIRMASI user 2026-10-18 ('untuk saat ini asumsikan berlaku sama'); menggantikan <2 ton kolom Mandarin SOP 2026."
+   ],
+   "superseded_note": "Prosedur TTRI-QM-ZY-35-2025 Tabel 1 menetapkan berat <3T → grade S (scrap), menggantikan ambang <2 ton di kolom Mandarin SOP 2026 (C39/D01: 重量低于2吨做报废处理)."
+  },
+  {
+   "code": "C40",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Titik-titik berwarna putih, panjang ≤5mm, dalam 1 m dikontrol titik-titik cacat ≤3 titik.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Cacat berbentuk titik putih, panjang cacat lebih besar dari 5mm.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Cacat muncul Berbentuk seperti kepingan, gumpalan atau garis-garis.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat berbentuk sangat padat, tidak dapat diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "冷酸粘胶",
+   "name_id": "Tanda Karet Pencucian Asam Dingin",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C41",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Setelah gulungan baja berhenti berjalan, saat permukaan baja dilap dengan kertas A4 terdapat sedikit bekas abu hitam",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Setelah gulungan baja berhenti berjalan, saat permukaan baja dilap dengan kertas A4, bekas abu hitam relatif ringan, namun secara visual terlihat ada lapisan debu mengambang pada permukaan kertas A4",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Setelah gulungan baja berhenti berjalan, saat permukaan baja dilap dengan kertas A4, bekas abu hitam cukup berat dan permukaan kertas A4 sudah tampak hitam muda",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Setelah gulungan baja berhenti berjalan, saat permukaan baja dilap dengan kertas A4, bekas hitam sangat jelas dan kertas A4 sudah tampak hitam pekat",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "酸洗不良（夹灰）",
+   "name_id": "Pencucian Asam Tidak Baik (Abu Pencucian Asam )",
+   "notes": "Saat muncul cacat pickling tidak baik (夹灰), line produksi wajib segera menurunkan kecepatan untuk melakukan perbaikan",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C42",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Permukaan strip baja terdapat cacat garis berbentuk rol penyangga belakang mesin pelurus, terjadi di permukaan bawah dan tidak jelas terlihat secara visual",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Permukaan strip baja terdapat cacat garis berbentuk rol penyangga belakang mesin pelurus, terjadi di permukaan bawah, terlihat jelas secara visual, permukaan atas samar terlihat, dapat dihilangkan setelah pengamplasan",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Permukaan strip baja terdapat cacat garis berbentuk rol penyangga belakang mesin pelurus, terjadi di kedua permukaan, cukup jelas terlihat secara visual dan tidak dapat dihilangkan setelah pengamplasan",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Permukaan strip baja terdapat cacat garis berbentuk rol penyangga belakang mesin pelurus, terjadi di kedua permukaan, sangat jelas terlihat secara visual dan sedikit terasa saat diraba, tidak dapat dihilangkan setelah pengamplasan",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "背衬印",
+   "name_id": "Tanda Roler Penyangga",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C43",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang ringan, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, pada sudut tertentu cacat sudah dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang ringan secara terus menerus, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, pada sudut tertentu cacat sudah dapat terlihat, perbedaan warna tidak terlalu terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang sangat terlihat jelas, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, cacat terlihat dengan mudah, perbedaan warna sangat terlihat jelas.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang muncul di permukaan plat baja berbentuk seperti titik-titik yang berwarna hitam, kepingan ataupun seperti awan, cacat juga berbentuk seperti gelombang dan bentuk bentuk lain tanpa pola, perbedaan warna sangat terlihat jelas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "酸洗不均",
+   "name_id": "Pencucian Asam Tidak Rata",
+   "notes": "Ketika muncul cacat pencucian acid tidak merata, hal yang pertama dilakukan adalah bertanya dan konfirmasi terlebih dahulu ke Staff Lini Produksi Pencucian Acid apakah ada sesuatu yang abnormal. Apabila setelah bertanya ternyata tidak ada abnormal, bisa bertanya lagi ke staff lini produksi sebelumnya. Apabila ada, maka lini produksi tersebut yang harus bertanggung jawab atas kualitas gulungannya.",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C44",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Ketika baja berjalan, dari sisi permukaan bawah terlihat dengan tidak jelas bahwa dipermukaan ada seperti benda asing atau seperti tonjolan ke atas, ketika baja berhenti dalam sudut tertentu dapat terlihat, tetapi permukaan atas tidak dapat terlihat, dan tidak ada handfeel",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Gulungan baja ketika berjalan, pada permukaan bawah terlihat jelas ada tonjolan seperti lesung pipi, tetapi dari permukaan atas terlihat samar-samar, ketika gulungan berhenti, pada permukaan atas tidak terlihat dan tidak ada handfeel",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Ketika gulungan sedang berjalan, pada permukaan atas terlihat samar-samar ada tonjolan seperti lesung pipi, apabila gulungan sedang berhenti, maka pada permukaan atas dapat terlihat adanya tonjolan seperti lesung pipi pada sudut tertentu, tidak ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Gulungan ketika berjalan maupun berhenti pada permukaan atas dan bawah dapat terlihat dengan jelas adanya tonjolan seperti lesung pipi, dan ada handfeel",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "冷却不均",
+   "name_id": "Pendinginan Tidak Rata",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C45",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "垫纸异常",
+   "name_id": "Kertas Pelapis Eror",
+   "notes": "",
+   "rule": "Abnormal line produksi, kerusakan mesin kertas alas, atau kesalahan operator menyebabkan gulungan baja tidak diberi kertas alas sesuai, dikirim ke slitting untuk rewinding dan pemasangan kertas alas ulang",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C46",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak mudah terlihat; tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat agak terlihat; ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel yang sangat parah",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "测张辊印",
+   "name_id": "Tanda Roler Pre Ketegangan",
+   "notes": "Sebagian besar disebabkan lubang/cekungan yang terbentuk setelah measuring tension roll mengalami kerusakan",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C47",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "未平整",
+   "name_id": "Tidak Melewati SPM",
+   "notes": "",
+   "rule": "Berhenti abnormal pada line produksi menyebabkan permukaan gulungan baja berkerut; kerusakan peralatan atau kesalahan operator menyebabkan gulungan baja tidak rata, dilakukan reroll. Jika line produksi sudah tidak dapat melakukan reroll, maka diturunkan menjadi grade B1 atau S",
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C48",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Secara visual, tepi gulungan baja sesekali terdapat karat",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Secara visual, tepi gulungan baja terdapat karat hitam muda, namun saat dilap dengan tisu, bekas karat tidak dapat terhapus",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Secara visual, tepi gulungan baja terdapat karat hitam yang jelas, saat dilap dengan tisu, permukaan tisu terdapat karat mengambang hitam muda",
+     "grade": "A1"
+    },
+    "S": {
+     "desc": "Secara visual, tepi gulungan baja terdapat karat hitam pekat, saat dilap dengan tisu, permukaan tisu terdapat karat mengambang hitam pekat yang serius",
+     "grade": "B"
+    }
+   },
+   "name_cn": "黑边",
+   "name_id": "Sisi Hitam",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C49",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "冷酸焊缝",
+   "name_id": "Las Dari Asam Dingin",
+   "notes": "",
+   "rule": "Putus strip pada asam dingin, dilakukan pengelasan manual. Jika ditemukan wajib dipotong dan dibuang",
+   "section": "asam_dingin",
+   "flags": [
+    "nama DIKONFIRMASI user 2026-10-18: ikuti xlsx ('Las Dari Asam Dingin' / 冷酸焊缝)"
+   ]
+  },
+  {
+   "code": "C50",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, pada sudut tertentu baru dapat terlihat.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, cacat dapat terlihat.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada permukaan gulungan bagian samping atau seluruh permukaan terdapat garis miring yang gelap, sangat jelas terlihat.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "冷酸斜纹",
+   "name_id": "Tanda Kerutan Miring",
+   "notes": "Terutama disebabkan penggunaan tension leveler roll yang tidak sesuai, atau penggunaan anti-wrinkle roll yang tidak sesuai",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C51",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Saat gulungan baja berjalan dengan kecepatan tinggi, terlihat perbedaan warna pada permukaan, namun tidak pada kondisi kecepatan rendah atau diam",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada kondisi kecepatan rendah atau diam, terlihat jelas perbedaan warna pada gulungan baja, warna relatif ringan, berbentuk garis miring atau bercak, dapat dihilangkan dengan amplas 600 digosok 25 kali",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada kondisi diam, sampel terlihat jelas memiliki perbedaan warna, berbentuk garis miring atau bercak, secara visual berwarna abu-abu gelap, tidak dapat sepenuhnya dihilangkan dengan amplas 600 digosok 25 kali",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Pada kondisi diam, terlihat sangat jelas perbedaan warna, berbentuk garis miring atau bercak, secara visual berwarna hitam gelap, tidak dapat sepenuhnya dihilangkan dengan amplas 600 digosok 50 kali",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "冷酸氧化不均",
+   "name_id": "Permukaan Oksidasi yang tidak Merata",
+   "notes": "",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C54",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "M": {
+     "desc": "Cacat tidak terlalu nampak, diamplas dengan amplas 800 atau 1000 bisa hilang.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat terlihat jelas, diamplas dengan amplas 800 atau 1000 tidak bisa hilang",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat terlihat sangat jelas, diamplas dengan amplas 800 atau 1000 tidak bisa hilang",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "铜析出",
+   "name_id": "Kandungan Tembaga yang muncul",
+   "notes": "(Catatan: kolom Kualitas di dokumen tidak sejajar rapi untuk baris ini; pemetaan M→A1, H→B, S→B1 mengikuti pola A05 yang identik. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "C55",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak terlihat oleh mata, tidak terasa, tidak mudah terlihat setelah dipoles, tetapi dapat dihilangkan dengan pemolesan.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Tidak terlihat oleh mata, tidak terasa, tetapi setelah dipoles, perbedaan warna muncul sebagai garis-garis horizontal yang teratur. Perbedaan warna tersebut dangkal dan dapat dihilangkan dengan pemolesan.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat halus secara visual, tidak terasa, tetapi setelah dipoles, perbedaan warna muncul sebagai garis-garis horizontal yang teratur. Perbedaan warna tersebut signifikan dan dapat dihilangkan dengan pemolesan.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat jelas oleh mata, terasa, tetapi tidak dapat dihilangkan dengan pemolesan.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "拉矫震纹",
+   "name_id": "Bekas getaran pada mesin stretch leveling",
+   "notes": "(Catatan: kolom Kualitas di dokumen memuat 'L / M / H / H' — kolom B1 tertulis 'H' bukan 'S'; kemungkinan salah tulis, S diasumsikan →B1. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "asam_dingin"
+  },
+  {
+   "code": "D01",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "精整卷重异常",
+   "name_id": "Berat Gulungan di Luar Normal",
+   "notes": "",
+   "rule": "Konfirmasi ke pihak perencanaan apakah dapat dikirim ke pelanggan awal atau tidak, apabila tidak bisa maka gulungan masuk ke gudang.",
+   "section": "penyelesaian",
+   "flags": [
+    "pasangan kode \"berat tidak mencukupi\" per lini (disengaja): R61/A13/B20/C39/D01",
+    "ambang scrap <3T DIKONFIRMASI user 2026-10-18 ('untuk saat ini asumsikan berlaku sama'); menggantikan <2 ton kolom Mandarin SOP 2026."
+   ],
+   "superseded_note": "Prosedur TTRI-QM-ZY-35-2025 Tabel 1 menetapkan berat <3T → grade S (scrap), menggantikan ambang <2 ton di kolom Mandarin SOP 2026 (C39/D01: 重量低于2吨做报废处理)."
+  },
+  {
+   "code": "D02",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sisi tepi samping gulungan terdapat bekas tanda tergores yang ringan, di luar rentang 1m pada sudut yang berbeda dapat terlihat, tapi tidak muncul ada retakan ataupun tanda melengkung atau menonjol.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Pada tepi samping gulungan terdapat bentuk sobek dan melengkung atau menonjol.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terdapat robekan dengan kedalaman secara terus menerus, atau dikarenakan ada tepi mesin yang terluka mengakibatkan gulungan tergulung sampai 90°.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "打边",
+   "name_id": "Tepi Tegores",
+   "notes": "Apabila tingkat cacat mencapai tingkat parah (H) atau tingkat atasnya lagi, maka harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D04",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Bagian sisi tepi gulungan terdapat tanda tergores, dalam rentang 1m ke luar cacat tidak mudah terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Bagian sisi tepi gulungan terdapat tanda tergores, dalam rentang 1m ke luar cacat dapat terlihat pada sudut pandang yang berbeda, tetapi tidak muncul ada retakan ataupun tanda melengkung atau menonjol.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Robekan akibat terbentuk, tonjolan akibat terbentur atau lipatan akibat terbentur mencapai 90°.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Tanda terbentur yang terus menerus memiliki kedalaman yang agak dalam, atau karena gulungan terjatuh maka mengakibatkan adanya sisi gulungan yang melebar",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "撞伤",
+   "name_id": "Terbentur",
+   "notes": "Apabila tingkat cacat mencapai tingkat parah (H) atau tingkat atasnya lagi, maka harus dilakukan pemotongan.",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D05",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "侧凸",
+   "name_id": "Sisi gulungan Tidak Rata",
+   "notes": "Apabila lapisan gulungan yang keluar lebih dari 100MM maka dicatat dengan tingkat H（Parah）.",
+   "rule": "Sisi terdalam 3 lapisan gulungan, sisi terluar 2 lapisan gulungan yang memiliki sisi tidak rata ≤20mm, sisi yang dipotong ≤10mm, apabila sisi tidak rata ada di tengah-tengah atau malah seluruh gulungan maka harus dilakukan penggulungan kembali.",
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D06",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat tidak terlalu terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat pada sudut tertentu baru dapat terlihat, ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat terlihat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat sangat terlihat jelas, ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "顶伤",
+   "name_id": "Tanda Cekung-Cembung",
+   "notes": "Cara menentukan kualitas berdasarkan panjang siklus batangan pekerja sebenarnya.",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D07",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "断纸接头",
+   "name_id": "Sambungan Kertas yang Robek",
+   "notes": "",
+   "rule": "Saat menggulung gulungan, ada kertas pelapis yang putus, setelah disambungkan dengan kertas yang baru, terdapat cacat jarak antara kertas yang lama dan yang baru dipasang, harus mencatat posisi kertas putus itu dengan benar (m), tidak ada perbedaan keparahan cacat.",
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D08",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat tidak nampak jelas, tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat agak terlihat dengan jelas, ada sedikit handfeel",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; terdapat handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat sangat jelas; handfeel sangat parah",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "衬纸折印",
+   "name_id": "Tanda Kertas",
+   "notes": "钢卷在卷取过程中，衬纸折叠，转印到钢带上形成折印。(hanya tersedia dalam Mandarin di dokumen — perlu terjemahan/konfirmasi)",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D09",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "塌卷",
+   "name_id": "Gulungan yang Terjatuh",
+   "notes": "",
+   "rule": "Tidak diizinkan adanya gulungan yang terjatuh, apabila terdapat cacat tanda gulungan terjatuh yang pertama dilakukan adalah menggulung kembali, apabila muncul tanda bekas terlipat dengan jelas, maka gulungan tersebut turun kualitas atau dilakukan penggilingan kembali.",
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D10",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak mudah terlihat; tidak ada handfeel",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Terlihat agak jelas, ada handfeel yang ringan",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; ada handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat sangat jelas; ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "羊毛毡划伤",
+   "name_id": "Tergores Akibat Felt Bulu Kambing",
+   "notes": "",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D11",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat tergoresnya sangat dangkal, bisa dilihat pada sudut tertentu saja.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Terlihat agak jelas, ada handfeel yang ringan",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas; ada handfeel",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat sangat jelas; ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "划伤",
+   "name_id": "Tergores",
+   "notes": "",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D12",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "折痕",
+   "name_id": "Tanda Terlipat",
+   "notes": "(Catatan: teks Indonesia di dokumen terpotong/tidak lengkap dibanding Mandarin — Mandarin: '一旦出现平整消除不了折痕, 头尾出现切除处理，中段出现做降级或分切处理' (bila muncul di kepala/ekor: potong; bila di tengah: turun grade atau belah). Perlu konfirmasi.)",
+   "rule": "Pelanggan tidak mentolerir adanya Tanda Terlipat. Sekalinya tanda terlipat ini muncul ketika melewati penyemarataan tidak hilang",
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D13",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "卷取折痕",
+   "name_id": "Tanda Pelipatan Gulungan",
+   "notes": "",
+   "rule": "Apabila Tidak ada handfeel dapat dibawa. Apabila ada handfeel maka harus dilakukan pemotongan.",
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D14",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "能明显看出，针孔状或短小擦伤状，无深度，无手感，用800砂纸打磨20次可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "能明显看出，针孔状或短小擦伤状，白色或浅白色凹坑，深度较浅，无手感，用800砂纸来回打磨30次，可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "1mm＜d≤2mm，能明显看出，呈发黑或灰色的点状凹坑，有轻微手感，用600砂纸来回打磨50次，不可消除 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "d＞2mm，非常明显看出，呈发黑或黑灰色的点状凹坑，有明显手感和深度，已转印至上表面，无需打磨，直接判定降级 [hanya tersedia dalam Mandarin di dokumen]",
+     "grade": "B"
+    }
+   },
+   "name_cn": "附着物印痕",
+   "name_id": "Tanda Tertekan",
+   "notes": "",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D15",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Dapat terlihat ada lapisan gulungan yang longgar (celahnya harus dalam rentang <1mm)",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Lapisan gulungan yang longgar rapat terlihat dengan jelas secara kasap mata (Panjang longgar ≧1-3mm)",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Lapisan yang longgar paling tidak selebar satu jari (panjang longgar ≧4-6mm)",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Lapisan gulungan yang longgar sepanjang ＞6mm",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "钢卷松散",
+   "name_id": "Gulungan Longgar",
+   "notes": "(Catatan: nama Indonesia 'Lapisan Dalam Tergores' tidak selaras dengan isi kriteria yang membahas gulungan longgar/celah antar lapisan — kemungkinan salah nama di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D16",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tidak terlihat secara kasap mata",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Agak terlihat jelas secara kasap mata",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat jelas secara kasap mata",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Air yang kotor terdapat benda asingnya.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "水印",
+   "name_id": "Tanda Air",
+   "notes": "(Catatan: nama Indonesia 'Bentuk Papan Baja Tidak Baik' tidak selaras dengan nama Mandarin '水印' (tanda air) dan isi kriteria yang membahas watermark — kemungkinan salah nama di dokumen; perlu konfirmasi.)",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D17",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Pada sudut tertentu cacat baru dapat terlihat.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Pada sudut tertentu cacat terlihat dengan jelas.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Terlihat dengan jelas, muncul dengan sangat besar, tidak hilang bila diamplas.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "油印",
+   "name_id": "Tanda Minyak",
+   "notes": "",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D18",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Tinggi gelombang ≤3mm",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Panjang cacat ＞3mm, maka ubah size. Plat tipis apabila tidak dapat diubah sizenya lagi, maka turun kualitas.",
+     "grade": "B"
+    }
+   },
+   "name_cn": "分条边波",
+   "name_id": "Gelombang Tepi",
+   "notes": "(Catatan: nama Indonesia 'Salah Pencetakan' tidak selaras dengan nama Mandarin '边波' (gelombang tepi) dan isi kriteria gelombang — kemungkinan salah nama di dokumen; perlu konfirmasi. Tingkat S memiliki deskripsi sama dengan M/H tetapi tidak terpetakan ke grade — perlu konfirmasi.)",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D19",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat tidak terlalu terlihat, tidak ada handfeel.",
+     "grade": "A"
+    },
+    "M": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat pada sudut tertentu baru dapat terlihat, ada sedikit handfeel.",
+     "grade": "A1"
+    },
+    "H": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat terlihat jelas, ada handfeel.",
+     "grade": "B"
+    },
+    "S": {
+     "desc": "Cacat yang memiliki bentuk cekung cembung tersebut siklus jarak panjangnya sesuai dengan panjang roler pengujian kecepatan, cacat sangat terlihat jelas, ada handfeel yang sangat parah.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "分条异物压入",
+   "name_id": "Benda Asing yang Tertekan",
+   "notes": "Cara menentukan kualitas berdasarkan panjang siklus batangan pekerja sebenarnya.",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D20",
+   "has_image": false,
+   "jenis": null,
+   "levels": {
+    "L": {
+     "desc": "Nampak pada Sisi samping gulungan terdapat bentuk seperti duri duri yang tidak terlihat jelas, ada bekas tanda tergores yang ringan.",
+     "grade": "A1"
+    },
+    "M": {
+     "desc": "Nampak pada Sisi samping gulungan terdapat bentuk seperti duri-duri dengan panjang ≤1mm.",
+     "grade": "B"
+    },
+    "H": {
+     "desc": "Nampak pada Sisi samping gulungan terdapat bentuk seperti duri-duri dengan 1mm＜panjang duri≤2mm.",
+     "grade": "B1"
+    },
+    "S": {
+     "desc": "Nampak pada Sisi samping gulungan terdapat bentuk seperti duri-duri dengan Panjang ≥3mm.",
+     "grade": "B1"
+    }
+   },
+   "name_cn": "切边不良",
+   "name_id": "Pemotongan Sisi Tidak Rata",
+   "notes": "Apabila tingkat keparahan mencapai tingkat medium(M) maka harus turun kualitas. Apabila tingkat keparahannya adalah tingkat H dan ke atasnya lagi, maka diharuskan untuk digiling ulang atau dipotong sebagai pembuangan. (Catatan: kolom Kualitas di dokumen hanya memuat '/, L, M, H' — tingkat S tidak punya grade; S diasumsikan →B1 sama seperti H. Perlu konfirmasi.)",
+   "rule": null,
+   "section": "penyelesaian"
+  },
+  {
+   "code": "D03",
+   "name_id": "Retakan memanjang pada sudut hasil pengecoran baja",
+   "name_cn": "炼钢角部纵裂",
+   "section": "bahan_baku",
+   "jenis": null,
+   "levels": {},
+   "rule": null,
+   "notes": "Kode baru dari daftar kode resmi; definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026.",
+   "has_image": false,
+   "flags": [
+    "definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026"
+   ]
+  },
+  {
+   "code": "D21",
+   "name_id": "Goresan mekanis",
+   "name_cn": "机械划伤",
+   "section": "bahan_baku",
+   "jenis": null,
+   "levels": {},
+   "rule": null,
+   "notes": "Kode baru dari daftar kode resmi; definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026.",
+   "has_image": false,
+   "flags": [
+    "definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026"
+   ]
+  },
+  {
+   "code": "D38",
+   "name_id": "Kawat aluminium yang disemprot ditekan masuk",
+   "name_cn": "喷号铝丝压入",
+   "section": "bahan_baku",
+   "jenis": null,
+   "levels": {},
+   "rule": null,
+   "notes": "Kode baru dari daftar kode resmi; definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026.",
+   "has_image": false,
+   "flags": [
+    "definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026"
+   ]
+  },
+  {
+   "code": "F16",
+   "name_id": "Lebar pelat tidak mencukupi",
+   "name_cn": "板坯宽度不足",
+   "section": "bahan_baku",
+   "jenis": null,
+   "levels": {},
+   "rule": null,
+   "notes": "Kode baru dari daftar kode resmi; definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026.",
+   "has_image": false,
+   "flags": [
+    "definisi tingkat belum ada di SOP TTRI-QM-ZY-35-2026"
+   ]
+  },
+  {
+   "code": "C56",
+   "has_image": false,
+   "jenis": null,
+   "levels": {},
+   "name_cn": "拉矫翘曲",
+   "name_id": "Melengkung",
+   "notes": "",
+   "rule": "",
+   "section": "asam_dingin",
+   "flags": [
+    "Kode dari Prosedur TTRI-QM-ZY-35-2025 表9 (tidak ada di xlsx/SOP 2026)",
+    "nama Indonesia 'Melengkung' DIKONFIRMASI user 2026-10-18 (dari tabel Indonesia prosedur)",
+    "definisi tingkat belum ada — berlaku aturan bot 'database belum ada'"
+   ]
+  }
+ ],
+ "meta": {
+  "doc": "TTRI-QM-ZY-35-2026",
+  "extracted": "2026-10-18",
+  "source": "workspace/user/files/ZY-35_SOP_YWI_0_v3kw.docx",
+  "title_id": "Standard Penentuan Kerusakan (Cacat) Produk Stainless Steel CRP-YWI",
+  "code_list": "KODE CACAT CRP YONG WANG 永旺冷轧缺陷代码表（通用） (daftar resmi — patokan kode & nama; menang atas DOCX bila berbeda)",
+  "levels_order": [
+   "L",
+   "M",
+   "H",
+   "S"
+  ]
+ }
+}

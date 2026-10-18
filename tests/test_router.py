@@ -11,9 +11,9 @@ from types import SimpleNamespace
 
 from qm_training.bot.adapters.base import IncomingMessage, OutgoingMessage
 
-from qm_assistant import AssistantRouter, AssistantSessionStore, BTN_COIL, BTN_TRAINING
+from qm_assistant import AssistantRouter, AssistantSessionStore, BTN_COIL, BTN_QC, BTN_TRAINING
 from qm_assistant import BTN_ADMIN, BTN_HOME
-from qm_assistant.session import MODE_COIL, MODE_MENU, MODE_TRAINING
+from qm_assistant.session import MODE_COIL, MODE_MENU, MODE_QC, MODE_TRAINING
 
 
 class FakeUsers:
@@ -51,11 +51,22 @@ class FakeCoil:
         return [OutgoingMessage("COIL:stub")]
 
 
+class FakeQC:
+    def __init__(self) -> None:
+        self.received: list[str] = []
+
+    def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
+        self.received.append(message.text)
+        return [OutgoingMessage("QC:stub")]
+
+
 def make_router(**kwargs) -> AssistantRouter:
     coil_owner_ids = kwargs.pop("coil_owner_ids", ())
+    with_qc = kwargs.pop("with_qc", True)
     return AssistantRouter(
         training_workflow=FakeWorkflow(**kwargs),
         coil_handler=FakeCoil(owner_ids=coil_owner_ids),
+        qc_handler=FakeQC() if with_qc else None,
         store=AssistantSessionStore(),
     )
 
@@ -69,7 +80,7 @@ class RouterTest(unittest.TestCase):
         router = make_router()
         out = router.handle(msg("1", "/start"))
         self.assertEqual(len(out), 1)
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
 
     def test_pilih_training_mendelegasikan_new_training(self):
@@ -93,7 +104,7 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", BTN_TRAINING))
         out = router.handle(msg("1", "/start"))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_pilih_coil_masuk_mode_coil(self):
         router = make_router()
@@ -131,7 +142,7 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", BTN_TRAINING))
         out = router.handle(msg("1", "/cancel"))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_pesan_layanan_membawa_tombol_home(self):
         router = make_router()
@@ -148,7 +159,7 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_COIL)
         out = router.handle(msg("1", BTN_HOME))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
         # Setelah kembali, coil tidak lagi menerima pesan.
         out = router.handle(msg("1", "halo"))
         self.assertEqual(router.coil.received, ["/coil"])
@@ -161,18 +172,18 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_TRAINING)
         out = router.handle(msg("1", BTN_HOME))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_teks_asing_di_menu_menampilkan_menu_lagi(self):
         router = make_router()
         out = router.handle(msg("1", "xyz"))
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_user_tak_terdaftar_ditolak_di_training(self):
         # Menu (/start) terbuka untuk semua; yang digembok adalah layanannya.
         router = make_router(allowed_ids=["999"])
         out = router.handle(msg("123", "/start"))
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
         # Form Pelatihan tetap ditolak.
         out = router.handle(msg("123", BTN_TRAINING))
         self.assertIn("belum terdaftar", out[0].text)
@@ -190,14 +201,14 @@ class RouterTest(unittest.TestCase):
     def test_owner_lolos_otorisasi(self):
         router = make_router(allowed_ids=["999"], owner_ids=["999"])
         out = router.handle(msg("999", "/start"))
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_menu_admin_hanya_untuk_owner(self):
         router = make_router(coil_owner_ids=["1"])
         out = router.handle(msg("1", "/start"))
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_ADMIN])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC, BTN_ADMIN])
         out = router.handle(msg("42", "/start"))
-        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING])
+        self.assertEqual(out[0].buttons, [BTN_COIL, BTN_TRAINING, BTN_QC])
 
     def test_tombol_admin_membuka_panel(self):
         router = make_router(coil_owner_ids=["1"])
@@ -217,6 +228,47 @@ class RouterTest(unittest.TestCase):
         out = router.handle(msg("1", "/admin"))
         self.assertEqual(router.coil.received, ["/admin"])
         self.assertEqual(out[0].text, "COIL:stub")
+
+
+class RouterQCTest(unittest.TestCase):
+    def test_pilih_qc_mendelegasikan_qc(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", BTN_QC))
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+        self.assertEqual(router.qc.received, ["/qc"])
+        # tombol 🏠 Menu Utama ditambahkan router
+        self.assertIn(BTN_HOME, out[0].buttons)
+
+    def test_mode_qc_diteruskan_ke_handler(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        router.handle(msg("1", BTN_QC))
+        out = router.handle(msg("1", "C11"))
+        self.assertEqual(router.qc.received, ["/qc", "C11"])
+        self.assertIn(BTN_HOME, out[0].buttons)
+
+    def test_qc_butuh_otorisasi_sama_seperti_training(self):
+        # allowed_user_ids=["9"] -> user "1" ditolak, user "9" lolos
+        router = make_router(allowed_ids=["9"])
+        out = router.handle(msg("1", BTN_QC))
+        self.assertIn("belum terdaftar", out[0].text)
+        out = router.handle(msg("9", BTN_QC))
+        self.assertEqual(router.store.get_mode("9"), MODE_QC)
+
+    def test_qc_tanpa_handler(self):
+        router = make_router(with_qc=False)
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", BTN_QC))
+        self.assertIn("belum aktif", out[0].text)
+
+    def test_pindah_dari_qc_ke_coil(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        router.handle(msg("1", BTN_QC))
+        out = router.handle(msg("1", BTN_COIL))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
+        self.assertEqual(router.coil.received, ["/coil"])
 
 
 if __name__ == "__main__":

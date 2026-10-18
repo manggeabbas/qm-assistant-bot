@@ -1,8 +1,9 @@
 """Entrypoint untuk QM Assistant Telegram bot (1 bot, 1 token).
 
-Dua layanan dalam satu bot:
+Tiga layanan dalam satu bot:
 - 📋 Form Gulungan  (qm_coil, hasil port qm-ywi-telegram-bot)
 - 📚 Form Pelatihan (qm_training, dari formpelatihanQM)
+- 🔍 Bantuan QC     (qm_bantuan, kamus cacat + kuis + analisis foto)
 
 Usage:
     python main.py            # run the bot (requires TELEGRAM_BOT_TOKEN)
@@ -14,12 +15,16 @@ from __future__ import annotations
 import sys
 
 from qm_training.app import access_refusal_reason, build_workflow
+from qm_training.ai.factory import create_provider_or_mock
+from qm_training.ai.providers import GeminiProvider
 from qm_training.core.config import Settings
 from qm_training.core.singleton import AlreadyRunningError, SingleInstance
 from qm_training.paths import OUTPUT_DIR
 
 from qm_assistant import AssistantRouter
 from qm_assistant.coil_gateway import CoilGateway
+from qm_bantuan.gateway import QCGateway
+from qm_bantuan.vision import GeminiVision
 
 LOCK_PATH = OUTPUT_DIR / "bot.lock"
 
@@ -54,10 +59,25 @@ def main(argv: list[str] | None = None) -> int:
     if ai_is_mock:
         print("PERINGATAN: AI provider berjalan sebagai MOCK (credential belum diisi).", flush=True)
 
-    # Router: /start menjadi menu (Form Gulungan | Form Pelatihan),
-    # lalu didelegasikan ke workflow training atau gateway coil
-    # (access guard + registrasi + admin + wizard).
-    router = AssistantRouter(training_workflow=workflow, coil_handler=CoilGateway())
+    # Router: /start menjadi menu (Form Gulungan | Form Pelatihan | Bantuan QC),
+    # lalu didelegasikan ke workflow training, gateway coil
+    # (access guard + registrasi + admin + wizard), atau gateway QC.
+    # Provider AI untuk analisis foto Bantuan QC: mock bila kredensial kosong
+    # (gateway menjawab "belum tersedia" untuk foto dalam mode mock).
+    # Gemini text-only di-upgrade ke GeminiVision (multimodal) dengan
+    # kredensial yang sama agar analisis foto bisa jalan.
+    qc_provider, _qc_is_mock = create_provider_or_mock(settings)
+    if isinstance(qc_provider, GeminiProvider) and not isinstance(qc_provider, GeminiVision):
+        qc_provider = GeminiVision(
+            api_key=qc_provider.api_key,
+            model=qc_provider.model,
+            timeout=qc_provider.timeout,
+        )
+    router = AssistantRouter(
+        training_workflow=workflow,
+        coil_handler=CoilGateway(),
+        qc_handler=QCGateway(ai_provider=qc_provider),
+    )
 
     # Single instance: two pollers would process every update twice.
     lock = SingleInstance(LOCK_PATH)

@@ -15,6 +15,7 @@ from qm_assistant.router import (
     BTN_ADMIN,
     BTN_COIL,
     BTN_HOME,
+    BTN_QC,
     BTN_TRAINING,
     AssistantRouter,
 )
@@ -26,6 +27,7 @@ __all__ = [
     "BTN_ADMIN",
     "BTN_COIL",
     "BTN_HOME",
+    "BTN_QC",
     "BTN_TRAINING",
     "CoilGateway",
 ]

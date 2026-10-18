@@ -10,8 +10,9 @@ from __future__ import annotations
 MODE_MENU = "menu"
 MODE_TRAINING = "training"
 MODE_COIL = "coil"
+MODE_QC = "qc"
 
-_VALID_MODES = (MODE_MENU, MODE_TRAINING, MODE_COIL)
+_VALID_MODES = (MODE_MENU, MODE_TRAINING, MODE_COIL, MODE_QC)
 
 
 class AssistantSessionStore:
