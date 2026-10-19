@@ -30,6 +30,10 @@ class FakeUsers:
     def is_active(self, user_id: str) -> bool:
         return str(user_id) in self._active
 
+    def list_users(self):
+        from types import SimpleNamespace
+        return [SimpleNamespace(user_id=u, active=True) for u in self._active]
+
 
 class FakeWorkflow:
     """Meniru atribut publik Workflow yang dipakai router."""
@@ -42,6 +46,18 @@ class FakeWorkflow:
         self.owner_ids = set(owner_ids or allowed_ids)
         self.users = FakeUsers(active_ids)
         self.received: list[str] = []
+
+    def is_authorized(self, user_id: str) -> bool:
+        uid = str(user_id)
+        if uid in self.owner_ids:
+            return True
+        if self.users.is_active(uid):
+            return True
+        if not self.settings.allowed_user_ids and not any(
+            True for _ in self.users.list_users()
+        ):
+            return True
+        return uid in self.settings.allowed_user_ids
 
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
         self.received.append(message.text)
@@ -306,6 +322,29 @@ class RouterInlineMenuTest(unittest.TestCase):
             IncomingMessage(user_id="1", text=BTN_HOME, is_callback=True)
         )
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+class RouterClosedModeTest(unittest.TestCase):
+    """Menambah user via admin menutup mode terbuka."""
+
+    def test_tanpa_user_mode_terbuka(self):
+        router = make_router()
+        out = router.handle(msg("99", BTN_QC))
+        # user asing tetap bisa masuk (mode terbuka)
+        self.assertEqual(router.store.get_mode("99"), MODE_QC)
+
+    def test_setelah_user_ditambah_mode_tertutup(self):
+        router = make_router(active_ids=("111",))
+        # user asing ditolak
+        out = router.handle(msg("99", BTN_QC))
+        self.assertIn("belum terdaftar", out[0].text)
+        # user terdaftar bisa masuk
+        out = router.handle(msg("111", BTN_QC))
+        self.assertEqual(router.store.get_mode("111"), MODE_QC)
 
 
 if __name__ == "__main__":

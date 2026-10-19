@@ -207,15 +207,8 @@ class AssistantRouter:
         return out
 
     def _authorized(self, user_id: str) -> bool:
-        """Aturan yang sama dengan Workflow._authorized (via atribut publik)."""
-        uid = str(user_id)
-        if uid in self.training.owner_ids:
-            return True
-        if self.training.users.is_active(uid):
-            return True
-        if not self.training.settings.allowed_user_ids:
-            return True  # mode terbuka (tanpa allowlist)
-        return uid in self.training.settings.allowed_user_ids
+        """Delegasi ke Workflow.is_authorized (satu aturan untuk semua)."""
+        return bool(self.training.is_authorized(user_id))
 
     def _denied_message(self, user_id: str) -> OutgoingMessage:
         return OutgoingMessage(

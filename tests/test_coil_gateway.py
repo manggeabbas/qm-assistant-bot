@@ -168,3 +168,68 @@ class GatewayActiveTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GatewayBotUserAdminTest(unittest.TestCase):
+    """Menu /admin -> User Bot: tambah & daftar user (UserStore training)."""
+
+    def setUp(self):
+        import tempfile
+        from qm_training.core.users import UserStore
+        self.tmp = tempfile.mkdtemp()
+        self.store = UserStore(path=f"{self.tmp}/users.json")
+        self.conn = open_db(":memory:")
+        self.gw = CoilGateway(owner_ids=["1"], conn=self.conn, user_store=self.store)
+
+    def _admin(self, uid, text, is_cb=False):
+        from qm_training.bot.adapters.base import IncomingMessage
+        return self.gw.handle(
+            IncomingMessage(user_id=uid, text=text, is_callback=is_cb)
+        )
+
+    def _data(self, out_msg, label):
+        for row in (out_msg.inline_buttons or []):
+            for t_, d in row:
+                if t_ == label:
+                    return d
+        raise AssertionError(f"tombol '{label}' tidak ada")
+
+    def test_panel_memuat_menu_user_bot(self):
+        out = self._admin("1", "/admin")
+        out = self._admin("1", self._data(out[0], "👤 User Bot"), is_cb=True)
+        self.assertIn("USER BOT", out[0].text)
+
+    def test_tambah_user_valid(self):
+        out = self._admin("1", "/admin")
+        out = self._admin("1", self._data(out[0], "👤 User Bot"), is_cb=True)
+        out = self._admin("1", self._data(out[0], "➕ Tambah User"), is_cb=True)
+        self.assertIn("ID Telegram", out[0].text)
+        out = self._admin("1", "777000111")
+        self.assertIn("ditambahkan", out[0].text)
+        self.assertTrue(self.store.is_active("777000111"))
+
+    def test_tambah_user_id_tidak_valid(self):
+        out = self._admin("1", "/admin")
+        out = self._admin("1", self._data(out[0], "👤 User Bot"), is_cb=True)
+        out = self._admin("1", self._data(out[0], "➕ Tambah User"), is_cb=True)
+        out = self._admin("1", "bukan-angka")
+        self.assertIn("tidak valid", out[0].text)
+        self.assertFalse(self.store.is_active("bukan-angka"))
+
+    def test_daftar_user_menampilkan_yang_ditambah(self):
+        self.store.add("777000111")
+        self.store.add("777000222")
+        out = self._admin("1", "/admin")
+        out = self._admin("1", self._data(out[0], "👤 User Bot"), is_cb=True)
+        out = self._admin("1", self._data(out[0], "📋 Daftar User"), is_cb=True)
+        self.assertIn("777000111", out[0].text)
+        self.assertIn("777000222", out[0].text)
+
+    def test_bukan_owner_ditolak(self):
+        create_user("9", "Bukan Owner", USER_STATUS["ACTIVE"], conn=self.conn)
+        out = self._admin("9", "/admin")
+        self.assertIn("tidak memiliki akses", out[0].text.lower())
+
+
+if __name__ == "__main__":
+    unittest.main()

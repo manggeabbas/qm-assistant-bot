@@ -187,6 +187,7 @@ class CoilGateway:
         owner_ids: list[str] | None = None,
         conn=None,
         sessions: CoilSessionStore | None = None,
+        user_store=None,
     ) -> None:
         if owner_ids is None:
             from qm_coil.config import OWNER_TELEGRAM_IDS
@@ -196,7 +197,9 @@ class CoilGateway:
         self.conn = conn  # None -> get_db() lazy di tiap modul
         self.sessions = sessions or CoilSessionStore()
         self.idem = IdempotencyCache()
-        self.admin = AdminPanel(owner_ids=self.owner_ids, conn=self.conn)
+        self.admin = AdminPanel(
+            owner_ids=self.owner_ids, conn=self.conn, user_store=user_store
+        )
         self.wizard = CoilWizard(self.sessions)
         self._reg_labels: dict[str, dict[str, str]] = {}
         self._admin_labels: dict[str, dict[str, str]] = {}

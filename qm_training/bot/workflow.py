@@ -161,15 +161,31 @@ class Workflow:
 
     # -- authorization ----------------------------------------------------- #
 
-    def _authorized(self, user_id: str) -> bool:
+    def is_authorized(self, user_id: str) -> bool:
+        """Apakah user boleh memakai Form Pelatihan & Bantuan QC.
+
+        Mode terbuka hanya berlaku bila TIDAK ada allowlist env DAN tidak
+        ada user yang didaftarkan via menu admin (/admin -> User Bot).
+        Menambah user pertama otomatis menutup bot: selain owner dan user
+        terdaftar, akses ditolak.
+        """
         uid = str(user_id)
         if uid in self.owner_ids:
             return True
         if self.users.is_active(uid):
             return True
-        if not self.settings.allowed_user_ids:
-            return True  # open/self-hosted mode (no allowlist configured)
+        if not self.settings.allowed_user_ids and not self._has_managed_users():
+            return True  # mode terbuka
         return uid in self.settings.allowed_user_ids
+
+    def _has_managed_users(self) -> bool:
+        try:
+            return any(r.active for r in self.users.list_users())
+        except Exception:  # noqa: BLE001
+            return False
+
+    def _authorized(self, user_id: str) -> bool:
+        return self.is_authorized(user_id)
 
     def _role(self, user_id: str) -> str:
         uid = str(user_id)

@@ -75,7 +75,7 @@ def main(argv: list[str] | None = None) -> int:
         )
     router = AssistantRouter(
         training_workflow=workflow,
-        coil_handler=CoilGateway(),
+        coil_handler=CoilGateway(user_store=workflow.users),
         qc_handler=QCGateway(ai_provider=qc_provider),
     )
 

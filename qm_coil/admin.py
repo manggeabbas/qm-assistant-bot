@@ -51,6 +51,10 @@ ADMIN_CALLBACK = {
     "EMPLOYEE_ADD": "admin:employees:add",
     "EMPLOYEE_LIST": "admin:employees:list",
     "EMPLOYEE_DELETE": "admin:employees:delete",
+    # User bot (akses Form Pelatihan & Bantuan QC via UserStore training).
+    "BOT_USERS": "admin:bot_users",
+    "BOT_USER_ADD": "admin:bot_users:add",
+    "BOT_USER_LIST": "admin:bot_users:list",
 }
 
 
@@ -92,6 +96,7 @@ def admin_panel_keyboard() -> MenuKeyboard:
             _btn("👥 Daftar Pengguna", ADMIN_CALLBACK["LIST_USERS"]),
         ],
         [_btn("👔 Data Karyawan", ADMIN_CALLBACK["EMPLOYEES"])],
+        [_btn("👤 User Bot", ADMIN_CALLBACK["BOT_USERS"])],
     ]
 
 
@@ -126,11 +131,15 @@ class AdminPanel:
         self,
         owner_ids: list[str] | None = None,
         conn: sqlite3.Connection | None = None,
+        user_store=None,
     ) -> None:
         from qm_coil.config import OWNER_TELEGRAM_IDS
 
         self.owner_ids = owner_ids if owner_ids is not None else OWNER_TELEGRAM_IDS
         self.conn = conn
+        # UserStore milik training (akses Form Pelatihan & Bantuan QC).
+        # None -> menu User Bot menampilkan pesan belum terhubung.
+        self.user_store = user_store
         self._pending: dict[str, dict] = {}
 
     # -- pending helpers -------------------------------------------------
@@ -232,6 +241,59 @@ class AdminPanel:
             [_btn("⬅️ Kembali", ADMIN_CALLBACK["PANEL"])],
         ]
         return AdminReply(text=text, buttons=buttons, markdown=True, edit=True)
+
+    # -- user bot (UserStore training) ------------------------------------- #
+
+    def _bot_user_count(self) -> int:
+        if self.user_store is None:
+            return 0
+        try:
+            return sum(
+                1 for r in self.user_store.list_users() if r.active
+            )
+        except Exception:  # noqa: BLE001
+            return 0
+
+    def _show_bot_user_panel(self) -> AdminReply:
+        total = self._bot_user_count()
+        text = (
+            "👤 *USER BOT*\n\n"
+            f"Total user terdaftar: *{total}*\n\n"
+            "User terdaftar bisa mengakses Form Pelatihan & Bantuan QC.\n"
+            "Pilih menu:"
+        )
+        buttons: MenuKeyboard = [
+            [_btn("➕ Tambah User", ADMIN_CALLBACK["BOT_USER_ADD"])],
+            [_btn("📋 Daftar User", ADMIN_CALLBACK["BOT_USER_LIST"])],
+            [_btn("⬅️ Kembali", ADMIN_CALLBACK["PANEL"])],
+        ]
+        return AdminReply(text=text, buttons=buttons, markdown=True, edit=True)
+
+    def _show_bot_user_list(self) -> AdminReply:
+        if self.user_store is None:
+            return AdminReply(
+                text="⚠️ User store belum terhubung. Restart bot.",
+                buttons=[[_btn("⬅️ Kembali", ADMIN_CALLBACK["BOT_USERS"])]],
+                edit=True,
+            )
+        try:
+            users = [r for r in self.user_store.list_users() if r.active]
+        except Exception:  # noqa: BLE001
+            users = []
+        lines = [f"👤 DAFTAR USER BOT ({len(users)} aktif)", ""]
+        if not users:
+            lines.append("Belum ada user terdaftar.")
+        else:
+            for r in users[:50]:
+                lines.append(f"• `{r.user_id}`")
+            if len(users) > 50:
+                lines.append(f"… dan {len(users) - 50} lainnya")
+        return AdminReply(
+            text="\n".join(lines),
+            buttons=[[_btn("⬅️ Kembali", ADMIN_CALLBACK["BOT_USERS"])]],
+            markdown=True,
+            edit=True,
+        )
 
     def _show_employee_list(self) -> AdminReply:
         total = count_employees(self.conn)
@@ -360,6 +422,41 @@ class AdminPanel:
                     edit=True,
                 )
             ]
+
+        if data == ADMIN_CALLBACK["BOT_USERS"]:
+            return [self._show_bot_user_panel()]
+
+        if data == ADMIN_CALLBACK["BOT_USER_ADD"]:
+            if self.user_store is None:
+                return [
+                    AdminReply(
+                        text="⚠️ User store belum terhubung. Restart bot.",
+                        buttons=[[_btn("⬅️ Kembali", ADMIN_CALLBACK["BOT_USERS"])]],
+                        edit=True,
+                    )
+                ]
+            self._set_pending(user_id, {"action": "awaiting_bot_user_id"})
+            return [
+                AdminReply(
+                    text=(
+                        "➕ *TAMBAH USER BOT*\n\n"
+                        "Kirim *ID Telegram* user yang diberi akses "
+                        "(Form Pelatihan & Bantuan QC).\n\n"
+                        "Cara tahu ID: user kirim /start ke bot, "
+                        "atau cek via @userinfobot.\n\n"
+                        "Contoh: `8252799062`\n\n"
+                        "⚠️ Setelah user pertama ditambahkan, bot menjadi "
+                        "*tertutup*: hanya user terdaftar + owner yang bisa "
+                        "mengakses Form Pelatihan & Bantuan QC."
+                    ),
+                    buttons=[[_btn("⬅️ Batal", ADMIN_CALLBACK["BOT_USERS"])]],
+                    markdown=True,
+                    edit=True,
+                )
+            ]
+
+        if data == ADMIN_CALLBACK["BOT_USER_LIST"]:
+            return [self._show_bot_user_list()]
 
         if data.startswith("admin:user:"):
             try:
@@ -505,6 +602,39 @@ class AdminPanel:
                         else f"ℹ️ NIK {clean} tidak ditemukan."
                     ),
                     buttons=[[_btn("👔 Data Karyawan", ADMIN_CALLBACK["EMPLOYEES"])]],
+                )
+            ]
+
+        if pending.get("action") == "awaiting_bot_user_id":
+            if not re.fullmatch(r"\d{5,20}", clean):
+                return [
+                    AdminReply(
+                        text="ID tidak valid. Kirim ID Telegram berupa angka "
+                        "(contoh: `8252799062`).",
+                        markdown=True,
+                    )
+                ]
+            self._clear_pending(user_id)
+            if self.user_store is None:
+                return [AdminReply(text="⚠️ User store belum terhubung. Restart bot.")]
+            record = self.user_store.add(clean)
+            total = self._bot_user_count()
+            lines = [
+                f"✅ User `{record.user_id}` ditambahkan.",
+                "",
+                f"Total user terdaftar: *{total}*",
+            ]
+            if total == 1:
+                lines += [
+                    "",
+                    "Bot kini *tertutup*: hanya user terdaftar + owner "
+                    "yang bisa mengakses Form Pelatihan & Bantuan QC.",
+                ]
+            return [
+                AdminReply(
+                    text="\n".join(lines),
+                    buttons=[[_btn("👤 User Bot", ADMIN_CALLBACK["BOT_USERS"])]],
+                    markdown=True,
                 )
             ]
 
