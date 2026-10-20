@@ -32,6 +32,8 @@ from qm_bantuan.data import BAGIAN_NAMES, BAGIAN_SECTIONS, Atlas, Panduan
 from qm_bantuan.quiz import Quiz
 from qm_bantuan.vision import is_transient_error
 
+_DATA_DIR = Path(__file__).parent / "data"
+
 # -- label tombol -------------------------------------------------------- #
 BTN_BAHAN_BAKU = "📦 Bahan Baku"
 BTN_JALUR_UTAMA = "🏭 Jalur Utama"
@@ -528,6 +530,7 @@ class QCGateway:
             OutgoingMessage(
                 f"{title}\n\n{topic.get('isi', '')}",
                 inline_buttons=rows,
+                documents=self._topic_images(topic),
                 markdown=True,
             )
         ]
@@ -585,6 +588,14 @@ class QCGateway:
             )
         ]
 
+    def _topic_images(self, topic: dict) -> list[Path]:
+        """Lampiran gambar topik (mis. bagan) -> Path absolut bila ada."""
+        name = (topic.get("gambar") or "").strip()
+        if not name:
+            return []
+        p = _DATA_DIR / Path(name).name
+        return [p] if p.is_file() else []
+
     def _show_prosedur_topic(self, user_id: str, topic_id: str) -> list[OutgoingMessage]:
         topic = self.panduan.get(topic_id)
         if topic is None:
@@ -608,6 +619,7 @@ class QCGateway:
             OutgoingMessage(
                 f"{title}\n\n{topic.get('isi', '')}",
                 inline_buttons=rows,
+                documents=self._topic_images(topic),
                 markdown=True,
             )
         ]

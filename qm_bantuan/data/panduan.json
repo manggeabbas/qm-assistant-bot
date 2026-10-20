@@ -72,6 +72,14 @@
    "judul": "Tanggung Jawab Inspektur",
    "grup": "🏭 Jalur Utama",
    "isi": "Acuan: TTRI-QM-ZY-35-2025, pasal 3.\n\n*Tugas utama:*\n```\n• Pemeriksaan harian gulungan baja, mencatat umpan balik, serta pemeriksaan & kalibrasi alat ukur. (3.1)\n• Menangani cacat abnormal & melaporkan kualitas. (3.2)\n• Memverifikasi personel lini produksi melaksanakan sesuai spesifikasi rencana. (3.3)\n• Mengevaluasi ulang produk yang diturunkan (downgrade) setiap hari. (3.11)\n```\n*Selama operasi:*\n```\n• Manajemen 5S sebelum & sesudah operasi (area kantor & area inspeksi). (3.4)\n• Mencatat semua data secara akurat sebagai dasar analisis selanjutnya. (3.8)\n• Serah terima shift di tempat secara ketat agar informasi akurat. (3.7)\n• Pemeriksaan langsung setiap shift untuk mencegah cacat batch. (3.10)\n```\n*Keselamatan & darurat:*\n```\n• Memahami faktor bahaya, pencegahan & tanggap darurat di lokasi kerja. (3.6)\n• Berhak menghentikan pekerjaan / mengungsi saat darurat, lalu hubungi atasan. (3.5)\n```\n*Cacat batch:*\n```\n• Bila terjadi kecelakaan batch: keluarkan peringatan tepat waktu & ingatkan lini produksi untuk melakukan perubahan. (3.9)\n```"
+  },
+  {
+   "id": "main_bagan",
+   "emoji": "📊",
+   "judul": "Bagan Proses Pengecekan",
+   "grup": "🏭 Jalur Utama",
+   "gambar": "bagan_proses.png",
+   "isi": "Acuan: TTRI-QM-ZY-35-2025, *Lampiran B*\nBagan Proses Pengecekan Gulungan YWI PT TTRI Departemen Quality Management\n(永旺冷轧钢卷检验流程图).\n\nAlur: Baja billet → Rolling (kulit hitam) → Aneka (NO1) → Cold rolling (2E) → Asam dingin (2D) → Leveling (2B) → pemeriksaan (dimensi / garis / off-line) → penghakiman komprehensif → lepas ke gudang atau konfirmasi / turunkan ke gudang.\n\nGambar bagan terlampir di bawah."
   }
  ]
 }

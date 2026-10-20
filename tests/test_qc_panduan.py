@@ -28,7 +28,7 @@ class PanduanDataTest(unittest.TestCase):
     def test_json_valid_dan_lengkap(self):
         raw = json.loads((DATA_DIR / "panduan.json").read_text(encoding="utf-8"))
         self.assertIn("topics", raw)
-        self.assertEqual(len(raw["topics"]), 11)
+        self.assertEqual(len(raw["topics"]), 12)
 
     def test_semua_topik_wajib_ada_dan_berisi(self):
         p = Panduan.bundled()

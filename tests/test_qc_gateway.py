@@ -469,3 +469,32 @@ class GatewaySopJalurUtamaTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GatewayBaganTest(unittest.TestCase):
+    """Topik Bagan Proses melampirkan gambar bagan proses."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_bagan_ada_di_daftar_sop_jalur_utama(self):
+        out = self.gw.handle(msg("1", "/qc_sop_main"))
+        labels = [t for t, _ in cbs(out[0])]
+        self.assertIn("📊 Bagan Proses Pengecekan", labels)
+
+    def test_buka_bagan_melampirkan_gambar(self):
+        out = self.gw.handle(msg("1", "/qc_sop_main"))
+        out = tap(self.gw, "1", out[0], "📊 Bagan Proses Pengecekan")
+        self.assertTrue(out[0].documents)
+        self.assertEqual(out[0].documents[0].name, "bagan_proses.png")
+        self.assertTrue(out[0].documents[0].is_file())
+
+    def test_keyword_bagan(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "bagan"))
+        # satu-satunya hasil topik bagan -> langsung terbuka + gambar
+        self.assertTrue(out[0].documents)
+
+
+if __name__ == "__main__":
+    unittest.main()
