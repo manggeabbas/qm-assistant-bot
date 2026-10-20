@@ -254,6 +254,13 @@ class AssistantRouter:
         if target == "goto:coil":
             self.store.set_mode(user_id, MODE_COIL)
             return self._with_home(self.coil.handle(replace(message, text="/coil")))
+        if target == "goto:training":
+            if not self._authorized(user_id):
+                return [self._denied_message(user_id)]
+            self.store.set_mode(user_id, MODE_TRAINING)
+            return self._with_home(
+                self.training.handle(replace(message, text="/new_training"))
+            )
         return [self._menu_message(user_id)]
 
     def _placeholder(self, key: str) -> OutgoingMessage:

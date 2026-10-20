@@ -392,3 +392,50 @@ class GatewayQuickSearchTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GatewayFeatureKeywordsTest(unittest.TestCase):
+    """Keyword -> fitur: foto, kuis, panduan, SOP FT, form, pelatihan."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_keyword_foto_cantumkan_fitur_foto(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "foto"))
+        data = [d for _, d in cbs(out[0])]
+        self.assertIn("qc:foto", data)
+        # tap fitur foto -> masuk mode foto
+        out = tap(self.gw, "1", out[0], "📸 Analisis Foto")
+        self.assertIn("foto", out[0].text.lower())
+
+    def test_keyword_kuis_tampilkan_bagian(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "kuis"))
+        self.assertIn("Kuis", out[0].text)
+
+    def test_keyword_panduan_buka_panduan(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "panduan"))
+        self.assertIn("Panduan Kerja", out[0].text)
+
+    def test_keyword_sop_buka_ft(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "sop"))
+        self.assertIn("Mesin FT", out[0].text)
+
+    def test_keyword_form_kembalikan_tombol_coil(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "form"))
+        data = [d for _, d in cbs(out[0])]
+        self.assertIn("goto:coil", data)
+
+    def test_keyword_pelatihan_kembalikan_tombol_training(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "pelatihan"))
+        data = [d for _, d in cbs(out[0])]
+        self.assertIn("goto:training", data)
+
+
+if __name__ == "__main__":
+    unittest.main()

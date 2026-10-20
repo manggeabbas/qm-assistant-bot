@@ -57,6 +57,17 @@ _BAGIAN_BUTTONS = {
     "luar_jalur": BTN_LUAR_JALUR,
 }
 
+# Keyword -> fitur. Format: (himpunan kata kunci, callback, label).
+# Query yang memuat salah satu kata kunci menampilkan fitur terkait.
+_FEATURE_KEYWORDS: list[tuple[set[str], str, str]] = [
+    ({"form", "generator", "gulungan"}, "goto:coil", "📝 Form Generator"),
+    ({"foto", "photo", "analisis", "gambar"}, "qc:foto", "📸 Analisis Foto"),
+    ({"kuis", "latihan", "quiz"}, "qc:kuis_pilih", "🎯 Kuis"),
+    ({"panduan", "aturan"}, "qc:panduan", "📘 Panduan Kerja"),
+    ({"sop", "prosedur"}, "goto:qc_ft", "📋 SOP Mesin FT"),
+    ({"pelatihan", "training", "diklat"}, "goto:training", "📚 Form Pelatihan"),
+]
+
 _PAGE_SIZE = 10
 _QUIZ_N = 5
 _MIME_BY_SUFFIX = {
@@ -181,8 +192,7 @@ class QCGateway:
         if action == "lagi":
             return self._enter_search(user_id, st.get("bagian", ""))
         if action == "foto":
-            self._states[user_id] = {"state": "photo"}
-            return [self._photo_prompt()]
+            return [self._show_photo_entry(user_id)]
         if action == "panduan":
             return self._show_guide_list(user_id)
         if action == "topik":
@@ -301,19 +311,25 @@ class QCGateway:
         ]
 
     # -- pencarian kilat (lintas semua konten) ----------------------------------- #
-    def _quick_search(self, user_id: str, query: str) -> list[OutgoingMessage]:
-        """Ketik kata kunci di mana saja -> cari di cacat + panduan + prosedur.
+    def _feature_hits(self, query: str) -> list[tuple[str, str]]:
+        """Fitur yang cocok dengan kata kunci pada query."""
+        words = set((query or "").lower().split())
+        return [(label, cb) for keys, cb, label in _FEATURE_KEYWORDS if words & keys]
 
-        Satu hasil -> langsung tampilkan. Banyak -> daftar kelompok.
+    def _quick_search(self, user_id: str, query: str) -> list[OutgoingMessage]:
+        """Ketik kata kunci di mana saja -> fitur + cacat + panduan + prosedur.
+
+        Satu hasil -> langsung tampilkan/jalankan. Banyak -> daftar kelompok.
         """
         if not query:
             return [self._menu_hint()]
+        features = self._feature_hits(query)
         defects = self.atlas.search(query, limit=8)
         topics = self.panduan.search(query, limit=6)
         guides = [t for t in topics if not (t.get("grup") or "").strip()]
         procs = [t for t in topics if (t.get("grup") or "").strip()]
 
-        total = len(defects) + len(guides) + len(procs)
+        total = len(features) + len(defects) + len(guides) + len(procs)
         if total == 0:
             return [
                 OutgoingMessage(
@@ -327,15 +343,21 @@ class QCGateway:
         if total == 1:
             if defects:
                 return self._show_card(user_id, defects[0]["code"])
-            topic = (guides + procs)[0]
-            if (topic.get("grup") or "").strip():
-                return self._show_prosedur_topic(user_id, topic["id"])
-            return self._show_guide_topic(user_id, topic["id"])
+            if guides:
+                return self._show_guide_topic(user_id, guides[0]["id"])
+            if procs:
+                return self._show_prosedur_topic(user_id, procs[0]["id"])
+            return self._run_feature(user_id, features[0])
 
         lines = [f'🔍 Hasil untuk *{query}*:\n']
         rows: list[list[tuple[str, str]]] = []
+        if features:
+            lines.append(f"⚙️ *Fitur* ({len(features)}):")
+            for label, cb in features:
+                lines.append(f"• {label}")
+                rows.append([(label[:38], cb)])
         if defects:
-            lines.append(f"🏷 *Cacat* ({len(defects)}):")
+            lines.append(f"\n🏷 *Cacat* ({len(defects)}):")
             for e in defects:
                 lines.append(f"• {search_line(e)}")
                 rows.append([(search_line(e)[:38], f"qc:card:{e['code']}")])
@@ -353,6 +375,36 @@ class QCGateway:
         return [
             OutgoingMessage(
                 "\n".join(lines), inline_buttons=rows, markdown=True
+            )
+        ]
+
+    def _run_feature(
+        self, user_id: str, feature: tuple[str, str]
+    ) -> list[OutgoingMessage]:
+        """Jalankan satu fitur hasil keyword. Fitur QC dijalankan langsung;
+        fitur layanan lain ditampilkan sbg satu tombol lanjutan (router
+        menangani ganti mode + otorisasinya)."""
+        label, cb = feature
+        if cb == "qc:foto":
+            return [self._show_photo_entry(user_id)]
+        if cb == "qc:panduan":
+            return self._show_guide_list(user_id)
+        if cb == "goto:qc_ft":
+            return self._show_ft_topics(user_id)
+        if cb == "qc:kuis_pilih":
+            return [
+                OutgoingMessage(
+                    "🎯 *Kuis*\n\nPilih bagian untuk memulai kuis:",
+                    inline_buttons=_bagian_rows()
+                    + [[(BTN_BACK, _CB_MENU)]],
+                    markdown=True,
+                )
+            ]
+        return [
+            OutgoingMessage(
+                f"{label}\n\nTap tombol di bawah untuk membuka fitur ini:",
+                inline_buttons=[[(label, cb)]],
+                markdown=True,
             )
         ]
 
@@ -610,6 +662,10 @@ class QCGateway:
         ]
 
     # -- foto ------------------------------------------------------------------ #
+    def _show_photo_entry(self, user_id: str) -> OutgoingMessage:
+        self._states[user_id] = {"state": "photo"}
+        return self._photo_prompt()
+
     def _photo_prompt(self) -> OutgoingMessage:
         return OutgoingMessage(
             "📸 *Analisis foto*\n\n"
