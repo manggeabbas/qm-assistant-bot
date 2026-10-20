@@ -26,9 +26,16 @@ _LEVEL_EMOJI = {"L": "🟢", "M": "🟡", "H": "🟠", "S": "🔴"}
 
 
 def _pre(text: str) -> str:
-    """Blok monospace = highlight penjelasan (aman dari backtick di teks)."""
+    """Highlight penjelasan (monospace).
+
+    Memakai backtick TUNGGAL (inline `code`), bukan blok ```pre```:
+    tampilan tetap monospace + latar abu-abu, tetapi aplikasi Telegram
+    tidak memunculkan tombol COPY CODE (tombol itu hanya untuk blok ```).
+    Form generator (qm_coil) sengaja tetap memakai blok ```text``` agar
+    tombol copy-nya tetap ada.
+    """
     clean = text.replace("```", "").replace("`", "")
-    return f"```\n{clean}\n```"
+    return f"`{clean}`"
 
 
 def grade_label(grade: str) -> str:

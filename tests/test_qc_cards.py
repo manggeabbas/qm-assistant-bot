@@ -87,8 +87,10 @@ class CardTest(unittest.TestCase):
         self.assertIn("🟡 *M* (Sedang)", card)
         self.assertIn("🟠 *H* (Parah)", card)
         self.assertIn("🔴 *S* (Serius)", card)
-        # penjelasan di dalam blok highlight (monospace)
-        self.assertIn("```", card)
+        # penjelasan di dalam highlight monospace (inline `code`,
+        # bukan blok ``` agar aplikasi Telegram tak memunculkan COPY CODE)
+        self.assertIn("`", card)
+        self.assertNotIn("```", card)
 
     def test_search_line(self):
         line = search_line(self.atlas.get("C11"))
