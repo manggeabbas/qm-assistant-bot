@@ -97,19 +97,20 @@ class PanduanGatewayTest(unittest.TestCase):
         return [t for t, _ in self._cbs(replies)]
 
     def test_menu_memuat_tombol_panduan(self):
-        replies = self._send("/qc")
-        self.assertIn(BTN_GUIDE, self._buttons(replies))
+        # Panduan kini pintu tersendiri (/qc_panduan), bukan tombol di /qc
+        replies = self._send("/qc_panduan")
+        self.assertIn("Panduan Kerja", "\n".join(r.text for r in replies))
 
     def test_masuk_panduan_menampilkan_daftar_topik(self):
         self._send("/qc")
-        replies = self._tap(self._send("/qc"), BTN_GUIDE)
+        replies = self._send("/qc_panduan")
         buttons = self._buttons(replies)
         for t in Panduan.bundled().topics():
             self.assertIn(Panduan.label(t), buttons)
 
     def test_setiap_topik_bisa_dibuka(self):
         self._send("/qc")
-        replies = self._tap(self._send("/qc"), BTN_GUIDE)
+        replies = self._send("/qc_panduan")
         for t in Panduan.bundled().topics():
             replies2 = self._tap(replies, Panduan.label(t))
             text = "\n".join(r.text for r in replies2)
@@ -119,7 +120,7 @@ class PanduanGatewayTest(unittest.TestCase):
 
     def test_dari_topik_bisa_pindah_topik_langsung(self):
         self._send("/qc")
-        replies = self._tap(self._send("/qc"), BTN_GUIDE)
+        replies = self._send("/qc_panduan")
         topics = Panduan.bundled().topics()
         replies = self._tap(replies, Panduan.label(topics[0]))
         replies = self._tap(replies, Panduan.label(topics[1]))
@@ -132,16 +133,15 @@ class PanduanGatewayTest(unittest.TestCase):
         self._send("/qc")
         replies = self._tap(self._send("/qc"), BTN_BAHAN_BAKU)
         replies = self._tap(replies, "🔍 Cari")
-        replies = self._tap(self._send("/qc"), BTN_GUIDE)
+        replies = self._send("/qc_panduan")
         text = "\n".join(r.text for r in replies)
         self.assertIn("Panduan Kerja", text)
 
     def test_kembali_ke_menu_dari_panduan(self):
         self._send("/qc")
-        replies = self._tap(self._send("/qc"), BTN_GUIDE)
-        replies = self._tap(replies, "◀ Kembali")
-        text = "\n".join(r.text for r in replies)
-        self.assertIn("Bantuan QC", text)
+        replies = self._send("/qc_panduan")
+        texts = self._buttons(replies)
+        self.assertIn("◀ Inspeksi Lapangan", texts)
 
 
 if __name__ == "__main__":

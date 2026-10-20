@@ -61,10 +61,9 @@ class GatewayMenuTest(unittest.TestCase):
         out = self.gw.handle(msg("1", "/qc"))
         self.assertEqual(len(out), 1)
         texts = [t for t, _ in cbs(out[0])]
-        for want in (BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR,
-                     BTN_PHOTO, BTN_GUIDE, BTN_PROSEDUR):
+        for want in (BTN_BAHAN_BAKU, BTN_JALUR_UTAMA, BTN_LUAR_JALUR, BTN_PHOTO):
             self.assertIn(want, texts)
-        self.assertIn("Bantuan QC", out[0].text)
+        self.assertIn("Kode Cacat", out[0].text)
         # tidak ada reply keyboard — murni inline
         self.assertEqual(out[0].buttons, [])
 
@@ -92,7 +91,7 @@ class GatewayMenuTest(unittest.TestCase):
 
     def test_callback_tak_dikenal_kembali_ke_menu(self):
         out = self.gw.handle(msg("1", "qc:ngawur"))
-        self.assertIn("Bantuan QC", out[0].text)
+        self.assertIn("Kode Cacat", out[0].text)
 
 
 class GatewaySearchTest(unittest.TestCase):
@@ -210,19 +209,19 @@ class GatewayProsedurTest(unittest.TestCase):
         self.out = self.gw.handle(msg("1", "/qc"))
 
     def test_menu_memuat_tombol_prosedur(self):
-        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
+        out = self.gw.handle(msg("1", "qc:prosedur"))
         self.assertIn("Prosedur Kerja", out[0].text)
         texts = [t for t, _ in cbs(out[0])]
         self.assertIn("🔧 Mesin FT", texts)
 
     def test_grup_menampilkan_topik(self):
-        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
+        out = self.gw.handle(msg("1", "qc:prosedur"))
         out = tap(self.gw, "1", out[0], "🔧 Mesin FT")
         self.assertIn("Mesin FT", out[0].text)
         self.assertTrue(any("Inspeksi" in t for t, _ in cbs(out[0])))
 
     def test_topik_bisa_dibuka_dan_pindah(self):
-        out = tap(self.gw, "1", self.out[0], BTN_PROSEDUR)
+        out = self.gw.handle(msg("1", "qc:prosedur"))
         out = tap(self.gw, "1", out[0], "🔧 Mesin FT")
         first = cbs(out[0])[0]
         out2 = self.gw.handle(msg("1", first[1]))
@@ -339,6 +338,56 @@ class GatewayPaginationEditTest(unittest.TestCase):
         out2 = self.gw.handle(m)
         self.assertIsNone(out2[0].edit_message_id)
         self.assertIn("🔍 *", out2[0].text)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+class GatewayQuickSearchTest(unittest.TestCase):
+    """Ketik kata kunci di menu -> pencarian kilat lintas konten."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_kode_persis_langsung_kartu(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "C11"))
+        self.assertIn("*C11* — Tergores", out[0].text)
+
+    def test_kata_kunci_banyak_hasil_dikelompokkan(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "korosi"))
+        self.assertIn("Hasil untuk", out[0].text)
+        self.assertIn("Cacat", out[0].text)
+        # tombol-tombol inline tersedia
+        self.assertTrue(len(cbs(out[0])) > 1)
+
+    def test_cari_topik_panduan(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "kualitas"))
+        text = out[0].text
+        self.assertTrue("Panduan" in text or "Cacat" in text)
+
+    def test_tidak_ditemukan(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = self.gw.handle(msg("1", "zzz-tidak-ada-xyz"))
+        self.assertIn("Tidak ditemukan", out[0].text)
+
+    def test_dari_submenu_bagian_cari_terbatas(self):
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = tap(self.gw, "1", out[0], BTN_BAHAN_BAKU)
+        # ketik langsung di submenu bagian -> cari di bagian itu
+        out = self.gw.handle(msg("1", "R19"))
+        self.assertIn("Jenis 1", [t for t, _ in cbs(out[0])])
+
+    def test_entry_qc_panduan(self):
+        out = self.gw.handle(msg("1", "/qc_panduan"))
+        self.assertIn("Panduan Kerja", out[0].text)
+
+    def test_entry_qc_ft(self):
+        out = self.gw.handle(msg("1", "/qc_ft"))
+        self.assertIn("Mesin FT", out[0].text)
 
 
 if __name__ == "__main__":

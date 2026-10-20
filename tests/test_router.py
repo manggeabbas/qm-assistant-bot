@@ -19,7 +19,7 @@ def _labels(msg) -> list[str]:
     return out
 
 from qm_assistant import AssistantRouter, AssistantSessionStore, BTN_COIL, BTN_QC, BTN_TRAINING
-from qm_assistant import BTN_ADMIN, BTN_HOME
+from qm_assistant import BTN_ADMIN, BTN_HOME, BTN_LAB, BTN_LAPANGAN
 from qm_assistant.session import MODE_COIL, MODE_MENU, MODE_QC, MODE_TRAINING
 
 
@@ -103,7 +103,7 @@ class RouterTest(unittest.TestCase):
         router = make_router()
         out = router.handle(msg("1", "/start"))
         self.assertEqual(len(out), 1)
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
 
     def test_pilih_training_mendelegasikan_new_training(self):
@@ -127,7 +127,7 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", BTN_TRAINING))
         out = router.handle(msg("1", "/start"))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_pilih_coil_masuk_mode_coil(self):
         router = make_router()
@@ -165,7 +165,7 @@ class RouterTest(unittest.TestCase):
         router.handle(msg("1", BTN_TRAINING))
         out = router.handle(msg("1", "/cancel"))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_pesan_layanan_membawa_tombol_home(self):
         router = make_router()
@@ -182,7 +182,7 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_COIL)
         out = router.handle(msg("1", BTN_HOME))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
         # Setelah kembali, coil tidak lagi menerima pesan.
         out = router.handle(msg("1", "halo"))
         self.assertEqual(router.coil.received, ["/coil"])
@@ -195,18 +195,18 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_TRAINING)
         out = router.handle(msg("1", BTN_HOME))
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_teks_asing_di_menu_menampilkan_menu_lagi(self):
         router = make_router()
         out = router.handle(msg("1", "xyz"))
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_user_tak_terdaftar_ditolak_di_training(self):
         # Menu (/start) terbuka untuk semua; yang digembok adalah layanannya.
         router = make_router(allowed_ids=["999"])
         out = router.handle(msg("123", "/start"))
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
         # Form Pelatihan tetap ditolak.
         out = router.handle(msg("123", BTN_TRAINING))
         self.assertIn("belum terdaftar", out[0].text)
@@ -224,14 +224,14 @@ class RouterTest(unittest.TestCase):
     def test_owner_lolos_otorisasi(self):
         router = make_router(allowed_ids=["999"], owner_ids=["999"])
         out = router.handle(msg("999", "/start"))
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_menu_admin_hanya_untuk_owner(self):
         router = make_router(coil_owner_ids=["1"])
         out = router.handle(msg("1", "/start"))
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC, BTN_ADMIN])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING, BTN_ADMIN])
         out = router.handle(msg("42", "/start"))
-        self.assertEqual(_labels(out[0]), [BTN_COIL, BTN_TRAINING, BTN_QC])
+        self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
     def test_tombol_admin_membuka_panel(self):
         router = make_router(coil_owner_ids=["1"])
@@ -299,18 +299,30 @@ if __name__ == "__main__":
 
 
 class RouterInlineMenuTest(unittest.TestCase):
+    def _data(self, out_msg, label):
+        for row in (out_msg.inline_buttons or []):
+            for t_, d in row:
+                if t_ == label:
+                    return d
+        raise AssertionError(f"tombol '{label}' tidak ada")
+
     def test_menu_utama_inline_dan_bisa_ditap(self):
         router = make_router()
         out = router.handle(msg("1", "/start"))
         self.assertEqual(out[0].buttons, [])  # tanpa reply keyboard
         rows = out[0].inline_buttons
         self.assertTrue(rows)
-        # callback_data = label -> router menangkap seperti tombol biasa
-        data = dict((t_, d) for row in rows for t_, d in row)
-        self.assertEqual(data[BTN_QC], BTN_QC)
+        # Inspeksi Lapangan -> menu lapangan
+        d = self._data(out[0], BTN_LAPANGAN)
+        self.assertEqual(d, "menu:lapangan")
         out2 = router.handle(
-            IncomingMessage(user_id="1", text=data[BTN_QC], is_callback=True)
+            IncomingMessage(user_id="1", text=d, is_callback=True)
         )
+        self.assertIn("Inspeksi Lapangan", out2[0].text)
+        # Kode Cacat -> masuk mode QC
+        d2 = self._data(out2[0], "🏷 Kode Cacat")
+        self.assertEqual(d2, "goto:qc_kode")
+        router.handle(IncomingMessage(user_id="1", text=d2, is_callback=True))
         self.assertEqual(router.store.get_mode("1"), MODE_QC)
 
     def test_tombol_home_inline_kembali_ke_menu(self):
@@ -322,6 +334,34 @@ class RouterInlineMenuTest(unittest.TestCase):
             IncomingMessage(user_id="1", text=BTN_HOME, is_callback=True)
         )
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
+
+    def test_tree_lab_dan_placeholder(self):
+        router = make_router()
+        out = router.handle(msg("1", "/start"))
+        d = self._data(out[0], BTN_LAB)
+        out = router.handle(IncomingMessage(user_id="1", text=d, is_callback=True))
+        self.assertIn("Laboratorium", out[0].text)
+        d = self._data(out[0], "⚙️ Lab Mekanik/Fisika")
+        out = router.handle(IncomingMessage(user_id="1", text=d, is_callback=True))
+        self.assertIn("Mekanik", out[0].text)
+        self.assertIn("🔩 Uji Tarik", [t for row in out[0].inline_buttons for t, _ in row])
+        d = self._data(out[0], "🔩 Uji Tarik")
+        out = router.handle(IncomingMessage(user_id="1", text=d, is_callback=True))
+        self.assertIn("menyusul", out[0].text)
+
+    def test_tree_luar_jalur_ke_ft(self):
+        router = make_router()
+        out = router.handle(
+            IncomingMessage(user_id="1", text="menu:luar_jalur", is_callback=True)
+        )
+        self.assertIn("Luar Jalur", out[0].text)
+        d = self._data(out[0], "📋 SOP Mesin FT")
+        self.assertEqual(d, "goto:qc_ft")
+        router.handle(IncomingMessage(user_id="1", text=d, is_callback=True))
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+        d2 = self._data(out[0], "📝 Form Generator FT/FJ")
+        router.handle(IncomingMessage(user_id="1", text=d2, is_callback=True))
+        self.assertEqual(router.store.get_mode("1"), MODE_COIL)
 
 
 if __name__ == "__main__":

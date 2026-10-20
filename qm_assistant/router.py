@@ -47,9 +47,74 @@ BTN_QC = "🔍 Bantuan QC"
 BTN_ADMIN = "🛠 Admin"
 BTN_HOME = "🏠 Menu Utama"
 
+# Menu tree QM-YWI Assistant (lihat _tree_menu).
+BTN_LAPANGAN = "🔍 Inspeksi Lapangan"
+BTN_LAB = "🔬 Inspeksi Laboratorium"
+
 _MENU_COMMANDS = ("/start", "/menu")
 _CANCEL_COMMANDS = ("/cancel", "/batal")
 _ADMIN_COMMANDS = ("/admin",)
+
+# Navigasi tree: callback_data "menu:*" (tampil menu), "goto:*" (masuk
+# layanan), "ph:*" (placeholder dokumen menyusul).
+_TREE_MENUS = {
+    "menu:lapangan": (
+        "🔍 *Inspeksi Lapangan*\n\nPilih:",
+        [
+            [("🏷 Kode Cacat", "goto:qc_kode")],
+            [("📘 Panduan Kerja", "goto:qc_panduan")],
+            [("🏭 Inspeksi Jalur Utama", "menu:jalur_utama")],
+            [("🔧 Inspeksi Luar Jalur", "menu:luar_jalur")],
+            [(BTN_HOME, BTN_HOME)],
+        ],
+    ),
+    "menu:jalur_utama": (
+        "🏭 *Inspeksi Jalur Utama*\n\nPilih:",
+        [
+            [("📝 Form Generator", "goto:coil")],
+            [("📋 SOP Inspeksi Jalur Utama", "ph:sop_jalur_utama")],
+            [("◀ Inspeksi Lapangan", "menu:lapangan")],
+        ],
+    ),
+    "menu:luar_jalur": (
+        "🔧 *Inspeksi Luar Jalur*\n\nPilih:",
+        [
+            [("📋 SOP Mesin FT", "goto:qc_ft")],
+            [("📋 SOP Mesin FJ", "ph:sop_fj")],
+            [("📝 Form Generator FT/FJ", "goto:coil")],
+            [("◀ Inspeksi Lapangan", "menu:lapangan")],
+        ],
+    ),
+    "menu:lab": (
+        "🔬 *Inspeksi Laboratorium*\n\nPilih:",
+        [
+            [("⚙️ Lab Mekanik/Fisika", "menu:lab_mekanik")],
+            [("🧪 Lab Kimia", "menu:lab_kimia")],
+            [(BTN_HOME, BTN_HOME)],
+        ],
+    ),
+    "menu:lab_mekanik": (
+        "⚙️ *Laboratorium Mekanik/Fisika*\n\nPilih uji:",
+        [
+            [("🔩 Uji Tarik", "ph:lab_tarik")],
+            [("💎 Uji Kekerasan", "ph:lab_kekerasan")],
+            [("⚛️ Uji Butiran", "ph:lab_butiran")],
+            [("◀ Laboratorium", "menu:lab")],
+        ],
+    ),
+    "menu:lab_kimia": (
+        "🧪 *Laboratorium Kimia*\n\nDokumen SOP menyusul.",
+        [[("◀ Laboratorium", "menu:lab")]],
+    ),
+}
+
+_PLACEHOLDERS = {
+    "ph:sop_jalur_utama": ("📋 SOP Inspeksi Jalur Utama", "menu:jalur_utama"),
+    "ph:sop_fj": ("📋 SOP Mesin FJ", "menu:luar_jalur"),
+    "ph:lab_tarik": ("🔩 Uji Tarik", "menu:lab_mekanik"),
+    "ph:lab_kekerasan": ("💎 Uji Kekerasan", "menu:lab_mekanik"),
+    "ph:lab_butiran": ("⚛️ Uji Butiran", "menu:lab_mekanik"),
+}
 
 
 class AssistantRouter:
@@ -80,6 +145,16 @@ class AssistantRouter:
         if lowered in _MENU_COMMANDS or text == BTN_HOME:
             self.store.reset(message.user_id)
             return [self._menu_message(message.user_id)]
+
+        # Navigasi tree menu (menu:* tampil menu, goto:* masuk layanan,
+        # ph:* placeholder). Dicegat sebelum dispatch mode agar berlaku
+        # dari alur mana pun.
+        if text.startswith("menu:"):
+            return [self._tree_menu(message.user_id, text)]
+        if text.startswith("goto:"):
+            return self._tree_goto(message, text)
+        if text.startswith("ph:"):
+            return [self._placeholder(text)]
 
         if lowered in _CANCEL_COMMANDS:
             self.store.reset(message.user_id)
@@ -121,8 +196,8 @@ class AssistantRouter:
             # oleh user NEW dan dijawab "Token tidak valid".)
             return self._with_home(self.coil.handle(replace(message, text="/coil")))
 
-        # Pindah ke Bantuan QC: otorisasi sama seperti Form Pelatihan
-        # (user terdaftar). Gateway menerima "/qc" sintetis.
+        # Pindah ke Bantuan QC (tombol lama, kompatibilitas): otorisasi
+        # sama seperti Form Pelatihan. Gateway menerima "/qc" sintetis.
         if text == BTN_QC:
             if not self._authorized(message.user_id):
                 return [self._denied_message(message.user_id)]
@@ -151,10 +226,53 @@ class AssistantRouter:
         # mode == MODE_COIL: otorisasi milik gateway (invite/registrasi/DB).
         return self._with_home(self.coil.handle(message))
 
+    # -- menu tree ------------------------------------------------------------ #
+
+    def _tree_menu(self, user_id: str, key: str) -> OutgoingMessage:
+        """Tampilkan satu level menu tree. Mode direset ke menu."""
+        self.store.set_mode(user_id, MODE_MENU)
+        text, rows = _TREE_MENUS.get(key, _TREE_MENUS["menu:lapangan"])
+        return OutgoingMessage(text, inline_buttons=[list(r) for r in rows], markdown=True)
+
+    def _tree_goto(self, message: IncomingMessage, target: str) -> list[OutgoingMessage]:
+        """Masuk layanan dari tree: delegasi ke gateway yang sesuai."""
+        user_id = message.user_id
+        qc_entries = {
+            "goto:qc_kode": "/qc_kode",
+            "goto:qc_panduan": "/qc_panduan",
+            "goto:qc_ft": "/qc_ft",
+        }
+        if target in qc_entries:
+            if not self._authorized(user_id):
+                return [self._denied_message(user_id)]
+            self.store.set_mode(user_id, MODE_QC)
+            if self.qc is None:
+                return [OutgoingMessage("Layanan Bantuan QC belum aktif.")]
+            return self._with_home(
+                self.qc.handle(replace(message, text=qc_entries[target]))
+            )
+        if target == "goto:coil":
+            self.store.set_mode(user_id, MODE_COIL)
+            return self._with_home(self.coil.handle(replace(message, text="/coil")))
+        return [self._menu_message(user_id)]
+
+    def _placeholder(self, key: str) -> OutgoingMessage:
+        label, parent = _PLACEHOLDERS.get(key, ("📄 Dokumen", "menu:lapangan"))
+        return OutgoingMessage(
+            f"{label}\n\n📄 *Dokumen menyusul.*\n\n"
+            "SOP untuk bagian ini belum tersedia di bot. "
+            "Kirim dokumennya untuk dimasukkan.",
+            inline_buttons=[
+                [("◀ Kembali", parent)],
+                [(BTN_HOME, BTN_HOME)],
+            ],
+            markdown=True,
+        )
+
     # -- helpers ------------------------------------------------------------ #
 
     def _menu_buttons(self, user_id: str | None = None) -> list[str]:
-        buttons = [BTN_COIL, BTN_TRAINING, BTN_QC]
+        buttons = [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING]
         if user_id is not None and self._is_coil_owner(user_id):
             buttons.append(BTN_ADMIN)
         return buttons
@@ -162,9 +280,17 @@ class AssistantRouter:
     def _menu_inline_buttons(
         self, user_id: str | None = None
     ) -> list[list[tuple[str, str]]]:
-        """Tombol inline menu utama. callback_data = label tombol agar
-        ditangkap pengecekan teks yang sudah ada (text == BTN_COIL, ...)."""
-        return [[(label, label)] for label in self._menu_buttons(user_id)]
+        """Tombol inline menu utama (tree). Cabang memakai callback menu:*;
+        Form Pelatihan & Admin memakai labelnya sendiri agar ditangkap
+        pengecekan teks yang sudah ada."""
+        rows: list[list[tuple[str, str]]] = [
+            [(BTN_LAPANGAN, "menu:lapangan")],
+            [(BTN_LAB, "menu:lab")],
+            [(BTN_TRAINING, BTN_TRAINING)],
+        ]
+        if user_id is not None and self._is_coil_owner(user_id):
+            rows.append([(BTN_ADMIN, BTN_ADMIN)])
+        return rows
 
     def _is_coil_owner(self, user_id: str) -> bool:
         """Owner Form Gulungan (pengelola /admin)."""
@@ -173,9 +299,10 @@ class AssistantRouter:
 
     def _menu_message(self, user_id: str | None = None) -> OutgoingMessage:
         return OutgoingMessage(
-            "🤖 QM Assistant\n\n"
+            "🤖 *QM-YWI Assistant*\n\n"
             "Pilih layanan yang Anda butuhkan:",
             inline_buttons=self._menu_inline_buttons(user_id),
+            markdown=True,
         )
 
     def _with_home(

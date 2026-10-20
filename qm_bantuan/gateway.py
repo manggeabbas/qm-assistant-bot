@@ -100,8 +100,12 @@ class QCGateway:
         if message.photo_path:
             return self._handle_photo(message)
 
-        if text == "/qc":
+        if text in ("/qc", "/qc_kode"):
             return self._show_menu(user_id)
+        if text == "/qc_panduan":
+            return self._show_guide_list(user_id)
+        if text == "/qc_ft":
+            return self._show_ft_topics(user_id)
 
         # Tap tombol inline -> callback_data "qc:...".
         if text.startswith("qc:"):
@@ -121,7 +125,13 @@ class QCGateway:
             return self._do_search(user_id, text)
         if state == "photo":
             return [self._photo_prompt()]
-        return [self._menu_hint()]
+        if state == "quiz":
+            return [self._menu_hint()]
+        if state == "bagian":
+            # Pintasan: ketik langsung di submenu bagian = cari di bagian itu.
+            return self._do_search(user_id, text)
+        # Pencarian kilat lintas semua konten QC (cacat + panduan + prosedur).
+        return self._quick_search(user_id, text)
 
     def _menu_hint(self) -> OutgoingMessage:
         return OutgoingMessage(
@@ -179,6 +189,8 @@ class QCGateway:
             return self._show_guide_topic(user_id, arg)
         if action == "prosedur":
             return self._show_prosedur_groups(user_id)
+        if action == "ft":
+            return self._show_ft_topics(user_id)
         if action == "pgrup":
             return self._show_prosedur_topics(user_id, arg)
         if action == "ptopik":
@@ -194,16 +206,18 @@ class QCGateway:
 
     # -- menu ------------------------------------------------------------ #
     def _show_menu(self, user_id: str) -> list[OutgoingMessage]:
+        """Menu Kode Cacat: pilih bagian / analisis foto."""
         self._states[user_id] = {"state": "menu"}
         return [
             OutgoingMessage(
-                "🔍 *Bantuan QC*\n\n"
-                "Referensi cepat standar cacat & prosedur kerja QC.\n"
-                "Pilih bagian:",
+                "🏷 *Kode Cacat*\n\n"
+                "Referensi cepat standar cacat QC.\n"
+                "Pilih bagian, atau *ketik kata kunci langsung* "
+                "(mis. *C11*, *tergores*):",
                 inline_buttons=_bagian_rows()
                 + [
-                    [(BTN_PHOTO, _CB_FOTO), (BTN_GUIDE, _CB_PANDUAN)],
-                    [(BTN_PROSEDUR, _CB_PROSEDUR)],
+                    [(BTN_PHOTO, _CB_FOTO)],
+                    [("◀ Inspeksi Lapangan", "menu:lapangan")],
                 ],
                 markdown=True,
             )
@@ -283,6 +297,62 @@ class QCGateway:
             OutgoingMessage(
                 f"Ditemukan {len(results)} cacat:\n\n{lines}\n\nPilih salah satu:",
                 inline_buttons=rows,
+            )
+        ]
+
+    # -- pencarian kilat (lintas semua konten) ----------------------------------- #
+    def _quick_search(self, user_id: str, query: str) -> list[OutgoingMessage]:
+        """Ketik kata kunci di mana saja -> cari di cacat + panduan + prosedur.
+
+        Satu hasil -> langsung tampilkan. Banyak -> daftar kelompok.
+        """
+        if not query:
+            return [self._menu_hint()]
+        defects = self.atlas.search(query, limit=8)
+        topics = self.panduan.search(query, limit=6)
+        guides = [t for t in topics if not (t.get("grup") or "").strip()]
+        procs = [t for t in topics if (t.get("grup") or "").strip()]
+
+        total = len(defects) + len(guides) + len(procs)
+        if total == 0:
+            return [
+                OutgoingMessage(
+                    f"Tidak ditemukan hasil untuk *{query}*.\n\n"
+                    "Coba kata kunci lain (mis. *tergores*, *korosi*, *kualitas*) "
+                    "atau kode cacat (mis. *C11*).",
+                    inline_buttons=_bagian_rows(),
+                    markdown=True,
+                )
+            ]
+        if total == 1:
+            if defects:
+                return self._show_card(user_id, defects[0]["code"])
+            topic = (guides + procs)[0]
+            if (topic.get("grup") or "").strip():
+                return self._show_prosedur_topic(user_id, topic["id"])
+            return self._show_guide_topic(user_id, topic["id"])
+
+        lines = [f'🔍 Hasil untuk *{query}*:\n']
+        rows: list[list[tuple[str, str]]] = []
+        if defects:
+            lines.append(f"🏷 *Cacat* ({len(defects)}):")
+            for e in defects:
+                lines.append(f"• {search_line(e)}")
+                rows.append([(search_line(e)[:38], f"qc:card:{e['code']}")])
+        if guides:
+            lines.append(f"\n📘 *Panduan* ({len(guides)}):")
+            for t in guides:
+                lines.append(f"• {Panduan.label(t)}")
+                rows.append([(Panduan.label(t)[:38], f"qc:topik:{t['id']}")])
+        if procs:
+            lines.append(f"\n📋 *Prosedur* ({len(procs)}):")
+            for t in procs:
+                lines.append(f"• {Panduan.label(t)}")
+                rows.append([(Panduan.label(t)[:38], f"qc:ptopik:{t['id']}")])
+        lines.append("\nPilih salah satu:")
+        return [
+            OutgoingMessage(
+                "\n".join(lines), inline_buttons=rows, markdown=True
             )
         ]
 
@@ -375,7 +445,7 @@ class QCGateway:
         rows = [
             [(Panduan.label(t), f"qc:topik:{t['id']}")] for t in self.panduan.topics()
         ]
-        rows.append([(BTN_BACK, _CB_MENU)])
+        rows.append([("◀ Inspeksi Lapangan", "menu:lapangan")])
         return [
             OutgoingMessage(
                 "📘 *Panduan Kerja*\n\n"
@@ -396,7 +466,7 @@ class QCGateway:
         rows = [
             [(Panduan.label(t), f"qc:topik:{t['id']}")] for t in self.panduan.topics()
         ]
-        rows.append([(BTN_BACK, _CB_MENU)])
+        rows.append([(BTN_BACK, _CB_PANDUAN)])
         title = f"{topic.get('emoji', '📘')} *{topic.get('judul', '')}*"
         return [
             OutgoingMessage(
@@ -421,13 +491,27 @@ class QCGateway:
             )
         ]
 
-    def _show_prosedur_topics(self, user_id: str, grup: str) -> list[OutgoingMessage]:
+    def _show_ft_topics(self, user_id: str) -> list[OutgoingMessage]:
+        """Topik SOP Mesin FT langsung (pintu dari tree Inspeksi Luar Jalur)."""
+        for g in self.panduan.groups():
+            if "FT" in g.upper():
+                return self._show_prosedur_topics(
+                    user_id, g, back=(BTN_BACK, "menu:luar_jalur")
+                )
+        return self._show_prosedur_groups(user_id)
+
+    def _show_prosedur_topics(
+        self,
+        user_id: str,
+        grup: str,
+        back: tuple[str, str] | None = None,
+    ) -> list[OutgoingMessage]:
         topics = self.panduan.by_group(grup)
         if not topics:
             return self._show_prosedur_groups(user_id)
         self._states[user_id] = {"state": "prosedur_topics", "grup": grup}
         rows = [[(Panduan.label(t), f"qc:ptopik:{t['id']}")] for t in topics]
-        rows.append([(BTN_BACK, "qc:prosedur")])
+        rows.append([back or (BTN_BACK, "qc:prosedur")])
         return [
             OutgoingMessage(
                 f"📋 *Prosedur Kerja — {grup}*\n\nPilih topik:",
@@ -447,7 +531,7 @@ class QCGateway:
             [(Panduan.label(t), f"qc:ptopik:{t['id']}")]
             for t in self.panduan.by_group(grup)
         ]
-        rows.append([(BTN_BACK, "qc:prosedur")])
+        rows.append([(BTN_BACK, "qc:ft")])
         title = f"{topic.get('emoji', '📋')} *{topic.get('judul', '')}*"
         return [
             OutgoingMessage(

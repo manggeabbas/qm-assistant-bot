@@ -211,6 +211,21 @@ class Panduan:
     def by_group(self, grup: str) -> list[dict]:
         return [t for t in self._topics if (t.get("grup") or "").strip() == grup]
 
+    def search(self, query: str, limit: int = 6) -> list[dict]:
+        """Cari topik yang judul/isi-nya memuat kata kunci (semua kata)."""
+        q = (query or "").strip().lower()
+        if not q:
+            return []
+        words = q.split()
+        out = []
+        for t in self._topics:
+            hay = f"{t.get('judul', '')}\n{t.get('isi', '')}".lower()
+            if all(w in hay for w in words):
+                out.append(t)
+                if len(out) >= limit:
+                    break
+        return out
+
     @staticmethod
     def label(topic: dict) -> str:
         return f"{topic.get('emoji', '📘')} {topic.get('judul', '')}".strip()
