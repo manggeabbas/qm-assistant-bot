@@ -117,6 +117,8 @@ class QCGateway:
             return self._show_guide_list(user_id)
         if text == "/qc_ft":
             return self._show_ft_topics(user_id)
+        if text == "/qc_sop_main":
+            return self._show_sop_main_topics(user_id)
 
         # Tap tombol inline -> callback_data "qc:...".
         if text.startswith("qc:"):
@@ -201,6 +203,8 @@ class QCGateway:
             return self._show_prosedur_groups(user_id)
         if action == "ft":
             return self._show_ft_topics(user_id)
+        if action == "main":
+            return self._show_sop_main_topics(user_id)
         if action == "pgrup":
             return self._show_prosedur_topics(user_id, arg)
         if action == "ptopik":
@@ -552,6 +556,15 @@ class QCGateway:
                 )
         return self._show_prosedur_groups(user_id)
 
+    def _show_sop_main_topics(self, user_id: str) -> list[OutgoingMessage]:
+        """Topik SOP Inspeksi Jalur Utama (pintu dari tree Jalur Utama)."""
+        for g in self.panduan.groups():
+            if "Jalur Utama" in g:
+                return self._show_prosedur_topics(
+                    user_id, g, back=(BTN_BACK, "menu:jalur_utama")
+                )
+        return self._show_prosedur_groups(user_id)
+
     def _show_prosedur_topics(
         self,
         user_id: str,
@@ -583,7 +596,13 @@ class QCGateway:
             [(Panduan.label(t), f"qc:ptopik:{t['id']}")]
             for t in self.panduan.by_group(grup)
         ]
-        rows.append([(BTN_BACK, "qc:ft")])
+        if "FT" in grup.upper():
+            back_cb = "qc:ft"
+        elif "Jalur Utama" in grup:
+            back_cb = "qc:main"
+        else:
+            back_cb = "qc:prosedur"
+        rows.append([(BTN_BACK, back_cb)])
         title = f"{topic.get('emoji', '📋')} *{topic.get('judul', '')}*"
         return [
             OutgoingMessage(

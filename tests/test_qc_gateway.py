@@ -439,3 +439,33 @@ class GatewayFeatureKeywordsTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GatewaySopJalurUtamaTest(unittest.TestCase):
+    """SOP Inspeksi Jalur Utama (TTRI-QM-ZY-35-2025) masuk ke bot."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_entry_qc_sop_main(self):
+        out = self.gw.handle(msg("1", "/qc_sop_main"))
+        self.assertIn("Jalur Utama", out[0].text)
+        labels = [t for t, _ in cbs(out[0])]
+        self.assertIn("🔄 Alur Kerja Inspeksi", labels)
+        self.assertIn("👷 Tanggung Jawab Inspektur", labels)
+
+    def test_topik_alur(self):
+        out = self.gw.handle(msg("1", "/qc_sop_main"))
+        out = tap(self.gw, "1", out[0], "🔄 Alur Kerja Inspeksi")
+        self.assertIn("Pemeriksaan ukuran", out[0].text)
+        self.assertIn("TTRI-QM-ZY-35-2025", out[0].text)
+
+    def test_kembali_dari_topik_ke_daftar_jalur_utama(self):
+        out = self.gw.handle(msg("1", "/qc_sop_main"))
+        out = tap(self.gw, "1", out[0], "👷 Tanggung Jawab Inspektur")
+        data = [d for _, d in cbs(out[0])]
+        self.assertIn("qc:main", data)
+
+
+if __name__ == "__main__":
+    unittest.main()

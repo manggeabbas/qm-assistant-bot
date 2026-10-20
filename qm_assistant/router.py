@@ -72,7 +72,7 @@ _TREE_MENUS = {
         "🏭 *Inspeksi Jalur Utama*\n\nPilih:",
         [
             [("📝 Form Generator", "goto:coil")],
-            [("📋 SOP Inspeksi Jalur Utama", "ph:sop_jalur_utama")],
+            [("📋 SOP Inspeksi Jalur Utama", "goto:qc_sop_main")],
             [("◀ Inspeksi Lapangan", "menu:lapangan")],
         ],
     ),
@@ -109,7 +109,6 @@ _TREE_MENUS = {
 }
 
 _PLACEHOLDERS = {
-    "ph:sop_jalur_utama": ("📋 SOP Inspeksi Jalur Utama", "menu:jalur_utama"),
     "ph:sop_fj": ("📋 SOP Mesin FJ", "menu:luar_jalur"),
     "ph:lab_tarik": ("🔩 Uji Tarik", "menu:lab_mekanik"),
     "ph:lab_kekerasan": ("💎 Uji Kekerasan", "menu:lab_mekanik"),
@@ -241,6 +240,7 @@ class AssistantRouter:
             "goto:qc_kode": "/qc_kode",
             "goto:qc_panduan": "/qc_panduan",
             "goto:qc_ft": "/qc_ft",
+            "goto:qc_sop_main": "/qc_sop_main",
         }
         if target in qc_entries:
             if not self._authorized(user_id):

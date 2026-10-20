@@ -58,6 +58,20 @@
    "judul": "Keselamatan & Darurat",
    "grup": "🔧 Mesin FT",
    "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 3, 4 & 6.\n\n*Jarak aman yang wajib diingat:*\n```\n• Forklift yang beroperasi: MENJAUH — jangan dekati saat bongkar/muat pelat (risiko tertimpa).\n• Crane menempatkan gulungan: kerja baru boleh dimulai setelah crane menjauh MINIMAL 5 meter.\n• Mesin penggulung sisa potongan tepi: jaga jarak MINIMAL 2 meter saat pemotongan tepi berjalan.\n```\n*Larangan keras:*\n```\n• Melintas di bawah pita baja yang berjalan.\n• Menyentuh permukaan/tepi pita saat mesin beroperasi.\n• Menutup pagar pengaman atau bersandar padanya.\n• Menyerahkan benda/alat melintasi mesin yang beroperasi.\n• Bekerja sendirian saat pengecekan bentuk (wajib minimal 2 orang).\n```\n*Keadaan darurat:* inspektur *berhak menghentikan pekerjaan atau mengungsi* setelah mengambil tindakan darurat yang memungkinkan dan menghubungi atasan (pasal 3.5).\n\n*5S:* terapkan manajemen 5S sebelum dan sesudah operasi di area kantor dan area inspeksi."
+  },
+  {
+   "id": "main_alur",
+   "emoji": "🔄",
+   "judul": "Alur Kerja Inspeksi",
+   "grup": "🏭 Jalur Utama",
+   "isi": "Acuan: TTRI-QM-ZY-35-2025, pasal 5.1. Pemeriksa: Inspektur Jalur Utama, Divisi Inspeksi CRP-YWI.\n\n*Alur pemeriksaan gulungan baja CRP-YWI:*\n```\n1. Pemeriksaan ukuran\n2. Pemeriksaan kualitas permukaan\n3. Pemeriksaan bentuk gulungan\n4. Pemeriksaan kualitas tepi\n5. Penilaian komprehensif\n```\n*Pencatatan:*\n```\nHasil pemeriksaan dicatat pada \"Form Catatan Pengecekan Gulungan CRP-YWI — Departemen Quality Management\" (Lampiran A).\n```\nProses pemeriksaan mengikuti *Diagram Alir Pemeriksaan Gulungan Baja CRP-YWI* (Lampiran B).\n\n*Penilaian keseluruhan* mengacu pada:\n```\nKriteria Penentuan Mutu Tingkat Gulungan Baja CRP (Tabel 1) +\nStandar Penilaian Cacat Pelat CRP Baja Tahan Karat.\n```\nLihat juga 📘 Panduan Kerja: 📊 Kriteria Kualitas & 🔢 Kode Pencatatan Cacat."
+  },
+  {
+   "id": "main_tanggung_jawab",
+   "emoji": "👷",
+   "judul": "Tanggung Jawab Inspektur",
+   "grup": "🏭 Jalur Utama",
+   "isi": "Acuan: TTRI-QM-ZY-35-2025, pasal 3.\n\n*Tugas utama:*\n```\n• Pemeriksaan harian gulungan baja, mencatat umpan balik, serta pemeriksaan & kalibrasi alat ukur. (3.1)\n• Menangani cacat abnormal & melaporkan kualitas. (3.2)\n• Memverifikasi personel lini produksi melaksanakan sesuai spesifikasi rencana. (3.3)\n• Mengevaluasi ulang produk yang diturunkan (downgrade) setiap hari. (3.11)\n```\n*Selama operasi:*\n```\n• Manajemen 5S sebelum & sesudah operasi (area kantor & area inspeksi). (3.4)\n• Mencatat semua data secara akurat sebagai dasar analisis selanjutnya. (3.8)\n• Serah terima shift di tempat secara ketat agar informasi akurat. (3.7)\n• Pemeriksaan langsung setiap shift untuk mencegah cacat batch. (3.10)\n```\n*Keselamatan & darurat:*\n```\n• Memahami faktor bahaya, pencegahan & tanggap darurat di lokasi kerja. (3.6)\n• Berhak menghentikan pekerjaan / mengungsi saat darurat, lalu hubungi atasan. (3.5)\n```\n*Cacat batch:*\n```\n• Bila terjadi kecelakaan batch: keluarkan peringatan tepat waktu & ingatkan lini produksi untuk melakukan perubahan. (3.9)\n```"
   }
  ]
 }

@@ -28,7 +28,7 @@ class PanduanDataTest(unittest.TestCase):
     def test_json_valid_dan_lengkap(self):
         raw = json.loads((DATA_DIR / "panduan.json").read_text(encoding="utf-8"))
         self.assertIn("topics", raw)
-        self.assertEqual(len(raw["topics"]), 9)
+        self.assertEqual(len(raw["topics"]), 11)
 
     def test_semua_topik_wajib_ada_dan_berisi(self):
         p = Panduan.bundled()
@@ -54,7 +54,7 @@ class PanduanDataTest(unittest.TestCase):
 
     def test_grup_prosedur_ft(self):
         p = Panduan.bundled()
-        self.assertEqual(p.groups(), ["🔧 Mesin FT"])
+        self.assertEqual(p.groups(), ["🔧 Mesin FT", "🏭 Jalur Utama"])
         ft = p.by_group("🔧 Mesin FT")
         self.assertEqual(len(ft), 5)
         ids = [x["id"] for x in ft]

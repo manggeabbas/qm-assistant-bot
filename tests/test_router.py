@@ -389,3 +389,12 @@ class RouterClosedModeTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RouterSopJalurUtamaTest(unittest.TestCase):
+    def test_sop_jalur_utama_masuk_qc(self):
+        router = make_router()
+        out = router.handle(
+            IncomingMessage(user_id="1", text="goto:qc_sop_main", is_callback=True)
+        )
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
