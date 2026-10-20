@@ -23,6 +23,7 @@ from qm_training.bot.workflow import (
     BTN_USE_THEME,
 )
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.testing.fixtures import build_docx
 from qm_training.validation.models import ValidationReport
 
@@ -50,6 +51,8 @@ def make_workflow(tmp: Path, ai=None):
         settings=Settings(ai_provider="mock"),
         convert_pdf=fake_convert,
         validate=lambda d, p=None: ValidationReport(),
+        # Hermetic: isolasi dari storage/users.json produksi.
+        user_store=UserStore(tmp / "users.json"),
     )
     return workflow, store, MockTelegramAdapter(workflow)
 

@@ -22,6 +22,7 @@ from qm_training.bot.workflow import (
     BTN_USE_THEME,
 )
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.testing.datasets import make_photos
 from qm_training.testing.fixtures import build_docx
 from qm_training.validation.models import ValidationReport
@@ -56,6 +57,9 @@ def make_workflow(tmp: Path, allowed=(), ai=None, convert=fake_convert, validate
         settings=Settings(ai_provider="mock", allowed_user_ids=tuple(allowed)),
         convert_pdf=convert,
         validate=validate,
+        # Hermetic: jangan baca storage/users.json produksi — kehadiran user
+        # terdaftar di sana akan menutup "mode terbuka" dan menggagalkan test.
+        user_store=UserStore(Path(tmp) / "users.json"),
     )
     return workflow, store
 

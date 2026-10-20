@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -83,16 +84,24 @@ class TestEnvironment(unittest.TestCase):
         from unittest import mock
 
         import main as main_module
+        from qm_training.core.users import UserStore
 
-        with mock.patch.object(main_module, "Settings") as fake_settings:
-            fake_settings.from_env.return_value = Settings(
-                ai_provider="mock",
-                telegram_bot_token="dummy",
-                allowed_user_ids=(),
-                owner_user_ids=(),
-                allow_open_access=False,
-            )
-            self.assertEqual(main_module.main([]), 4)
+        # Hermetic: pakai user store kosong di direktori sementara. Test ini
+        # menegaskan perilaku fail-closed saat TIDAK ADA user terdaftar —
+        # apa pun isi storage/users.json produksi di mesin ini.
+        with tempfile.TemporaryDirectory() as tmp:
+            empty_store = UserStore(Path(tmp) / "users.json")
+            with mock.patch.object(main_module, "Settings") as fake_settings, mock.patch(
+                "qm_training.app.UserStore", return_value=empty_store
+            ):
+                fake_settings.from_env.return_value = Settings(
+                    ai_provider="mock",
+                    telegram_bot_token="dummy",
+                    allowed_user_ids=(),
+                    owner_user_ids=(),
+                    allow_open_access=False,
+                )
+                self.assertEqual(main_module.main([]), 4)
 
 
 class TestAppWiring(unittest.TestCase):

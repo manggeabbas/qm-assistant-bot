@@ -26,6 +26,7 @@ from qm_training.bot.workflow import (
     BTN_USE_THEME,
 )
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.core.errors import ConversionError
 from qm_training.document.engine import generate as real_generate
 from qm_training.document.pdf import convert_to_pdf, find_soffice
@@ -60,6 +61,8 @@ def make_workflow(case: str, ai=None, convert=convert_to_pdf, validate=validate_
         generate_docx=real_generate,
         convert_pdf=convert,
         validate=validate,
+        # Hermetic: isolasi dari storage/users.json produksi.
+        user_store=UserStore(case_dir / "users.json"),
     )
     adapter = MockTelegramAdapter(workflow)
     return workflow, store, adapter, case_dir
@@ -187,13 +190,15 @@ class TestEndToEndWorkflowCases(unittest.TestCase):
             store=store,
             ai_service=AIService(MockAIProvider()),
             settings=Settings(ai_provider="mock", allowed_user_ids=("999",)),
+            # Hermetic: isolasi dari storage/users.json produksi.
+            user_store=UserStore(case_dir / "users.json"),
         )
         adapter = MockTelegramAdapter(workflow)
         messages = adapter.receive("1", "/new_training")
         self.assertIn("terdaftar", messages[0].text.lower())
 
     def test_case_12_interrupted_session(self) -> None:
-        workflow, store, adapter, _ = make_workflow("case12")
+        workflow, store, adapter, case_dir = make_workflow("case12")
         drive_to_data_review(adapter)
         resumed = Workflow(
             store=store,
@@ -202,6 +207,8 @@ class TestEndToEndWorkflowCases(unittest.TestCase):
             generate_docx=real_generate,
             convert_pdf=convert_to_pdf,
             validate=validate_document,
+            # Hermetic: user store yang sama dengan workflow pertama.
+            user_store=UserStore(case_dir / "users.json"),
         )
         adapter2 = MockTelegramAdapter(resumed)
         adapter2.receive("1", BTN_CONFIRM)

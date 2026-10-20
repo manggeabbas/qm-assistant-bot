@@ -33,6 +33,7 @@ from qm_training.bot.adapters import MockTelegramAdapter
 from qm_training.bot.states import State
 from qm_training.bot.workflow import BTN_CONFIRM, BTN_USE_THEME
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.document.engine import generate as real_generate
 from qm_training.document.pdf import convert_to_pdf, find_soffice
 from qm_training.paths import MASTER_TEMPLATE
@@ -74,6 +75,8 @@ class TestQuestionSetLifecycle(unittest.TestCase):
             store=store,
             ai_service=AIService(MockAIProvider()),
             settings=Settings(ai_provider="mock"),
+            # Hermetic: isolasi dari storage/users.json produksi.
+            user_store=UserStore(case / "users.json"),
             generate_docx=real_generate,
             convert_pdf=convert_to_pdf,
             validate=validate_document,
@@ -189,6 +192,8 @@ class TestQuestionSetLifecycle(unittest.TestCase):
             settings=Settings(ai_provider="mock"),
             convert_pdf=lambda *a, **k: Path(self.session.output_pdf),
             validate=lambda d, p=None: validate_document(d, None),
+            # Hermetic: isolasi dari storage/users.json produksi.
+            user_store=UserStore(case / "users.json"),
         )
         adapter = MockTelegramAdapter(wf)
         adapter.receive("1", "/new_training", update_id=1)

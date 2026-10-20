@@ -15,6 +15,7 @@ from qm_training.bot.adapters import MockTelegramAdapter
 from qm_training.bot.states import State
 from qm_training.bot.workflow import BTN_CONFIRM, BTN_DONE, BTN_USE_THEME
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.document.engine import generate
 from qm_training.document.pdf import convert_to_pdf, find_soffice
 from qm_training.document.render import pdf_page_count, pdf_pages_text, render_pdf_to_png
@@ -167,6 +168,8 @@ class TestDuplicateValidationError(unittest.TestCase):
             settings=Settings(ai_provider="mock"),
             convert_pdf=fake_convert,
             validate=failing_validate,
+            # Hermetic: isolasi dari storage/users.json produksi.
+            user_store=UserStore(tmp / "users.json"),
         )
         return wf, store, MockTelegramAdapter(wf)
 

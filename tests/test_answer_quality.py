@@ -19,6 +19,7 @@ from qm_training.bot.adapters import MockTelegramAdapter
 from qm_training.bot.states import State
 from qm_training.bot.workflow import BTN_CONFIRM, BTN_DONE, BTN_USE_THEME
 from qm_training.core.config import Settings
+from qm_training.core.users import UserStore
 from qm_training.document.engine import generate as real_generate
 from qm_training.document.schema import QAPair
 from qm_training.testing.fixtures import build_docx
@@ -88,6 +89,8 @@ class TestAnswerQuality(unittest.TestCase):
             store=store,
             ai_service=AIService(MockAIProvider(questions=[QAPair(q.question, q.answer) for q in QUESTIONS])),
             settings=Settings(ai_provider="mock"),
+            # Hermetic: isolasi dari storage/users.json produksi.
+            user_store=UserStore(BASE / "users.json"),
             generate_docx=real_generate,
             convert_pdf=lambda docx, out_dir=None, **k: Path(out_dir or Path(docx).parent) / f"{Path(docx).stem}.pdf",
             validate=lambda d, p=None: ValidationReport(),
