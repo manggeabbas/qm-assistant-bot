@@ -155,6 +155,17 @@ class AssistantRouter:
         if text.startswith("ph:"):
             return [self._placeholder(text)]
 
+        # Callback Bantuan QC ("qc:...") dari tombol inline: selalu
+        # diteruskan ke gateway QC — hasil keyword di layar utama memakai
+        # tombol ini, jadi harus berfungsi dari mode apa pun.
+        if text.startswith("qc:"):
+            if not self._authorized(message.user_id):
+                return [self._denied_message(message.user_id)]
+            self.store.set_mode(message.user_id, MODE_QC)
+            if self.qc is None:
+                return [OutgoingMessage("Layanan Bantuan QC belum aktif.")]
+            return self._with_home(self.qc.handle(message))
+
         if lowered in _CANCEL_COMMANDS:
             self.store.reset(message.user_id)
             return [
@@ -208,7 +219,7 @@ class AssistantRouter:
         mode = self.store.get_mode(message.user_id)
 
         if mode == MODE_MENU:
-            return [self._menu_message(message.user_id)]
+            return self._menu_text(message)
 
         if mode == MODE_TRAINING:
             if not self._authorized(message.user_id):
@@ -226,6 +237,22 @@ class AssistantRouter:
         return self._with_home(self.coil.handle(message))
 
     # -- menu tree ------------------------------------------------------------ #
+
+    def _menu_text(self, message: IncomingMessage) -> list[OutgoingMessage]:
+        """Teks bebas / foto yang diketik di layar utama (mode menu).
+
+        User terdaftar: keyword langsung dicari lewat pencarian kilat QC
+        dan foto langsung dianalisis — tanpa masuk menu dulu. Mode
+        berpindah ke QC agar tombol pada hasil tetap berfungsi. Selain
+        itu (atau user belum terdaftar) tampilkan menu utama lagi.
+        """
+        has_input = bool((message.text or "").strip()) or (
+            message.photo_path is not None
+        )
+        if has_input and self.qc is not None and self._authorized(message.user_id):
+            self.store.set_mode(message.user_id, MODE_QC)
+            return self._with_home(self.qc.handle_from_home(message))
+        return [self._menu_message(message.user_id)]
 
     def _tree_menu(self, user_id: str, key: str) -> OutgoingMessage:
         """Tampilkan satu level menu tree. Mode direset ke menu."""

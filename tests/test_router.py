@@ -77,10 +77,64 @@ class FakeCoil:
 class FakeQC:
     def __init__(self) -> None:
         self.received: list[str] = []
+        self.home_received: list[str] = []
 
     def handle(self, message: IncomingMessage) -> list[OutgoingMessage]:
         self.received.append(message.text)
         return [OutgoingMessage("QC:stub")]
+
+    def handle_from_home(self, message: IncomingMessage) -> list[OutgoingMessage]:
+        self.home_received.append(message.text)
+        return [OutgoingMessage(f"QC:home:{message.text}")]
+
+
+class RouterHomeKeywordTest(unittest.TestCase):
+    """Keyword / foto langsung dari layar utama (mode menu)."""
+
+    def test_keyword_di_menu_utama_langsung_dicari(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", "B22"))
+        self.assertEqual(out[0].text, "QC:home:B22")
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+
+    def test_keyword_menu_utama_user_belum_terdaftar(self):
+        router = make_router(active_ids=("111",))
+        router.handle(msg("99", "/start"))
+        out = router.handle(msg("99", "B22"))
+        self.assertEqual(
+            _labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING]
+        )
+        self.assertEqual(router.store.get_mode("99"), MODE_MENU)
+
+    def test_callback_qc_dari_menu_utama(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(
+            IncomingMessage(user_id="1", text="qc:card:B22", is_callback=True)
+        )
+        self.assertEqual(out[0].text, "QC:stub")
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+
+    def test_foto_di_menu_utama(self):
+        from pathlib import Path
+
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(
+            IncomingMessage(user_id="1", text="", photo_path=Path("foto.jpg"))
+        )
+        self.assertEqual(out[0].text, "QC:home:")
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+
+    def test_teks_kosong_di_menu_utama_tetap_menu(self):
+        router = make_router()
+        router.handle(msg("1", "/start"))
+        out = router.handle(msg("1", ""))
+        self.assertEqual(
+            _labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING]
+        )
+        self.assertEqual(router.store.get_mode("1"), MODE_MENU)
 
 
 def make_router(**kwargs) -> AssistantRouter:
@@ -197,10 +251,20 @@ class RouterTest(unittest.TestCase):
         self.assertEqual(router.store.get_mode("1"), MODE_MENU)
         self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
 
-    def test_teks_asing_di_menu_menampilkan_menu_lagi(self):
+    def test_teks_asing_di_menu_jadi_keyword_qc(self):
+        # User terdaftar: teks asing di layar utama langsung dicari
+        # lewat pencarian kilat QC (tanpa masuk menu dulu).
         router = make_router()
         out = router.handle(msg("1", "xyz"))
+        self.assertEqual(out[0].text, "QC:home:xyz")
+        self.assertEqual(router.store.get_mode("1"), MODE_QC)
+
+    def test_teks_asing_di_menu_user_tak_terdaftar_tampil_menu_lagi(self):
+        # User belum terdaftar: menu ditampilkan lagi (bukan hasil QC).
+        router = make_router(allowed_ids=["999"])
+        out = router.handle(msg("123", "xyz"))
         self.assertEqual(_labels(out[0]), [BTN_LAPANGAN, BTN_LAB, BTN_TRAINING])
+        self.assertEqual(router.store.get_mode("123"), MODE_MENU)
 
     def test_user_tak_terdaftar_ditolak_di_training(self):
         # Menu (/start) terbuka untuk semua; yang digembok adalah layanannya.

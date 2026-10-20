@@ -381,6 +381,16 @@ class GatewayQuickSearchTest(unittest.TestCase):
         out = self.gw.handle(msg("1", "R19"))
         self.assertIn("Jenis 1", [t for t, _ in cbs(out[0])])
 
+    def test_dari_layar_utama_abaikan_state_lama(self):
+        # User sempat masuk mode cari terbatas bagian; dari layar utama
+        # hasilnya harus pencarian global, bukan terbatas.
+        out = self.gw.handle(msg("1", "/qc_kode"))
+        out = tap(self.gw, "1", out[0], BTN_BAHAN_BAKU)
+        state = self.gw._states["1"]["state"]
+        self.assertIn(state, ("menu", "bagian"))
+        out = self.gw.handle_from_home(msg("1", "C11"))
+        self.assertIn("*C11* — Tergores", out[0].text)
+
     def test_entry_qc_panduan(self):
         out = self.gw.handle(msg("1", "/qc_panduan"))
         self.assertIn("Panduan Kerja", out[0].text)

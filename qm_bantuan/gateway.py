@@ -148,6 +148,16 @@ class QCGateway:
         # Pencarian kilat lintas semua konten QC (cacat + panduan + prosedur).
         return self._quick_search(user_id, text)
 
+    def handle_from_home(self, message: IncomingMessage) -> list[OutgoingMessage]:
+        """Pesan dari layar utama bot (router, mode menu).
+
+        State sesi QC sebelumnya diabaikan (direset ke menu) agar teks
+        selalu diperlakukan sebagai pencarian kilat global dan foto
+        langsung dianalisis — user tidak perlu masuk menu QC dulu.
+        """
+        self._states[str(message.user_id)] = {"state": "menu"}
+        return self.handle(message)
+
     def _menu_hint(self) -> OutgoingMessage:
         return OutgoingMessage(
             "Pilih tombol di bawah pesan ya.",
