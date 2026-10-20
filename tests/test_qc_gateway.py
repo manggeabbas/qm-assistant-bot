@@ -485,9 +485,10 @@ class GatewayBaganTest(unittest.TestCase):
     def test_buka_bagan_melampirkan_gambar(self):
         out = self.gw.handle(msg("1", "/qc_sop_main"))
         out = tap(self.gw, "1", out[0], "📊 Bagan Proses Pengecekan")
-        self.assertTrue(out[0].documents)
-        self.assertEqual(out[0].documents[0].name, "bagan_proses.png")
-        self.assertTrue(out[0].documents[0].is_file())
+        names = [p.name for p in out[0].documents]
+        # gambar ulang dulu, lalu bagan asli dokumen
+        self.assertEqual(names, ["bagan_proses.png", "bagan_proses_asli.png"])
+        self.assertTrue(all(p.is_file() for p in out[0].documents))
 
     def test_keyword_bagan(self):
         out = self.gw.handle(msg("1", "/qc_kode"))

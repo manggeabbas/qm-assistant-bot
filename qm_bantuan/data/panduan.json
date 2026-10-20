@@ -78,8 +78,11 @@
    "emoji": "📊",
    "judul": "Bagan Proses Pengecekan",
    "grup": "🏭 Jalur Utama",
-   "gambar": "bagan_proses.png",
-   "isi": "Acuan: TTRI-QM-ZY-35-2025, *Lampiran B*\nBagan Proses Pengecekan Gulungan YWI PT TTRI Departemen Quality Management\n(永旺冷轧钢卷检验流程图).\n\nAlur: Baja billet → Rolling (kulit hitam) → Aneka (NO1) → Cold rolling (2E) → Asam dingin (2D) → Leveling (2B) → pemeriksaan (dimensi / garis / off-line) → penghakiman komprehensif → lepas ke gudang atau konfirmasi / turunkan ke gudang.\n\nGambar bagan terlampir di bawah."
+   "gambar": [
+    "bagan_proses.png",
+    "bagan_proses_asli.png"
+   ],
+   "isi": "Acuan: TTRI-QM-ZY-35-2025, *Lampiran B*\nBagan Proses Pengecekan Gulungan YWI PT TTRI Departemen Quality Management\n(永旺冷轧钢卷检验流程图).\n\nAlur: Baja billet → Rolling (kulit hitam) → Asam panas (NO1) → Cold rolling (2E) → Asam dingin (2D) → Leveling (2B) → pemeriksaan (dimensi / garis / off-line) → penghakiman komprehensif → lepas ke gudang atau konfirmasi / turunkan kualitas.\n\nDua gambar terlampir: (1) versi gambar ulang yang lebih terbaca, (2) bagan asli dari dokumen."
   }
  ]
 }

@@ -589,12 +589,15 @@ class QCGateway:
         ]
 
     def _topic_images(self, topic: dict) -> list[Path]:
-        """Lampiran gambar topik (mis. bagan) -> Path absolut bila ada."""
-        name = (topic.get("gambar") or "").strip()
-        if not name:
-            return []
-        p = _DATA_DIR / Path(name).name
-        return [p] if p.is_file() else []
+        """Lampiran gambar topik (mis. bagan) -> Path absolut yang ada saja."""
+        raw = topic.get("gambar") or []
+        names = raw if isinstance(raw, list) else [raw]
+        out = []
+        for name in names:
+            p = _DATA_DIR / Path(str(name)).name
+            if p.is_file():
+                out.append(p)
+        return out
 
     def _show_prosedur_topic(self, user_id: str, topic_id: str) -> list[OutgoingMessage]:
         topic = self.panduan.get(topic_id)
