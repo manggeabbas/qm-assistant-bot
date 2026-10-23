@@ -1,17 +1,27 @@
 # Panduan Penggunaan — QM Assistant Bot
 
 Bot Telegram satu pintu untuk kebutuhan divisi QM: membuat form, melihat
-standar cacat, dan belajar aturan kerja. Buka bot, ketik `/start`, pilih
-layanan:
+standar cacat, dan belajar aturan kerja. Buka bot, ketik `/start`:
 
-| Layanan | Fungsi |
+| Menu | Isi |
 |---|---|
-| 📄 Form Gulungan | Membuat form gulungan baru QM-YWI (output Mandarin) |
-| 📝 Form Pelatihan | Membuat dokumen pelatihan/briefing QM (DOCX + PDF) |
-| 🔍 Bantuan QC | Kamus standar cacat, latihan kilat, analisis foto, panduan kerja |
+| 🔍 Inspeksi Lapangan | 🏷 Kode Cacat, 📘 Panduan Kerja, 🏭 Inspeksi Jalur Utama (Form Generator + SOP), 🔧 Inspeksi Luar Jalur (SOP FT, SOP FJ, Form Generator FT/FJ) |
+| 🔬 Inspeksi Laboratorium | Lab Mekanik/Fisika (Uji Tarik/Kekerasan/Butiran) dan Lab Kimia — dokumen SOP menyusul |
+| 📚 Form Pelatihan | Membuat dokumen pelatihan/briefing QM (DOCX + PDF) |
+| ❓ Bantuan | Penjelasan cara pakai per layanan + daftar keyword & pintasan |
 
-> Setiap layanan punya menu sendiri. Tombol **🏠 Menu Utama** selalu tersedia
-> untuk kembali ke menu awal.
+> Tombol **🏠 Menu Utama** selalu tersedia untuk kembali ke menu awal.
+> Perintah umum: `/start` atau `/menu` (menu utama), `/help` atau
+> `/bantuan` (menu bantuan), `/cancel` atau `/batal` (batalkan alur).
+>
+> **Cara tercepat:** ketik kata kunci langsung di layar utama — kode cacat
+> (`B22`), kata kunci (`korosi`, `bagan`), atau nama fitur (`form`,
+> `foto`, `kuis`, `panduan`, `sop`, `pelatihan`) — tanpa masuk menu dulu
+> (lihat C.6).
+>
+> **Akses:** Form Pelatihan & Bantuan QC hanya untuk ID Telegram terdaftar
+> + owner (admin mendaftarkan lewat menu 👤 User Bot di `/admin`). Form
+> Gulungan memakai token undangan + NIK (lihat A.1).
 
 ---
 
@@ -214,16 +224,25 @@ Ketik kode cacat (mis. `B22`, `R01-1`, `C38-2`) atau sebagian nama
   tingkat di-highlight
 - 📏 Penanganan (mis. perlu diamplas / dipotong / scrap)
 - 🇨🇳 Teks Mandarin asli di bawah penjelasan Indonesia (acuan bila ada
-  perbedaan)
+  perbedaan), disertai **pinyin** — mis. `划伤 (huà shāng)`
+- Penjelasan tiap tingkat di-highlight dalam box; entri tanpa kriteria
+  menjawab "database belum ada" (bot tidak mengarang)
 
 Kode pecahan (`R01-1`, `R01-2`, `R01-3`, dst.) dicari persis seperti
 tertulis di daftar resmi.
 
 ## C.2. 📖 Daftar Cacat
 
-Jelajahi seluruh daftar per seksi proses: Bahan Baku → Asam Panas →
-Rolling Mill → Asam Dingin → Penyelesaian. Tampil 10 kode per halaman
-dengan tombol navigasi.
+Pilih bagian dulu, lalu jelajahi dengan tombol Cari / Daftar / Kuis:
+
+| Bagian | Isi |
+|---|---|
+| 📦 Bahan Baku | Kode S, F, R, W + D03/D21/D38/F16 |
+| 🏭 Jalur Utama | Asam Panas (A) → Rolling Mill (B) → Asam Dingin (C) |
+| 🔧 Luar Jalur | Penyelesaian (D01, D02, D04–D20) |
+
+Daftar tampil 10 kode per halaman dengan tombol navigasi; pesan
+diperbarui di tempat (edit, bukan kirim baru).
 
 ## C.3. 🎯 Latihan Kilat
 
@@ -246,7 +265,9 @@ Kirim foto permukaan plat yang cacat. Bot (AI) memberikan:
 
 ## C.5. 📘 Panduan Kerja
 
-Materi aturan divisi untuk karyawan baru maupun penyegaran:
+Materi aturan divisi untuk karyawan baru maupun penyegaran (19 topik):
+
+**Umum (Prosedur TTRI-QM-ZY-35-2025):**
 
 | Topik | Isi |
 |---|---|
@@ -254,6 +275,52 @@ Materi aturan divisi untuk karyawan baru maupun penyegaran:
 | ⚖️ Prinsip Penilaian | Langsung downgrade; konsisten antar shift |
 | 🚨 Cacat Batch & Peringatan | Aturan peringatan kuning/merah & tahan pengiriman |
 | 🔢 Kode Pencatatan Cacat | Format kode `R13TD07900800H` dan cara membacanya |
+
+**SOP Mesin FT (TTRI-QM-ZY-34-2025):**
+
+| Topik | Isi |
+|---|---|
+| 🦺 Persiapan & APD | APD wajib, cek peralatan, kalibrasi mikrometer |
+| 🔍 Inspeksi Permukaan | Area QM, cara periksa tiap gulungan, foto pakai penggaris |
+| 📏 Inspeksi Dimensi & Sampel | Titik ukur lebar/tebal/sambungan, aturan sampel |
+| 📦 Tepi, Kertas Alas & Pasca-Jalur | Cacat tepi, kertas alas, pelabelan Packing/No Packing |
+| 🚨 Keselamatan & Darurat | Jarak aman, larangan keras, hak berhenti saat darurat |
+
+**Langkah Kerja FT (tabel Pasal 5 SOP TTRI-QM-ZY-34-2025, lengkap dengan
+foto visualisasi):** Persiapan Sebelum Kerja, Dalam Pekerjaan,
+Pemeriksaan Permukaan, Pemeriksaan Dimensi, Pemeriksaan Bentuk Plat,
+Pemeriksaan Tepi & Kertas Alas, Pasca Turun Jalur & Nomor Gulungan.
+
+**SOP Inspeksi Jalur Utama (TTRI-QM-ZY-35-2025):** Alur Kerja Inspeksi
+(pasal 5.1), Tanggung Jawab Inspektur (pasal 3.1–3.11), dan Bagan Proses
+Pengecekan (Lampiran B, dilampirkan versi gambar ulang + bagan asli).
+
+## C.6. ⌨️ Keyword & Pintasan
+
+Ketik langsung di layar utama (atau di area QC) — tidak perlu masuk menu:
+
+| Ketik | Hasil |
+|---|---|
+| Kode cacat (`B22`, `C11`) | Kartu cacat langsung dibuka |
+| Kata kunci (`korosi`, `kualitas`, `bagan`) | Hasil dikelompokkan (Fitur / Cacat / Panduan / Prosedur) |
+| `form` / `generator` / `gulungan` | 📝 Form Generator |
+| `foto` / `analisis` | 📸 Analisis Foto |
+| `kuis` / `latihan` | 🎯 Kuis kilat (pilih bagian dulu) |
+| `panduan` | 📘 Panduan Kerja |
+| `sop` / `prosedur` | 📋 SOP Mesin FT |
+| `pelatihan` | 📚 Form Pelatihan |
+
+Satu hasil langsung dibuka; banyak hasil ditampilkan sebagai daftar
+tombol. Di dalam submenu bagian, pencarian terbatas pada bagian itu.
+
+## C.7. ❓ Bantuan
+
+Tombol **❓ Bantuan** di menu utama, atau perintah `/help` / `/bantuan`
+dari mode apa pun. Isinya: gambaran bot, perintah umum, dan penjelasan
+cara pakai tiap layanan (Form Gulungan, Bantuan QC, Form Pelatihan,
+Keyword & Pintasan) — masing-masing dengan tombol Buka Layanan. Menu
+bantuan terbuka untuk semua user (hanya cara pakai, tanpa data
+perusahaan).
 
 ---
 
