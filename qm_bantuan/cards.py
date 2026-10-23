@@ -14,6 +14,7 @@ from qm_bantuan.data import (
     SECTION_NAMES,
     Atlas,
 )
+from qm_bantuan.pinyin import to_pinyin
 
 _GRADE_LEGEND = (
     "Kualitas: A/A1/B/B1 = lolos bertingkat · "
@@ -51,14 +52,31 @@ def _header(entry: dict, variant: dict | None = None) -> str:
     title = f"🔍 *{entry['code']}* — {name}"
     if variant:
         title += f" · {variant.get('jenis') or ''}".rstrip()
-    sub = " · ".join(p for p in (cn, section) if p and p != name)
+    if cn and cn == name:
+        # Nama Indonesia tidak ada: nama Mandarin tampil di judul, pinyin
+        # ikut di judul (kasus R61).
+        py = to_pinyin(cn)
+        if py:
+            title += f" ({py})"
+        parts = [section]
+    else:
+        parts = []
+        if cn:
+            py = to_pinyin(cn)
+            parts.append(f"{cn} ({py})" if py else cn)
+        if section:
+            parts.append(section)
+    sub = " · ".join(p for p in parts if p)
     return f"{title}\n{sub}" if sub else title
 
 
 def _cn_line(cn_text: str | None) -> str:
-    """Baris Mandarin pendamping (tetap ditampilkan di samping terjemahan)."""
+    """Baris Mandarin pendamping + pinyin (bantuan baca)."""
     cn = (cn_text or "").strip()
-    return f"🇨🇳 _{cn}_" if cn else ""
+    if not cn:
+        return ""
+    py = to_pinyin(cn)
+    return f"🇨🇳 _{cn}_ ({py})" if py else f"🇨🇳 _{cn}_"
 
 
 def _handling_block(entry: dict) -> str:

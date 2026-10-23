@@ -6,6 +6,7 @@ pypdf>=4.0
 python-pptx>=0.6.21
 openpyxl>=3.1
 requests>=2.31
+pypinyin>=0.50
 
 # System packages (not installed by pip):
 #   Linux (Arch/CachyOS): libreoffice-fresh, poppler
