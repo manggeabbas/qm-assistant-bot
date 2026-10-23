@@ -62,23 +62,27 @@ def _cn_line(cn_text: str | None) -> str:
 
 
 def _handling_block(entry: dict) -> str:
-    """Blok penanganan di bawah sub-topik 📏 (tanpa mengulang rule)."""
-    parts = []
+    """Blok penanganan di bawah sub-topik 📏: isi penjelasan masuk satu
+    box (konsisten dengan kriteria tingkat); baris Mandarin tetap di luar
+    sebagai anotasi miring, sama seperti pola kriteria."""
+    items = []
     rule = (entry.get("rule") or "").strip()
     if rule:
-        parts.append(f"• Aturan: {rule}")
+        items.append(f"Aturan: {rule}")
     notes = (entry.get("notes") or "").strip()
     if notes:
-        parts.append(f"📌 Catatan: {notes}")
-        cn = _cn_line(entry.get("notes_cn"))
-        if cn:
-            parts.append(cn)
+        items.append(f"Catatan: {notes}")
     sup = (entry.get("superseded_note") or "").strip()
     if sup:
-        parts.append(f"⚠️ {sup}")
-    if not parts:
+        items.append(f"⚠️ {sup}")
+    if not items:
         return ""
-    return "📏 *Penanganan:*\n" + "\n".join(parts)
+    out = ["📏 *Penanganan:*", _pre("\n".join(items))]
+    for key in ("notes_cn", "rule_cn"):
+        cn = _cn_line(entry.get(key))
+        if cn:
+            out.append(cn)
+    return "\n".join(out)
 
 
 def defect_card(entry: dict, variant: dict | None = None) -> str:
@@ -106,23 +110,9 @@ def defect_card(entry: dict, variant: dict | None = None) -> str:
             lines.append(handling)
     else:
         # Tanpa kriteria: pengertian saja + "database belum ada" (jangan karang).
-        rule = (entry.get("rule") or "").strip()
-        notes = (entry.get("notes") or "").strip()
-        sup = (entry.get("superseded_note") or "").strip()
-        if rule or notes or sup:
-            lines.append("📏 *Penanganan:*")
-            if rule:
-                lines.append(_pre(rule))
-                cn = _cn_line(entry.get("rule_cn"))
-                if cn:
-                    lines.append(cn)
-            if notes:
-                lines.append(f"📌 Catatan: {notes}")
-                cn = _cn_line(entry.get("notes_cn"))
-                if cn:
-                    lines.append(cn)
-            if sup:
-                lines.append(f"⚠️ {sup}")
+        handling = _handling_block(entry)
+        if handling:
+            lines.append(handling)
             lines.append("")
         lines.append("ℹ️ Kriteria tingkat: *database belum ada*.")
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -10,6 +11,32 @@ from qm_training.bot.adapters.base import IncomingMessage
 
 from qm_bantuan.data import Panduan
 from qm_bantuan.gateway import BTN_GUIDE, QCGateway
+
+# Aturan tampilan: penjelasan selalu di dalam blok ```; yang boleh di luar
+# hanya acuan, label/judul, dan baris navigasi/keterangan lampiran.
+_HEADER_EMOJIS = ("🟢", "🟡", "🟠", "🔴", "🔄", "↩️", "✂️", "⛔",
+                   "📋", "📏", "📑", "📌", "ℹ️")
+
+
+def _boleh_di_luar_box(line: str, topic_id: str) -> bool:
+    s = line.strip()
+    if not s:
+        return True
+    if s.startswith(("Acuan", "Lihat juga", "Dua gambar terlampir", "Contoh:")):
+        return True
+    if topic_id == "main_bagan" and (
+        s.startswith("Bagan Proses Pengecekan") or s.startswith("(永旺")
+    ):
+        return True
+    if s.startswith(_HEADER_EMOJIS):
+        return True
+    if s.endswith(":") and len(s) < 120:
+        return True
+    if re.fullmatch(r"\*[^*]+\*", s):
+        return True
+    if re.fullmatch(r"\d+\.\s*\*[^*]+\*[:：]?", s):
+        return True
+    return False
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "qm_bantuan" / "data"
 
@@ -51,6 +78,23 @@ class PanduanDataTest(unittest.TestCase):
 
     def test_get_unknown_kembali_none(self):
         self.assertIsNone(Panduan.bundled().get("tidak_ada"))
+
+    def test_semua_penjelasan_di_dalam_box(self):
+        """Aturan tampilan: tiap penjelasan topik wajib di dalam blok ```;
+        di luar blok hanya boleh acuan, label/judul, dan navigasi."""
+        buruk = []
+        for t in Panduan.bundled().topics():
+            inblock = False
+            for line in t["isi"].split("\n"):
+                s = line.strip()
+                if s.startswith("```"):
+                    inblock = not inblock
+                    continue
+                if inblock:
+                    continue
+                if not _boleh_di_luar_box(s, t["id"]):
+                    buruk.append(f"{t['id']}: {s[:80]}")
+        self.assertEqual(buruk, [], "penjelasan di luar box:\n" + "\n".join(buruk))
 
     def test_grup_prosedur_ft(self):
         p = Panduan.bundled()

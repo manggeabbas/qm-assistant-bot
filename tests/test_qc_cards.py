@@ -90,6 +90,16 @@ class CardTest(unittest.TestCase):
         # penjelasan di dalam blok highlight (monospace)
         self.assertIn("```", card)
 
+    def test_penanganan_masuk_box(self):
+        # Aturan/catatan/superseded wajib di dalam box, konsisten dengan
+        # kriteria tingkat; baris Mandarin tetap miring di luar box.
+        card = defect_card(self.atlas.get("C39"))
+        i = card.index("📏 *Penanganan:*")
+        blok = card[i:]
+        self.assertIn("```", blok)
+        isi_box = blok.split("```")[1]
+        self.assertIn("<3T", isi_box)
+
     def test_search_line(self):
         line = search_line(self.atlas.get("C11"))
         self.assertIn("C11", line)
