@@ -83,6 +83,96 @@
     "bagan_proses_asli.png"
    ],
    "isi": "Acuan: TTRI-QM-ZY-35-2025, *Lampiran B*\nBagan Proses Pengecekan Gulungan YWI PT TTRI Departemen Quality Management\n(永旺冷轧钢卷检验流程图).\n\nAlur: Baja billet → Rolling (kulit hitam) → Asam panas (NO1) → Cold rolling (2E) → Asam dingin (2D) → Leveling (2B) → pemeriksaan (dimensi / garis / off-line) → penghakiman komprehensif → lepas ke gudang atau konfirmasi / turunkan kualitas.\n\nDua gambar terlampir: (1) versi gambar ulang yang lebih terbaca, (2) bagan asli dari dokumen."
+  },
+  {
+   "id": "ft_langkah_persiapan",
+   "emoji": "🧰",
+   "judul": "Langkah: Persiapan Sebelum Kerja",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Persiapan Sebelum Kerja).\n\n*Periksa APD personel:*\n```\nSepatu keselamatan, pakaian kerja, sarung tangan pelindung, helm, penyumbat telinga — dan personel harus bersertifikat. APD lengkap dipakai selama seluruh operasi.\n```\n*Periksa peralatan:* pastikan peralatan yang dibutuhkan lengkap dan berada dalam kisaran yang memenuhi syarat (pita ukur, feeler gauge, mikrometer, penggaris).\n\n*Penggunaan & kalibrasi mikrometer — 1. Pengaturan nol:*\n```\n1.1 Bersihkan kedua permukaan ukur dengan kain lembut.\n1.2 Putar pegangan ratchet hingga kedua permukaan bersentuhan ringan, lanjutkan memutar sekitar 1,5 putaran.\n1.3 Garis nol selongsong utama harus sejajar dengan garis lengan ukur (bila menyimpang, perlu kalibrasi).\n1.4 Tipe layar LCD: setelah langkah 1.3, tekan tombol \"ZERO\".\n```\n*2. Pengukuran:*\n```\n2.1 Bersihkan permukaan benda yang akan diukur.\n2.2 Pertimbangkan tekanan, metode, dan posisi pengukuran.\n2.3 Putar ratchet dengan tangan kanan hingga permukaan ukur sedikit menyentuh benda uji, sejajarkan benda uji dan mikrometer perlahan, lalu putar ratchet sekitar 1,5 putaran lagi — nilai saat itu adalah hasil pengukuran.\n```\n*3. Pembacaan:* tipe LCD/digital baca langsung di layar; tipe mekanik baca skala utama (atas: 1 garis kecil = 1 mm; bawah: 1 garis kecil = 0,5 mm) + skala nonius (1 garis kecil = 0,001 mm).\n\n*Sakelar interlock:* sebelum memulai pekerjaan, periksa sakelar interlock di area pengukuran berfungsi baik. Bila pin pengunci tidak terpasang dan peralatan tidak dapat beroperasi, kondisi itu normal.",
+   "gambar": [
+    "ft_langkah_apd.png",
+    "ft_langkah_peralatan.png",
+    "ft_langkah_mikrometer.png",
+    "ft_langkah_interlock.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_kerja",
+   "emoji": "🚧",
+   "judul": "Langkah: Dalam Pekerjaan",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Dalam Pekerjaan).\n\n*Forklift di lokasi:*\n```\nBanyak forklift beroperasi di lokasi. Jauhi forklift yang sedang beroperasi. Saat forklift memuat/menurunkan pelat baja, jaga jarak guna mencegah tertimpa material yang mungkin terjatuh.\n```\n*Lingkungan sekitar:*\n```\nWaspadai benda berserakan, kabel, dan pipa di lantai agar tidak tersandung. Berjalan hati-hati di area tidak rata/berlubang agar tidak terjatuh. Di area jalur pemotongan, sisa potongan logam bertepi tajam dan bertumpuk tidak rapi — jauhi area itu agar tidak terluka runtuhan atau tepi tajam.\n```\n*Crane:*\n```\nSaat gulungan diangkat crane ke atas dudukan, pekerjaan baru boleh dilakukan setelah crane menjauh minimal 5 meter dari dudukan. Siapa pun dilarang berjalan/berada dalam radius 5 meter area pengangkatan, baik crane sedang mengangkat beban maupun tidak.\n```\n*Cocokkan rencana produksi:* dengan teliti cocokkan data list rencana produksi: nomor gulungan, jenis baja, spesifikasi, kelas/tingkat, berat, cara pembukaan gulungan, diameter dalam, dan persyaratan pengirisan tepi. Bila semua sesuai, pekerjaan boleh dilanjutkan. Awasi operator produksi bekerja sesuai persyaratan pesanan.\n\n*Operasi utama jalur pemisahan/penyatuan:* memotong kepala & ekor, merapikan tepi (trimming), memotong (slitting), menggulung ulang (rewinding), membalik sisi (flipping). Bila perlu beberapa perlakuan sekaligus, metode dapat dikombinasikan (mis. trimming + slitting).\n\n*Gulungan reprocessing (Kualitas R):* periksa data penilaian awal dan peninjauan ulang melalui sistem MES, tentukan metode penanganan berdasarkan kondisi aktual. Bila perlu pemotongan, ukur area cacat secara akurat agar hasil akhir memenuhi spesifikasi pelanggan dan meminimalkan pemborosan material.",
+   "gambar": [
+    "ft_langkah_forklift.jpg",
+    "ft_langkah_scrap.jpg",
+    "ft_langkah_crane.jpg",
+    "ft_langkah_rencana.jpg",
+    "ft_langkah_mes.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_permukaan",
+   "emoji": "🔍",
+   "judul": "Langkah: Pemeriksaan Permukaan",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan kualitas permukaan).\n\n*1. Area inspeksi (Gambar ①):*\n```\nSetelah informasi gulungan dikonfirmasi, periksa di area inspeksi yang ditentukan di kedua sisi lini: dasar cat hijau, garis tepi kuning, bertanda \"QM\".\n```\n*Dilarang keras* memasuki bagian dalam mesin penggulung/pembuka gulungan atau area di bawah pita baja saat pemeriksaan, dan dilarang melintas dari bawah pita baja untuk mencegah cedera mekanis akibat mesin tiba-tiba beroperasi.\n\n*2. Cara periksa tiap gulungan:*\n```\nPeriksa permukaan atas DAN bawah satu per satu. Pada tiap gulungan kecil, kepala, tengah, dan ekor dilakukan pemeriksaan titik merayap sekitar 20 meter, agar cacat berjarak besar tidak terlewat. Bila ditemukan cacat, segera catat detail ke \"Catatan Pemeriksaan Kualitas Permukaan Gulungan Baja CRP-YWI – PT TTRI Departemen Quality Manajemen\".\n```\nSaat pita berjalan, periksa dari jarak 20 cm dari permukaan, tanpa menyentuh permukaan maupun tepi pita yang bergerak. Bila ditemukan cacat di permukaan: hentikan mesin, beri tahu produksi untuk menghentikan operasi, tunggu hingga pita benar-benar berhenti setelah lampu alarm menyala. Saat mengambil foto cacat, gunakan penggaris atau pita ukur untuk menandai ukuran cacat (Gambar ②), agar shift siang dapat melakukan penilaian ulang.\n\n*3. Cek silang catatan jalur utama:* berdasarkan catatan cacat besar yang tercatat, minta produksi menghentikan mesin pada posisi meter yang sesuai untuk pemeriksaan khusus — konfirmasi jenis, tingkat keparahan, lokasi, dan panjang cacat, lalu catat ke Catatan Pemeriksaan dan lakukan penilaian komprehensif sesuai kondisi cacat.\n\n*4. Gulungan percobaan/pemeriksaan ulang:* tingkatkan frekuensi pemeriksaan sesuai kondisi cacat aktual. Dengan tetap memastikan kualitas produk dan tingkat hasil yang baik, disarankan mengumpulkan dan menyimpan contoh cacat sebagai referensi.\n\n*5. Dilarang keras:* menyerahkan benda/alat melintasi mesin yang sedang beroperasi, dan mendekati peralatan atau rol yang berputar. Saat pemotongan tepi berjalan, dilarang mendekat ke mesin penggulung limbah potongan tepi — jaga jarak aman minimal 2 meter.",
+   "gambar": [
+    "ft_langkah_area_qm.jpg",
+    "ft_langkah_foto_cacat.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_dimensi",
+   "emoji": "📏",
+   "judul": "Langkah: Pemeriksaan Dimensi",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan Dimensi).\n\n*1. Posisi & titik ukur:*\n```\nGulungan dibagi: ukur lebar (Gambar ③), jarak sambungan (Gambar ④), dan ketebalan kedua sisi 40–70 mm dari tepi (Gambar ⑤) pada posisi sekitar 150 meter dari awal gulungan pertama dan 200 meter dari akhir gulungan kedua. Ambil sampel pada posisi pemisahan untuk mengukur lebar (Gambar ⑥), jarak sambungan kedua sisi (Gambar ⑦), serta ketebalan sisi kiri 300–400 mm dari tepi, tengah, dan sisi kanan 300–400 mm dari tepi (Gambar ⑧).\nGulungan tidak dibagi: ukur lebar, jarak sambungan, dan ketebalan kedua sisi 40–70 mm dari tepi di 3 titik — sekitar 150 meter dari awal gulungan, tengah gulungan, dan sekitar 200 meter dari ujung gulungan.\n```\n*2. Pengukuran langsung di jalur:*\n```\nBeri tahu produksi untuk menghentikan mesin terlebih dahulu. Setelah lampu alarm menyala dan pita benar-benar berhenti, barulah pemeriksaan dapat dilakukan. Dilarang keras mengukur atau menyentuh permukaan dan tepi pita ketika mesin sedang beroperasi. Selama pengukuran: dilarang menutup pagar pengaman (agar tidak merusak peralatan atau memicu mesin menyala tidak sengaja), dilarang bersandar pada pagar pengaman (agar tidak roboh dan mencederai), dan jangan menyerahkan alat/barang melewati mesin yang beroperasi.\n```\n*3. Pengambilan sampel:*\n```\nPakai sarung tangan pelindung di kedua tangan untuk mencegah luka gores. Sampel diletakkan datar di rak sampel; dilarang menyandarkan sampel pada dinding secara miring agar tidak jatuh dan menimbulkan kecelakaan. Saat mengambil sampel, hanya boleh membawa satu lembar setiap kali, dilarang beberapa lembar sekaligus. Saat mengukur sampel, sarung tangan wajib dipakai.\n```\n*4. Mengukur lebar:* pita ukur harus tegak lurus terhadap pita baja dan dijaga sejajar horizontal. Dilarang menarik pita secara miring; tentukan nilai berdasarkan nilai terkecil setelah penyesuaian atas-bawah. Sebelum digunakan, periksa pita ukur: fungsi penggulungan, kondisi ujung kait, keutuhan permukaan, dan kejelasan skala. Saat menggulung kembali pita ukur, gunakan kedua tangan untuk mencegah luka akibat gulungan yang kembali terlalu cepat.\n\n*5. Jarak sambungan:* pada posisi yang sama dengan pengukuran lebar, ukur jarak sambungan sisi atas dan bawah, lalu catat. Jumlahkan jarak sambungan kedua sisi permukaan atas dan bawah; gunakan nilai terbesar sebagai nilai garis tepi, dan pakai nilai itu untuk menghitung lebar efektif.\n\n*6. Ketebalan:* mengikuti prosedur dokumen \"Penggunaan dan Kalibrasi Alat Ukur dan Perkakas\". Bila selama pengukuran gulungan tiba-tiba mulai berputar dan mikrometer tidak dapat dilepas, segera lepaskan kedua tangan dan jangan mencoba menarik paksa, untuk menghindari tangan terseret ke dalam gulungan.",
+   "gambar": [
+    "ft_langkah_dimensi_lebar_online.jpg",
+    "ft_langkah_dimensi_sambungan_online.jpg",
+    "ft_langkah_dimensi_tebal_online.jpg",
+    "ft_langkah_dimensi_lebar_sampel.jpg",
+    "ft_langkah_dimensi_sambungan_sampel.jpg",
+    "ft_langkah_dimensi_tebal_sampel.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_bentuk",
+   "emoji": "📐",
+   "judul": "Langkah: Pemeriksaan Bentuk Plat",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan Bentuk Plat).\n\n*1. Pemeriksaan online tanpa ketegangan:*\n```\nSetiap gulungan diperiksa bentuk lembarannya secara online tanpa ketegangan: lepaskan tegangan di pintu keluar agar gulungan menggantung alami, lalu angkat pelat di keluaran garis pemotongan sehingga pita berada dalam keadaan lurus alami. Letakkan penggaris besi tegak lurus di atas pita untuk mengamati kelainan bentuk (tepi bergelombang / gelombang tengah).\n```\nGelombang tepi: gunakan alat pengukur gelombang untuk mengukur celah maksimum antara puncak gelombang dan pelat pemandu sebagai tinggi gelombang / BG (nilai ketebalan pengukur gelombang), serta catat jarak antar puncak gelombang (frekuensi / PL). Gelombang tengah: letakkan penggaris baja memanjang menempel pada puncak gelombang tengah, lalu ukur celah maksimum antara pita dan penggaris sebagai tinggi gelombang / BG, sambil mencatat jarak antar puncak gelombang (frekuensi / PL).\n\n*2. Pemeriksaan melalui pengambilan sampel:*\n```\nProduk ketebalan 0,5–1,5 mm: tiap shift ambil sampel 1 gulungan kecil untuk setiap 5 gulungan kecil. Potong sampel pelat penuh selebar gulungan dengan panjang sekitar 2–2,5 meter, letakkan di atas meja datar untuk mengamati gelombang tepi, lengkungan, dan gelombang tengah. Bila tidak tersedia pelat dengan ketebalan yang sesuai, pemeriksaan bentuk lembaran dilakukan secara online tanpa ketegangan.\n```\n*3. Wajib sampling bila ada perubahan:* setelah penggantian pisau potong pertama kali, perubahan spesifikasi atau jenis baja, produksi jenis baja baru, maupun penyesuaian proses atau peralatan pada jalur produksi. Setelah pemeriksaan selesai, hasilnya segera dilaporkan di grup WeChat kerja untuk tindak lanjut dan pencatatan.\n\n*4. Keselamatan kerja sampel:* saat memotong dan memeriksa sampel pelat, pekerjaan dilakukan minimal dua orang bersamaan, dilarang bekerja sendirian. Selama mengangkat dan memindahkan sampel, pekerja wajib mengenakan sarung tangan anti-gores dan celemek pelindung sepanjang waktu untuk mencegah cedera.",
+   "gambar": [
+    "ft_langkah_gelombang_tepi.jpg",
+    "ft_langkah_bentuk_online_1.jpg",
+    "ft_langkah_bentuk_online_2.jpg",
+    "ft_langkah_gelombang_tengah.jpg",
+    "ft_langkah_bentuk_sampel_1.jpg",
+    "ft_langkah_bentuk_sampel_2.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_tepi",
+   "emoji": "✂️",
+   "judul": "Langkah: Pemeriksaan Tepi & Kertas Alas",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan Tepi dan Kertas Alas).\n\n*Periksa tepi tiap gulungan:* fokus pada cacat berikut:\n```\nGulungan miring, tonjolan samping, retak tepi, goresan tepi, tepi melengkung, gerinda, atau potongan tepi yang tidak baik.\n```\n*Periksa kertas alas (kertas pelapis) bersamaan:* pastikan tidak ada kekurangan alas, kertas putus, lipatan, atau ketidakteraturan posisi kertas alas.\n\n*Bila ditemukan ketidaksesuaian/kelainan:* segera beritahukan pihak produksi untuk dilakukan perbaikan. Bila hasil pemeriksaan melampaui batas standar pengendalian kualitas, gulungan harus diturunkan tingkatnya dan ditunda sementara — hanya boleh diloloskan setelah dilakukan perbaikan dan dinyatakan memenuhi syarat.",
+   "gambar": [
+    "ft_langkah_tepi.jpg"
+   ]
+  },
+  {
+   "id": "ft_langkah_pasca",
+   "emoji": "📦",
+   "judul": "Langkah: Pasca Turun Jalur & Nomor",
+   "grup": "🔧 Mesin FT",
+   "isi": "Acuan: TTRI-QM-ZY-34-2025, pasal 5 (Pemeriksaan Setelah Turun Jalur & Pembuatan Nomor Gulungan).\n\n*1. Periksa gulungan setelah keluar jalur:* pastikan tidak ada cacat berikut:\n```\nGulungan miring, tonjolan samping, gulungan amblas, tepi terangkat, goresan tepi, atau potongan tepi yang tidak baik.\n```\nBila hasil pemeriksaan melebihi standar pengendalian kualitas, gulungan tidak boleh dikirim dan harus ditetapkan untuk diproses ulang. Periksa juga kondisi kertas alas dan tali pengikat agar memenuhi standar yang ditetapkan.\n\n*2. Keselamatan di area turun jalur:*\n```\nDilarang melompati pagar pengaman, melintasi lubang jalur kereta pengangkut gulungan, atau berjalan di bawah pita baja yang sedang bergerak. Ketika kereta pengangkut bergerak, semua personel menjaga jarak aman minimal 5 meter, dilarang mendekat atau mengikuti pergerakannya. Sebelum kereta berhenti sepenuhnya dan dudukan gulungan benar-benar turun ke posisi aman, dilarang berdiri di area samping gulungan. Pekerja juga menjaga jarak aman minimal 5 meter dari crane, dan dilarang berada/bekerja dalam radius 5 meter dari jalur pengangkutan crane.\n```\n*3. Dilarang:* menarik dengan tangan sisa potongan, serpihan kulit, atau kawat tepi limbah yang menempel pada permukaan maupun tepi pita baja; dan menyentuh langsung tepi pita baja yang sudah dipotong (hasil trimming), untuk mencegah jari terluka atau tergores.\n\n*Pembuatan nomor gulungan:* setelah produksi selesai, petugas inspeksi mengirimkan informasi pembuatan nomor gulungan baru ke grup WeChat terkait. Selanjutnya petugas pengendalian material membuat nomor gulungan baru sesuai ketentuan dalam \"Prinsip Penomoran Gulungan Baja Pengirisan\".",
+   "gambar": [
+    "ft_langkah_pasca_1.jpg",
+    "ft_langkah_pasca_2.jpg",
+    "ft_langkah_nomor.jpg"
+   ]
   }
  ]
 }

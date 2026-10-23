@@ -296,6 +296,73 @@ class GatewayPhotoTest(unittest.TestCase):
         self.assertIn("Gagal menganalisis foto", out[0].text)
 
 
+class GatewayFtLangkahTest(unittest.TestCase):
+    """Topik Langkah Pasal 5 SOP FT melampirkan foto visualisasi tabel."""
+
+    LANGKAH_GAMBAR = {
+        "🧰 Langkah: Persiapan Sebelum Kerja": [
+            "ft_langkah_apd.png",
+            "ft_langkah_peralatan.png",
+            "ft_langkah_mikrometer.png",
+            "ft_langkah_interlock.jpg",
+        ],
+        "🚧 Langkah: Dalam Pekerjaan": [
+            "ft_langkah_forklift.jpg",
+            "ft_langkah_scrap.jpg",
+            "ft_langkah_crane.jpg",
+            "ft_langkah_rencana.jpg",
+            "ft_langkah_mes.jpg",
+        ],
+        "🔍 Langkah: Pemeriksaan Permukaan": [
+            "ft_langkah_area_qm.jpg",
+            "ft_langkah_foto_cacat.jpg",
+        ],
+        "📏 Langkah: Pemeriksaan Dimensi": [
+            "ft_langkah_dimensi_lebar_online.jpg",
+            "ft_langkah_dimensi_sambungan_online.jpg",
+            "ft_langkah_dimensi_tebal_online.jpg",
+            "ft_langkah_dimensi_lebar_sampel.jpg",
+            "ft_langkah_dimensi_sambungan_sampel.jpg",
+            "ft_langkah_dimensi_tebal_sampel.jpg",
+        ],
+        "📐 Langkah: Pemeriksaan Bentuk Plat": [
+            "ft_langkah_gelombang_tepi.jpg",
+            "ft_langkah_bentuk_online_1.jpg",
+            "ft_langkah_bentuk_online_2.jpg",
+            "ft_langkah_gelombang_tengah.jpg",
+            "ft_langkah_bentuk_sampel_1.jpg",
+            "ft_langkah_bentuk_sampel_2.jpg",
+        ],
+        "✂️ Langkah: Pemeriksaan Tepi & Kertas Alas": [
+            "ft_langkah_tepi.jpg",
+        ],
+        "📦 Langkah: Pasca Turun Jalur & Nomor": [
+            "ft_langkah_pasca_1.jpg",
+            "ft_langkah_pasca_2.jpg",
+            "ft_langkah_nomor.jpg",
+        ],
+    }
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_langkah_ada_di_daftar_sop_ft(self):
+        out = self.gw.handle(msg("1", "/qc_ft"))
+        labels = [t for t, _ in cbs(out[0])]
+        for label in self.LANGKAH_GAMBAR:
+            self.assertIn(label, labels)
+
+    def test_buka_langkah_melampirkan_gambar(self):
+        for label, expected in self.LANGKAH_GAMBAR.items():
+            out = self.gw.handle(msg("1", "/qc_ft"))
+            out = tap(self.gw, "1", out[0], label)
+            names = [p.name for p in out[0].documents]
+            self.assertEqual(names, expected, label)
+            self.assertTrue(
+                all(p.is_file() for p in out[0].documents), label
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
 

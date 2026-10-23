@@ -28,7 +28,7 @@ class PanduanDataTest(unittest.TestCase):
     def test_json_valid_dan_lengkap(self):
         raw = json.loads((DATA_DIR / "panduan.json").read_text(encoding="utf-8"))
         self.assertIn("topics", raw)
-        self.assertEqual(len(raw["topics"]), 12)
+        self.assertEqual(len(raw["topics"]), 19)
 
     def test_semua_topik_wajib_ada_dan_berisi(self):
         p = Panduan.bundled()
@@ -56,9 +56,12 @@ class PanduanDataTest(unittest.TestCase):
         p = Panduan.bundled()
         self.assertEqual(p.groups(), ["🔧 Mesin FT", "🏭 Jalur Utama"])
         ft = p.by_group("🔧 Mesin FT")
-        self.assertEqual(len(ft), 5)
+        self.assertEqual(len(ft), 12)
         ids = [x["id"] for x in ft]
-        for want in ("ft_persiapan", "ft_permukaan", "ft_dimensi", "ft_tepi", "ft_safety"):
+        for want in ("ft_persiapan", "ft_permukaan", "ft_dimensi", "ft_tepi", "ft_safety",
+                     "ft_langkah_persiapan", "ft_langkah_kerja", "ft_langkah_permukaan",
+                     "ft_langkah_dimensi", "ft_langkah_bentuk", "ft_langkah_tepi",
+                     "ft_langkah_pasca"):
             self.assertIn(want, ids)
         for x in ft:
             self.assertIn("TTRI-QM-ZY-34-2025", x["isi"])
