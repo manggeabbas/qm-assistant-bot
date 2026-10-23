@@ -50,8 +50,10 @@ BTN_HOME = "🏠 Menu Utama"
 # Menu tree QM-YWI Assistant (lihat _tree_menu).
 BTN_LAPANGAN = "🔍 Inspeksi Lapangan"
 BTN_LAB = "🔬 Inspeksi Laboratorium"
+BTN_HELP = "❓ Bantuan"
 
 _MENU_COMMANDS = ("/start", "/menu")
+_HELP_COMMANDS = ("/help", "/bantuan")
 _CANCEL_COMMANDS = ("/cancel", "/batal")
 _ADMIN_COMMANDS = ("/admin",)
 
@@ -115,6 +117,115 @@ _PLACEHOLDERS = {
     "ph:lab_butiran": ("⚛️ Uji Butiran", "menu:lab_mekanik"),
 }
 
+# Layar bantuan (help:*): penjelasan cara pakai per layanan. Terbuka untuk
+# semua user (hanya menjelaskan cara pakai, tanpa data perusahaan).
+_HELP_BACK = ("◀ Bantuan", "help:menu")
+_HELP_HOME = (BTN_HOME, BTN_HOME)
+_HELP_SCREENS: dict[str, tuple[str, list[list[tuple[str, str]]]]] = {
+    "help:menu": (
+        "❓ *Bantuan — QM-YWI Assistant*\n\n"
+        "Bot ini membantu inspeksi & pelatihan QC di CRP-YWI. "
+        "Pilih topik bantuan di bawah.\n\n"
+        "*Cara tercepat:* ketik kata kunci langsung di layar utama — "
+        "mis. *B22*, *korosi*, *bagan* — tanpa masuk menu dulu.\n\n"
+        "*Perintah umum:*\n"
+        "• /start atau /menu — kembali ke menu utama\n"
+        "• /help — buka bantuan ini\n"
+        "• /cancel atau /batal — batalkan alur yang sedang berjalan\n"
+        "• 🏠 Menu Utama — selalu ada di bawah pesan layanan",
+        [
+            [("📋 Form Gulungan", "help:coil")],
+            [("🔍 Bantuan QC", "help:qc")],
+            [("📚 Form Pelatihan", "help:training")],
+            [("⌨️ Keyword & Pintasan", "help:keyword")],
+            [_HELP_HOME],
+        ],
+    ),
+    "help:coil": (
+        "📋 *Form Gulungan — Form Generator*\n\n"
+        "Membuat formulir gulungan (hasil akhir berbahasa Mandarin).\n\n"
+        "*Cara pakai:*\n"
+        "1. Buka 📝 Form Generator dari menu\n"
+        "2. Pertama kali: tempel token undangan dari admin, lalu "
+        "masukkan NIK — nama terisi otomatis dari direktori karyawan\n"
+        "3. Pilih mesin (FT/FJ), isi data gulungan (material, "
+        "spesifikasi, jumlah, nomor awal)\n"
+        "4. Periksa preview penomoran & formulir, ubah bila perlu\n"
+        "5. Generate — hasil Mandarin bisa disalin atau diunduh\n\n"
+        "*Akses:* butuh token undangan + NIK terdaftar. "
+        "Minta token ke admin.",
+        [
+            [("📝 Buka Form Generator", "goto:coil")],
+            [_HELP_BACK],
+            [_HELP_HOME],
+        ],
+    ),
+    "help:qc": (
+        "🔍 *Bantuan QC — Kode Cacat & Panduan*\n\n"
+        "*Cara pakai:*\n"
+        "• Ketik kode cacat (mis. *B22*) atau kata kunci (mis. "
+        "*tergores*) — kartu penjelasan langsung tampil\n"
+        "• Pilih bagian dulu (Bahan Baku / Jalur Utama / Luar Jalur) "
+        "untuk Cari, Daftar, atau Kuis kilat\n"
+        "• Kirim foto cacat untuk analisis: usahakan ada penggaris "
+        "atau koin sebagai pembanding; format JPEG/PNG/WebP, "
+        "maks 15 MB\n"
+        "• 📘 Panduan Kerja: kriteria kualitas, prinsip penilaian, "
+        "cacat batch, kode pencatatan\n"
+        "• 📋 Prosedur: SOP Mesin FT & SOP Inspeksi Jalur Utama "
+        "(+ bagan proses, ketik *bagan*)\n\n"
+        "Hasil foto adalah pendapat kedua — keputusan akhir tetap "
+        "mengikuti SOP.",
+        [
+            [("🏷 Buka Kode Cacat", "goto:qc_kode")],
+            [_HELP_BACK],
+            [_HELP_HOME],
+        ],
+    ),
+    "help:training": (
+        "📚 *Form Pelatihan*\n\n"
+        "Membuat dokumen pelatihan/briefing QM dari materi yang "
+        "diunggah.\n\n"
+        "*Cara pakai:*\n"
+        "1. Buka Form Pelatihan, kirim materi (teks/dokumen)\n"
+        "2. Periksa tema yang dikenali AI — setujui atau ubah\n"
+        "3. Lengkapi data: nomor arsip, tanggal, lokasi, trainer, "
+        "regu, jumlah peserta\n"
+        "4. Periksa 5 soal yang dibuat — setujui bila sudah tepat\n"
+        "5. Tambah foto bila perlu, lalu tunggu dokumen jadi "
+        "(DOCX & PDF)\n\n"
+        "*Akses:* hanya ID Telegram terdaftar. Belum terdaftar? "
+        "Minta admin mendaftarkan ID Anda (ID bisa dilihat lewat "
+        "@userinfobot).",
+        [
+            [("📚 Buka Form Pelatihan", BTN_TRAINING)],
+            [_HELP_BACK],
+            [_HELP_HOME],
+        ],
+    ),
+    "help:keyword": (
+        "⌨️ *Keyword & Pintasan*\n\n"
+        "Ketik langsung di layar utama (atau di area QC) — tidak "
+        "perlu masuk menu:\n\n"
+        "• Kode cacat: *B22*, *C11* → kartu cacat\n"
+        "• Kata kunci: *korosi*, *kualitas*, *bagan* → hasil "
+        "dikelompokkan\n"
+        "• Fitur:\n"
+        "  - *form / generator / gulungan* → Form Generator\n"
+        "  - *foto / analisis* → Analisis Foto\n"
+        "  - *kuis / latihan* → Kuis kilat\n"
+        "  - *panduan* → Panduan Kerja\n"
+        "  - *sop / prosedur* → SOP Mesin FT\n"
+        "  - *pelatihan* → Form Pelatihan\n\n"
+        "Satu hasil langsung dibuka; banyak hasil ditampilkan "
+        "sebagai daftar tombol.",
+        [
+            [_HELP_BACK],
+            [_HELP_HOME],
+        ],
+    ),
+}
+
 
 class AssistantRouter:
     """Menerima IncomingMessage, mengembalikan list[OutgoingMessage].
@@ -144,6 +255,15 @@ class AssistantRouter:
         if lowered in _MENU_COMMANDS or text == BTN_HOME:
             self.store.reset(message.user_id)
             return [self._menu_message(message.user_id)]
+
+        # Bantuan: perintah /help & /bantuan dari mode apa pun (mode
+        # tidak diubah — user bisa kembali lewat tombol 🏠).
+        if lowered in _HELP_COMMANDS or text == BTN_HELP:
+            return [self._help_screen("help:menu")]
+
+        # Layar bantuan (help:*) dari tombol inline.
+        if text.startswith("help:"):
+            return [self._help_screen(text)]
 
         # Navigasi tree menu (menu:* tampil menu, goto:* masuk layanan,
         # ph:* placeholder). Dicegat sebelum dispatch mode agar berlaku
@@ -254,6 +374,13 @@ class AssistantRouter:
             return self._with_home(self.qc.handle_from_home(message))
         return [self._menu_message(message.user_id)]
 
+    def _help_screen(self, key: str) -> OutgoingMessage:
+        """Satu layar bantuan; kunci tak dikenal -> menu bantuan."""
+        text, rows = _HELP_SCREENS.get(key, _HELP_SCREENS["help:menu"])
+        return OutgoingMessage(
+            text, inline_buttons=[list(r) for r in rows], markdown=True
+        )
+
     def _tree_menu(self, user_id: str, key: str) -> OutgoingMessage:
         """Tampilkan satu level menu tree. Mode direset ke menu."""
         self.store.set_mode(user_id, MODE_MENU)
@@ -321,6 +448,7 @@ class AssistantRouter:
             [(BTN_LAPANGAN, "menu:lapangan")],
             [(BTN_LAB, "menu:lab")],
             [(BTN_TRAINING, BTN_TRAINING)],
+            [(BTN_HELP, "help:menu")],
         ]
         if user_id is not None and self._is_coil_owner(user_id):
             rows.append([(BTN_ADMIN, BTN_ADMIN)])
@@ -334,7 +462,9 @@ class AssistantRouter:
     def _menu_message(self, user_id: str | None = None) -> OutgoingMessage:
         return OutgoingMessage(
             "🤖 *QM-YWI Assistant*\n\n"
-            "Pilih layanan yang Anda butuhkan:",
+            "Pilih layanan yang Anda butuhkan:\n\n"
+            "💡 Bisa juga ketik kata kunci langsung di sini "
+            "(mis. *B22*) atau buka ❓ Bantuan.",
             inline_buttons=self._menu_inline_buttons(user_id),
             markdown=True,
         )

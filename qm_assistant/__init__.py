@@ -14,6 +14,7 @@ from qm_assistant.coil_gateway import CoilGateway
 from qm_assistant.router import (
     BTN_ADMIN,
     BTN_COIL,
+    BTN_HELP,
     BTN_HOME,
     BTN_LAB,
     BTN_LAPANGAN,
@@ -28,6 +29,7 @@ __all__ = [
     "AssistantSessionStore",
     "BTN_ADMIN",
     "BTN_COIL",
+    "BTN_HELP",
     "BTN_HOME",
     "BTN_LAB",
     "BTN_LAPANGAN",
