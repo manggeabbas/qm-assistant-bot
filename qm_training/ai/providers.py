@@ -85,7 +85,7 @@ class OpenAIProvider(_HttpChatProvider):
 
 class GeminiProvider(_HttpChatProvider):
     name = "gemini"
-    default_model = "gemini-1.5-flash"
+    default_model = "gemini-3.8-flash"
     endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
     def chat(self, system: str, user: str) -> str:

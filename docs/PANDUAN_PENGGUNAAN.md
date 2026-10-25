@@ -334,7 +334,7 @@ perusahaan).
    - `TELEGRAM_BOT_TOKEN` — dari @BotFather
    - `GEMINI_API_KEY` — untuk AI (Form Pelatihan & Analisis Foto). Jika
      kosong, kedua fitur AI berjalan sebagai mock / tidak tersedia.
-   - `AI_MODEL` — mis. `gemini-3.6-flash`
+   - `AI_MODEL` — mis. `gemini-3.8-flash`
    - `OWNER_TELEGRAM_ID` dan `BOT_OWNER_IDS` — **id Telegram Anda**
    - `ALLOWED_TELEGRAM_USER_IDS` — id user yang diberi akses
 3. Jalankan:
