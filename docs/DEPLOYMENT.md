@@ -8,7 +8,10 @@ Aplikasi terdiri dari dua bagian:
 2. **Runtime eksternal** — LibreOffice headless (DOCX→PDF) dan Poppler (render/inspeksi PDF).
 
 Linux adalah **reference environment**. Termux didukung untuk core, dengan satu
-batasan penting pada konversi PDF (lihat §4).
+batasan penting pada konversi PDF (lihat §4). Untuk Windows 11, lihat
+panduan terpisah [`DEPLOYMENT_WINDOWS.md`](DEPLOYMENT_WINDOWS.md) —
+statusnya belum diverifikasi di mesin Windows nyata, dan ada satu
+tambalan kode wajib (`fcntl` → `msvcrt`) sebelum bot bisa start.
 
 ---
 
