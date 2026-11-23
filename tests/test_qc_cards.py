@@ -118,5 +118,39 @@ class GradeLabelTest(unittest.TestCase):
         self.assertEqual(grade_label("B1"), "B1")
 
 
+class S04RevisionTest(unittest.TestCase):
+    """Revisi 2026-QM-LZ-03 (2026-08-03): kualitas M/H/S S04 bersyarat
+    jumlah kejadian per gulungan; S04 tidak lagi scrap."""
+
+    def setUp(self):
+        self.atlas = Atlas.bundled()
+
+    def test_kualitas_bersyarat_jumlah_kejadian(self):
+        card = defect_card(self.atlas.get("S04"))
+        self.assertIn("*L* (Ringan) → *A1*", card)
+        self.assertIn(
+            "*M* (Sedang) → *A1 (≤5 kejadian/gulungan) / B (>5 kejadian/gulungan)*",
+            card,
+        )
+        self.assertIn(
+            "*H* (Parah) → *A1 (≤2 kejadian/gulungan) / B (>2 kejadian/gulungan)*",
+            card,
+        )
+        self.assertIn(
+            "*S* (Serius) → *A1 (1 kejadian/gulungan) / B (≥2 kejadian/gulungan)*",
+            card,
+        )
+        self.assertNotIn("→ *S (Pembuangan)*", card)
+
+    def test_mandarin_dan_aturan_jumlah_tampil(self):
+        card = defect_card(self.atlas.get("S04"))
+        self.assertIn("色差印", card)
+        self.assertIn("起皮", card)
+        self.assertIn(
+            "Aturan: Kualitas ditentukan jumlah kejadian per gulungan", card
+        )
+        self.assertIn("2026-QM-LZ-03", card)
+
+
 if __name__ == "__main__":
     unittest.main()

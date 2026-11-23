@@ -22,12 +22,15 @@ aturan, dan catatan dibaca dari `atlas.json` saat bot start. Mengubah standar
   "section": "asam_dingin",      // bahan_baku | asam_panas | rolling_mill | asam_dingin | penyelesaian
   "jenis": null,                 // info sub-kode bila ada
   "levels": {                    // boleh {} bila hanya aturan / belum ada kriteria
-    "L": {"desc": "...", "grade": "A"},
+    "L": {"desc": "...", "desc_cn": "...", "grade": "A"},
     "M": {"desc": "...", "grade": "A1"}
     // urutan L -> M -> H -> S; grade: A/A1/B/B1/C/R/F/S/TIDAK_DIIZINKAN
+    // grade boleh kondisional, mis. "A1 (≤5 kejadian/gulungan) / B (>5 kejadian/gulungan)"
   },
   "rule": "...",                 // aturan penanganan (boleh null)
   "notes": "...",                // catatan tambahan (boleh "")
+  "gambar": [...],               // foto referensi entri (opsional; dilampirkan di kartu)
+  "has_image": false,            // true bila ada foto referensi
   "variants": [],                // untuk R19/R20/R50/R51: [{jenis, jenis_cn, levels, notes}]
   "flags": [],                   // penanda internal (opsional)
   "superseded_note": "..."       // catatan aturan yang digantikan (opsional)

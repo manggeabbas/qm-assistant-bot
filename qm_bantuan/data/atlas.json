@@ -78,31 +78,45 @@
   },
   {
    "code": "S04",
-   "has_image": false,
+   "has_image": true,
    "jenis": null,
    "levels": {
     "L": {
-     "desc": "Ada bekas beda warna, pada sudut tertentu baru dapat terlihat, tidak ada kedalaman dan tidak ada handfeel.",
-     "grade": "A"
-    },
-    "M": {
-     "desc": "Lebar cacat ＜1cm. Panjang cacat ＜5cm, Cacat berbentuk garis memutih, letak posisi cacat tidak menentu, tidak ada kedalaman, tidak ada handfeel.",
+     "desc": "Ada bekas beda warna (color difference mark), terlihat dari berbagai sudut pandang, tidak memiliki kedalaman, tidak terasa saat diraba.",
+     "desc_cn": "色差印，不同角度均可见，无深度，无手感。",
      "grade": "A1"
     },
+    "M": {
+     "desc": "Lebar cacat < 1 cm, panjang cacat < 5 cm, berbentuk garis berwarna putih, posisi kemunculannya tidak tetap, tidak memiliki kedalaman, tidak terasa saat diraba.",
+     "desc_cn": "宽度<1cm，长度<5cm，发白的条状，出现位置不固定，无深度，无手感。",
+     "grade": "A1 (≤5 kejadian/gulungan) / B (>5 kejadian/gulungan)"
+    },
     "H": {
-     "desc": "1cm＜Lebar cacat≤2cm, 5cm＜Panjang Cacat≤10cm, ada terlihat garis memutih, ada handfeel.",
-     "grade": "B"
+     "desc": "Lebar cacat > 1 cm hingga ≤ 2 cm, panjang cacat > 5 cm hingga ≤ 10 cm, berbentuk garis berwarna putih atau hitam, memiliki kedalaman tertentu, dan terasa jelas saat diraba.",
+     "desc_cn": "1cm<宽度≤2cm，5cm<长度≤10cm，发白或发黑的条状，有一定深度，手感明显。",
+     "grade": "A1 (≤2 kejadian/gulungan) / B (>2 kejadian/gulungan)"
     },
     "S": {
-     "desc": "Lebar cacat ＞2cm, Panjang Cacat ＞10cm, garis yang memutih, ada kedalaman, ada handfeel, atau pada permukaan baja ada tanda akan berlubang.",
-     "grade": "S"
+     "desc": "Lebar cacat > 2 cm, panjang cacat > 10 cm, berbentuk garis berwarna putih atau hitam, memiliki kedalaman, terasa jelas saat diraba, serta disertai pengelupasan permukaan (peeling) atau permukaan coil/baja sudah hampir tembus (hampir berlubang).",
+     "desc_cn": "宽度>2cm，长度>10cm，发白或发黑的条状，有明显深度，手感明显，并伴有起皮或钢卷表面已快穿孔。",
+     "grade": "A1 (1 kejadian/gulungan) / B (≥2 kejadian/gulungan)"
     }
    },
    "name_cn": "大型脱皮",
    "name_id": "Oksidasi Skala Besar",
-   "notes": "Tingkat H ke atas harus dilakukan pemotongan",
-   "rule": null,
-   "section": "bahan_baku"
+   "notes": "Tingkat H ke atas harus dilakukan pemotongan. Standar revisi 2026-QM-LZ-03 (2026-08-03).",
+   "rule": "Kualitas ditentukan jumlah kejadian per gulungan: tingkat M ≤5→A1, >5→B; tingkat H ≤2→A1, >2→B; tingkat S 1→A1, ≥2→B.",
+   "section": "bahan_baku",
+   "gambar": [
+    "s04_ringan_1.jpg",
+    "s04_ringan_2.jpg",
+    "s04_sedang_1.jpg",
+    "s04_sedang_2.jpg",
+    "s04_parah_1.jpg",
+    "s04_parah_2.jpg",
+    "s04_sangat_parah_1.jpg",
+    "s04_sangat_parah_2.jpg"
+   ]
   },
   {
    "code": "S06",

@@ -446,6 +446,7 @@ class QCGateway:
             OutgoingMessage(
                 defect_card(entry),
                 inline_buttons=[[(BTN_BACK, _CB_MENU)]],
+                documents=self._attached_images(entry),
                 markdown=True,
             )
         ]
@@ -464,6 +465,7 @@ class QCGateway:
             OutgoingMessage(
                 defect_card(entry, variants[index]),
                 inline_buttons=rows,
+                documents=self._attached_images(entry),
                 markdown=True,
             )
         ]
@@ -540,7 +542,7 @@ class QCGateway:
             OutgoingMessage(
                 f"{title}\n\n{topic.get('isi', '')}",
                 inline_buttons=rows,
-                documents=self._topic_images(topic),
+                documents=self._attached_images(topic),
                 markdown=True,
             )
         ]
@@ -598,9 +600,10 @@ class QCGateway:
             )
         ]
 
-    def _topic_images(self, topic: dict) -> list[Path]:
-        """Lampiran gambar topik (mis. bagan) -> Path absolut yang ada saja."""
-        raw = topic.get("gambar") or []
+    def _attached_images(self, item: dict) -> list[Path]:
+        """Lampiran gambar topik/kartu cacat (field `gambar`) -> Path absolut
+        yang ada saja."""
+        raw = item.get("gambar") or []
         names = raw if isinstance(raw, list) else [raw]
         out = []
         for name in names:
@@ -632,7 +635,7 @@ class QCGateway:
             OutgoingMessage(
                 f"{title}\n\n{topic.get('isi', '')}",
                 inline_buttons=rows,
-                documents=self._topic_images(topic),
+                documents=self._attached_images(topic),
                 markdown=True,
             )
         ]
