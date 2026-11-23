@@ -3828,7 +3828,7 @@
   },
   {
    "code": "C55",
-   "has_image": false,
+   "has_image": true,
    "jenis": null,
    "levels": {
     "L": {
@@ -3852,7 +3852,17 @@
    "name_id": "Bekas getaran pada mesin stretch leveling",
    "notes": "(Catatan: kolom Kualitas di dokumen memuat 'L / M / H / H' — kolom B1 tertulis 'H' bukan 'S'; kemungkinan salah tulis, S diasumsikan →B1. Perlu konfirmasi.)",
    "rule": null,
-   "section": "asam_dingin"
+   "section": "asam_dingin",
+   "gambar": [
+    "c55_ringan_1.jpg",
+    "c55_ringan_2.jpg",
+    "c55_sedang_1.jpg",
+    "c55_sedang_2.jpg",
+    "c55_parah_1.jpg",
+    "c55_parah_2.jpg",
+    "c55_serius_1.jpg",
+    "c55_serius_2.jpg"
+   ]
   },
   {
    "code": "D01",

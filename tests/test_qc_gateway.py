@@ -597,5 +597,28 @@ class GatewayS04FotoTest(unittest.TestCase):
         self.assertTrue(all(p.is_file() for p in out[0].documents))
 
 
+class GatewayC55FotoTest(unittest.TestCase):
+    """Kartu C55 melampirkan 8 foto referensi 2025-QM-LZ-03
+    (2 foto per tingkat: Ringan, Sedang, Parah, Serius)."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def test_buka_c55_melampirkan_foto_referensi(self):
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_JALUR_UTAMA)
+        out = tap(self.gw, "1", out[0], "🔍 Cari")
+        out = self.gw.handle(msg("1", "C55"))
+        self.assertIn("*C55* — Bekas getaran pada mesin stretch leveling", out[0].text)
+        names = [p.name for p in out[0].documents]
+        self.assertEqual(names, [
+            "c55_ringan_1.jpg", "c55_ringan_2.jpg",
+            "c55_sedang_1.jpg", "c55_sedang_2.jpg",
+            "c55_parah_1.jpg", "c55_parah_2.jpg",
+            "c55_serius_1.jpg", "c55_serius_2.jpg",
+        ])
+        self.assertTrue(all(p.is_file() for p in out[0].documents))
+
+
 if __name__ == "__main__":
     unittest.main()
