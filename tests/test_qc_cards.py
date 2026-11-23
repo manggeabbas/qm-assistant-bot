@@ -147,7 +147,8 @@ class S04RevisionTest(unittest.TestCase):
         self.assertIn("色差印", card)
         self.assertIn("起皮", card)
         self.assertIn(
-            "Aturan: Kualitas ditentukan jumlah kejadian per gulungan", card
+            "Aturan: L→A1 (dicatat saja), M ≤5→A1/>5→B, H ≤2→A1/>2→B, S 1→A1/≥2→B",
+            card,
         )
         self.assertIn("2026-QM-LZ-03", card)
 

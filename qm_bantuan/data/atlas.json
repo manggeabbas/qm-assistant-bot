@@ -105,7 +105,7 @@
    "name_cn": "大型脱皮",
    "name_id": "Oksidasi Skala Besar",
    "notes": "Tingkat H ke atas harus dilakukan pemotongan. Standar revisi 2026-QM-LZ-03 (2026-08-03).",
-   "rule": "Kualitas ditentukan jumlah kejadian per gulungan: tingkat M ≤5→A1, >5→B; tingkat H ≤2→A1, >2→B; tingkat S 1→A1, ≥2→B.",
+   "rule": "L→A1 (dicatat saja), M ≤5→A1/>5→B, H ≤2→A1/>2→B, S 1→A1/≥2→B",
    "section": "bahan_baku",
    "gambar": [
     "s04_ringan_1.jpg",
