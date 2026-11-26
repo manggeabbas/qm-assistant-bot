@@ -620,5 +620,33 @@ class GatewayC55FotoTest(unittest.TestCase):
         self.assertTrue(all(p.is_file() for p in out[0].documents))
 
 
+class GatewayS01FotoTest(unittest.TestCase):
+    """Kartu S01-1/S01-2 melampirkan foto referensi 2025-QM-LZ-02
+    (2 foto per sub-kode: S01-1 Stomata hal. 3, S01-2 Garis Hujan hal. 4)."""
+
+    def setUp(self):
+        self.gw = QCGateway(atlas=Atlas.bundled())
+
+    def _buka_kartu(self, kode):
+        out = self.gw.handle(msg("1", "/qc"))
+        out = tap(self.gw, "1", out[0], BTN_BAHAN_BAKU)
+        out = tap(self.gw, "1", out[0], "🔍 Cari")
+        return self.gw.handle(msg("1", kode))
+
+    def test_buka_s01_1_melampirkan_foto_referensi(self):
+        out = self._buka_kartu("S01-1")
+        self.assertIn("*S01-1* — Jenis 1 : Baja Stomata", out[0].text)
+        names = [p.name for p in out[0].documents]
+        self.assertEqual(names, ["s01_1_stomata_1.jpg", "s01_1_stomata_2.jpg"])
+        self.assertTrue(all(p.is_file() for p in out[0].documents))
+
+    def test_buka_s01_2_melampirkan_foto_referensi(self):
+        out = self._buka_kartu("S01-2")
+        self.assertIn("*S01-2* — Jenis 2: Pengelupasan Tipe Garis Hujan", out[0].text)
+        names = [p.name for p in out[0].documents]
+        self.assertEqual(names, ["s01_2_hujan_1.jpg", "s01_2_hujan_2.jpg"])
+        self.assertTrue(all(p.is_file() for p in out[0].documents))
+
+
 if __name__ == "__main__":
     unittest.main()

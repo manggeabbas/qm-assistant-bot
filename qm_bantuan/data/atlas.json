@@ -2,7 +2,7 @@
  "defects": [
   {
    "code": "S01-1",
-   "has_image": false,
+   "has_image": true,
    "jenis": "Jenis 1: Baja Stomata",
    "levels": {
     "M": {
@@ -22,11 +22,15 @@
    "name_id": "Jenis 1 : Baja Stomata",
    "notes": "Kebanyakan terjadi di seluruh permukaan",
    "rule": null,
-   "section": "bahan_baku"
+   "section": "bahan_baku",
+   "gambar": [
+    "s01_1_stomata_1.jpg",
+    "s01_1_stomata_2.jpg"
+   ]
   },
   {
    "code": "S01-2",
-   "has_image": false,
+   "has_image": true,
    "jenis": "Jenis 2: Pengelupasan Tipe Garis Hujan",
    "levels": {
     "M": {
@@ -46,7 +50,11 @@
    "name_id": "Jenis 2: Pengelupasan Tipe Garis Hujan",
    "notes": "",
    "rule": null,
-   "section": "bahan_baku"
+   "section": "bahan_baku",
+   "gambar": [
+    "s01_2_hujan_1.jpg",
+    "s01_2_hujan_2.jpg"
+   ]
   },
   {
    "code": "S03",
